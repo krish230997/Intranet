@@ -1,0 +1,171 @@
+﻿@model List<DepartmentLeaves>
+
+@{
+    ViewData["Title"] = "Department Leave Details";
+}
+<head>
+   
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    
+</head>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Leaves</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Admin
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Department Leave Allocation</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="me-2 mb-2">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1" id="exportPdf"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1" id="exportExcel"><i class="ti ti-file-type-xls me-1"></i>Export as Excel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">Department Leave Details</h5>
+    </div>
+    @* <form asp-action="DepartmentLeaveDetails" method="post">
+        <div class="form-group">
+            <label for="departmentId">Select Department:</label>
+            <select id="departmentId" name="departmentId" class="form-control">
+                <option value="">-- Select Department --</option>
+                @foreach (var department in ViewBag.Departments as SelectList)
+                {
+                    <option value="@department.Value">@department.Text</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Filter</button>
+    </form> *@
+
+<div class="card-body">
+        <table class="table" id="leaveTypeTable">
+            <thead class="thead-light">
+                <tr>
+                <th>Department Name</th>
+                <th>Leave Type</th>
+                <th>No. of Leaves</th>
+                <th>Status</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var leave in Model)
+                {
+                    <tr>
+                        <td>@leave.Department.Name</td>
+                        <td>@leave.MasterLeaveType.LeaveType</td>
+                        <td>@leave.LeavesCount</td>
+                        <td>
+                            @if (leave.Status == "Active")
+                            {
+                                <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                    <i class="ti ti-point-filled me-1"></i>Active
+                                </span>
+                            }
+                            else if (leave.Status == "Inactive")
+                            {
+                                <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                    <i class="ti ti-point-filled me-1"></i>Inactive
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-secondary d-inline-flex align-items-center badge-xs">
+                                    <i class="ti ti-point-filled me-1"></i>@leave.Status
+                                </span>
+                            }
+                        </td>
+                        <td>
+                                <a asp-controller="Leave" asp-action="DeleteLeave" asp-route-id="@leave.LeaveTypeId">
+                                    <i class="ti ti-trash"></i>
+                                </a>
+                        </td>
+                    </tr>
+                }
+            }
+            @* else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No leave records found.</td>
+                </tr>
+            } *@
+        </tbody>
+    </table>
+</div>
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#leaveTypeTable').DataTable({
+                pageLength: 10,
+                lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'Export as PDF',
+                        className: 'd-none',
+                        title: 'Department Leave Details',
+                        customize: function (doc) {
+                            doc.content[1].table.widths = ['25%', '25%', '25%', '25%'];
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Export as Excel',
+                        className: 'd-none',
+                        title: 'Department Leave Details'
+                    }
+                ]
+            });
+
+            $('#exportPdf').click(function () {
+                table.button('.buttons-pdf').trigger();
+            });
+
+            $('#exportExcel').click(function () {
+                table.button('.buttons-excel').trigger();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,159 @@
+﻿@model List<Payslips>
+
+@{
+	ViewData["Title"] = "Select Payslip Month";
+}
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+	<div class="my-auto mb-2">
+		<h2 class="mb-1">Select Payslip Month</h2>
+		<nav>
+			<ol class="breadcrumb mb-0">
+				<li class="breadcrumb-item">
+					<a href="index.html"><i class="ti ti-smart-home"></i></a>
+				</li>
+				<li class="breadcrumb-item">
+					HR
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Employee Salary</li>
+			</ol>
+		</nav>
+	</div>
+
+	<div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+		<div class="me-2 mb-2">
+		</div>
+
+		<div class="head-icons ms-2">
+			<a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+				<i class="ti ti-chevrons-up"></i>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+		<h5>Payslip</h5>
+		<div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+			<!-- Month Filter -->
+			<div class="me-3">
+				<select id="filterMonth" class="form-control w-auto">
+					<option value="">Select Month</option>
+					<option value="January">January</option>
+					<option value="February">February</option>
+					<option value="March">March</option>
+					<option value="April">April</option>
+					<option value="May">May</option>
+					<option value="June">June</option>
+					<option value="July">July</option>
+					<option value="August">August</option>
+					<option value="September">September</option>
+					<option value="October">October</option>
+					<option value="November">November</option>
+					<option value="December">December</option>
+				</select>
+			</div>
+			<!-- Year Filter -->
+			<div class="me-3">
+				<select id="filterYear" class="form-control w-auto">
+					<option value="">Select Year</option>
+					@foreach (var year in ViewBag.AvailableYears)
+					{
+						<option value="@year">@year</option>
+					}
+				</select>
+			</div>
+
+			<div class="me-3">
+				<button id="applyFiltersBtn" class="btn btn-primary">Apply Filters</button>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-0">
+		<div class="custom-datatable-filter table-responsive">
+			@if (Model != null && Model.Any())
+			{
+				<table class="table" id="selectPayslipMonth">
+					<thead>
+						<tr>
+							<th>Month / Year</th> @*change / or & as you Want*@
+
+							<th>View Payslip</th>
+							<th>Download Payslip</th>  @* New column for download button *@
+						</tr>
+					</thead>
+
+					<tbody>
+						@foreach (var payslip in Model)
+						{
+							<tr>
+								<td>@payslip.Month  @payslip.Year</td>
+
+								<td>
+									<a href="@Url.Action("GeneratePayslip", "Payslip", new { month = payslip.Month, year = payslip.Year })"
+									   >
+										<i class="bi bi-eye"></i>
+									</a>
+								</td>
+								<td>
+									<a href="@Url.Action("DownloadPayslip", "Payslip", new { payslipPath = payslip.PayslipPath })"
+									   >
+										<i class="ti ti-download"></i>
+									</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+			else
+			{
+				<p>No payslips available.</p>
+			}
+		</div>
+	</div>
+
+	<div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+		<p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+		<p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+	</div>
+
+</div>
+
+
+@section scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+	<script>
+		$(document).ready(function () {
+			$.fn.dataTable.ext.errMode = 'none';
+			// Initialize DataTable
+			var table = $('#selectPayslipMonth').DataTable({
+				pageLength: 10,  // Default number of rows per page
+				lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]], // Options for rows per page
+				dom: 'lfrtip', // Define the placement of DataTables elements
+				language: {
+					lengthMenu: "Show _MENU_ entries per page",
+					paginate: {
+						first: "First",
+						last: "Last",
+						next: "Next",
+						previous: "Previous"
+					}
+				}
+			});
+
+			// Apply Filters
+			$("#applyFiltersBtn").click(function () {
+				var month = $("#filterMonth").val();
+				var year = $("#filterYear").val();
+
+				var query = "?month=" + encodeURIComponent(month) + "&year=" + encodeURIComponent(year);
+				window.location.href = "@Url.Action("SelectPayslipMonth", "Payslip")" + query;
+			});
+		});
+	</script>
+}

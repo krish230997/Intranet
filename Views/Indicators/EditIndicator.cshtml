@@ -1,0 +1,387 @@
+﻿@model PerformanceIndicator
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<meta name="description" content="Smarthr - Bootstrap Admin Template">
+	<meta name="keywords" content="admin, estimates, bootstrap, business, html5, responsive, Projects">
+	<meta name="author" content="Dreams technologies - Bootstrap Admin Template">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Smarthr Admin Template</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+	<!-- Apple Touch Icon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+	<!-- Theme Script js -->
+	<script src="assets/js/theme-script.js"></script>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<!-- Feather CSS -->
+	<link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
+
+	<!-- Tabler Icon CSS -->
+	<link rel="stylesheet" href="assets/plugins/tabler-icons/tabler-icons.css">
+
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Color Picker Css -->
+	<link rel="stylesheet" href="assets/plugins/flatpickr/flatpickr.min.css">
+	@* <link rel="stylesheet" href="assets/plugins/@simonwep/pickr/themes/nano.min.css"> *@
+
+	<!-- Daterangepikcer CSS -->
+	<link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
+
+	<!-- Datatable CSS -->
+	<link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css">
+
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+	<!-- Bootstrap Tagsinput CSS -->
+	<link rel="stylesheet" href="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+
+
+		<div class="content">
+
+			<!-- Breadcrumb -->
+			<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+				@* <div class="my-auto mb-2">
+					<h2 class="mb-1">Edit New Indicator</h2>
+
+				</div> *@
+				@* <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+						<div class="mb-2">
+							<a href="#" data-bs-toggle="modal" data-bs-target="#add_performance_indicator" class="btn btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add Indicator</a>
+						</div>
+						<div class="head-icons ms-2">
+							<a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+								<i class="ti ti-chevrons-up"></i>
+							</a>
+						</div>
+					</div> *@ 
+				</div>
+			<!-- /Breadcrumb -->
+			<!-- Performance Indicator list -->
+			<div class="card">
+				<div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+					<div class="my-auto mb-2">
+						<h2 class="mb-1">Edit New Indicator</h2>
+
+					</div>
+					<form asp-action="EditIndicator" asp-controller="Indicators" method="post">
+						<input type="hidden" asp-for="PerformanceIndicatorId" />
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label class="form-label">Designation</label>
+									<select asp-for="DesignationId" class="form-control" asp-items="ViewBag.Designations">
+										<option value="">Select Designation</option>
+									</select>
+
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label class="form-label">Department</label>
+									<select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.Departments">
+										<option value="">Select Department</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="mb-3">
+									<h5 class="fw-medium">Technical</h5>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Customer Experience</label>
+									<select asp-for="CustomerExperience" class="form-control" asp-items="ViewBag.CustomerExperience">
+										<!-- The ViewBag will hold the available values excluding the selected one -->
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Marketing</label>
+									<select class="form-control" asp-for="Marketing">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Management</label>
+									<select class="form-control" asp-for="Management">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Administration</label>
+									<select class="form-control" asp-for="Administration">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="mb-3">
+										<label class="form-label">Presentation Skills</label>
+										<select class="form-control" asp-for="PresentationSkills">
+
+											<option>Select</option>
+											<option>Advanced</option>
+											<option>Intermediate</option>
+											<option>Average</option>
+
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="mb-3">
+										<label class="form-label">Quality of Work</label>
+										<select class="form-control" asp-for="QualityofWork">
+
+											<option>Select</option>
+											<option>Advanced</option>
+											<option>Intermediate</option>
+											<option>Average</option>
+
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="mb-3">
+										<label class="form-label">Efficiency</label>
+										<select class="form-control" asp-for="Efficiency">
+
+											<option>Select</option>
+											<option>Advanced</option>
+											<option>Intermediate</option>
+											<option>Average</option>
+
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="mb-3">
+									<h5 class="fw-medium">Organizational</h5>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Integrity</label>
+									<select class="form-control" asp-for="Integrity">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Professionalism</label>
+									<select class="form-control" asp-for="Professionalism">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Team Work</label>
+									<select class="form-control" asp-for="TeamWork">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Critical Thinking</label>
+									<select class="form-control" asp-for="CriticalThinking">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Conflict Management</label>
+									<select class="form-control" asp-for="ConflictManagement">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Attendance</label>
+									<select class="form-control" asp-for="Attendance">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mb-3">
+									<label class="form-label">Ability To Meet Deadline</label>
+									<select class="form-control" asp-for="AbilityToMeetDeadline">
+
+										<option>Select</option>
+										<option>Advanced</option>
+										<option>Intermediate</option>
+										<option>Average</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="mb-3">
+									<label class="form-label">Status</label>
+									<select class="form-control" asp-for="Status">
+
+										<option>Active</option>
+										<option>Inactive</option>
+
+									</select>
+
+
+								</div>
+							</div>
+						</div>
+
+
+						<div>
+							<a asp-action="Fetch" class="btn btn-light me-2">Cancel</a>
+
+							<input type="submit" class="btn btn-primary" asp-action="EditIndicator" value="Add Indicator" />
+						</div>
+					</form>
+				</div>
+
+
+				<!-- /Performance Indicator list -->
+
+			</div>
+
+			@* <div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+				<p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+				<p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+			</div> *@
+
+
+
+
+		</div>
+		<!-- /Main Wrapper -->
+		<!-- jQuery -->
+		<script src="assets/js/jquery-3.7.1.min.js"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Feather Icon JS -->
+		<script src="assets/js/feather.min.js"></script>
+
+		<!-- Slimscroll JS -->
+		<script src="assets/js/jquery.slimscroll.min.js"></script>
+
+		<!-- Color Picker JS -->
+		@* <script src="assets/plugins/@simonwep/pickr/pickr.es5.min.js"></script> *@
+
+		<!-- Datatable JS -->
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/dataTables.bootstrap5.min.js"></script>
+
+		<!-- Daterangepikcer JS -->
+		<script src="assets/js/moment.js"></script>
+		<script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+		<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+		<!-- Select2 JS -->
+		<script src="assets/plugins/select2/js/select2.min.js"></script>
+
+		<!-- Chart JS -->
+		<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+		<script src="assets/plugins/apexchart/chart-data.js"></script>
+
+		<!-- Bootstrap Tagsinput JS -->
+		<script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+		<!-- Custom JS -->
+		<script src="assets/js/theme-colorpicker.js"></script>
+		<script src="assets/js/script.js"></script>
+
+</body>
+
+</html>

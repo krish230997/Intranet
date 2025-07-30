@@ -1,0 +1,239 @@
+﻿@model List<Pulse360.Models.PerformanceAppraisal>
+
+<partial name="Notification"></partial>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, html5, responsive, Projects">
+    <meta name="author" content="Dreams technologies - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Smarthr Admin Template</title>
+   <style>
+    /* Flex container for name and profile image */
+    .name-column {
+        display: flex;
+        align-items: center; /* Vertical alignment */
+        gap: 8px; /* Space between image and text */
+        white-space: nowrap; /* Prevent wrapping */
+    }
+    .name-column img {
+        width: 30px; /* Set the desired size */
+        height: 30px;
+        border-radius: 50%; /* Circular image */
+        object-fit: cover;
+    }
+
+    /* Increase padding and font size for table cells and force white background */
+    
+    #attendanceTable td {
+        padding: 10px; /* Increased padding for larger cells */
+        font-size: 14px; /* Increased font size */
+        vertical-align: middle;
+        text-align: left;
+        border-left: none;
+        border-right: none;
+        background-color: #ffffff !important; /* Force white background */
+    }
+
+    /* Ensure inline images are vertically centered */
+    #attendanceTable td img {
+        vertical-align: middle;
+        margin-right: 8px; /* Adds spacing between image and text */
+    }
+
+    /* Override DataTables' odd and even row background colors */
+    #attendanceTable.dataTable tbody tr.odd,
+    #attendanceTable.dataTable tbody tr.even {
+        background-color: #ffffff !important;
+    }
+
+    /* If Bootstrap's table-striped is still applying a style */
+    #attendanceTable.table-striped tbody tr:nth-of-type(odd),
+    #attendanceTable.table-striped tbody tr:nth-of-type(even) {
+        background-color: #ffffff !important;
+    }
+</style>
+
+</head>
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <div class="content">
+            <!-- Breadcrumb -->
+            <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+                <div class="my-auto mb-2">
+                    <h2 class="mb-1">Performance Appraisal</h2>
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">Performance</li>
+                            <li class="breadcrumb-item active" aria-current="page">Performance Appraisal</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+                    <div class="mb-2">
+                        <a class="btn btn-primary" asp-action="AddAppriasal">Add Appraisal</a>
+                    </div>
+                    <div class="head-icons ms-2">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                            <i class="ti ti-chevrons-up"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Breadcrumb -->
+            <!-- Performance Indicator list -->
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                    <h5>Performance Appraisal List</h5>
+                    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+                        <div class="dropdown">
+                            <select class="form-select form-select-sm me-3" id="sortFilter" onchange="sortTable();">
+                                <option value="recent">Recently Added</option>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                                <option value="lastMonth">Last Month</option>
+                                <option value="last7Days">Last 7 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered" id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Department</th>
+                                <th>Appraisal Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceList">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.PerformanceAppriasalId</td>
+                                    <td>
+                                        @if (item.User != null)
+                                        {
+                                            <!-- Wrap image and name in .name-column for proper alignment -->
+                                            <div class="name-column">
+                                                @if (item.User.ProfilePicture != null)
+                                                {
+                                                    <img src="/@item.User.ProfilePicture" alt="Profile" />
+                                                }
+                                                <span>@item.User.FirstName @item.User.LastName</span>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>@item.Designations?.Name</td>
+                                    <td>@item.Departments?.Name</td>
+                                    <td>@item.AppraisalDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        @if (item.Status == "Active")
+                                        {
+                                            <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Active
+                                            </span>
+                                        }
+                                        else if (item.Status == "Inactive")
+                                        {
+                                            <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Inactive
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-secondary d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>@item.Status
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="EditAppriasal" asp-route-id="@item.PerformanceAppriasalId" class="me-2">
+                                            <i class="ti ti-edit"></i>
+                                        </a>
+                                        <form asp-action="DeleteApprisal" asp-route-id="@item.PerformanceAppriasalId" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this Appraisal?');">
+                                            <button type="submit" style="background:none;border:none">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /Performance Indicator list -->
+        </div>
+
+        <div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+            <p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+            <p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+        </div>
+    </div>
+    <!-- /Main Wrapper -->
+    <!-- jQuery and DataTables scripts -->
+    @section Scripts {
+        <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var table = $('#attendanceTable').DataTable({
+                    pageLength: 5,  // Default number of rows per page
+                    lengthMenu: [[5, 10, 25, 50, -1], ["5", "10", "25", "50", "All"]],
+                    dom: 'lfrtip',
+                    language: {
+                        searchPlaceholder: "Search",
+                        search: "",
+                        lengthMenu: "Rows Per Page : _MENU_  Entries",
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "Next",
+                            previous: "Previous"
+                        }
+                    },
+                    columnDefs: [
+                        { "type": "date", "targets": 4 }
+                    ]
+                });
+
+                // Update rows per page when user changes selection (if #rowsPerPage element is present)
+                $('#rowsPerPage').on('change', function () {
+                    var rows = $(this).val();
+                    table.page.len(rows).draw();
+                });
+
+                // Sorting functionality
+                $('#sortFilter').on('change', function () {
+                    var value = $(this).val();
+                    switch (value) {
+                        case 'recent':
+                            table.order([4, 'desc']).draw();
+                            break;
+                        case 'asc':
+                            table.order([4, 'asc']).draw();
+                            break;
+                        case 'desc':
+                            table.order([4, 'desc']).draw();
+                            break;
+                    }
+                });
+            });
+        </script>
+    }
+</body>
+</html>

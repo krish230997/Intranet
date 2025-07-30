@@ -1,0 +1,397 @@
+﻿<!-- Breadcrumb -->
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Project Report</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    HR
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Project Report</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="mb-2">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu  dropdown-menu-end p-3">
+                    <li>
+                        <a asp-action="ExportToPDF" asp-controller="ProjectTaskReport" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                    </li>
+                    <li>
+                        <a asp-action="ExportToExcel" asp-controller="ProjectTaskReport" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+<div class="row">
+
+    <!-- Total Exponses -->
+    <div class="col-lg-6 col-md-6 d-flex">
+        <div class="row flex-fill">
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div>
+                            <div class="mb-2">
+                                <span class="fs-14 fw-normal text-truncate mb-1">Total Projects</span>
+                                <h5>@ViewBag.TotalProjects</h5>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@ViewBag.TotalProjects" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress-bar bg-pink" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div>
+                            <div class="mb-2">
+                                <span class="fs-14 fw-normal text-truncate mb-1">Completed Projects</span>
+                                <h5>@ViewBag.CompletedProjects</h5>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@ViewBag.CompletedProjects" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress-bar bg-success" style="width: @ViewBag.CompletedProjects%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div>
+                            <div class="mb-2">
+                                <span class="fs-14 fw-normal text-truncate mb-1">Overdue Projects</span>
+                                <h5>@ViewBag.OverdueProjects</h5>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@ViewBag.OverduePercentage" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress-bar bg-danger" style="width: @ViewBag.OverduePercentage%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div>
+                            <div class="mb-2">
+                                <span class="fs-14 fw-normal text-truncate mb-1">Onhold Projects</span>
+                                <h5>@ViewBag.OnHoldProjects</h5>
+                            </div>
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@ViewBag.OnHoldPercentage" aria-valuemin="0" aria-valuemax="100" style="width: 100%;height: 5px;">
+                                <div class="progress-bar bg-purple" style="width: @ViewBag.OnHoldPercentage%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Total Exponses -->
+    <!-- Total Exponses -->
+    <div class="col-lg-6 col-md-6 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header border-0">
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="d-flex align-items-center ">
+                        <span class="me-2"><i class="ti ti-chart-pie text-danger"></i></span>
+                        <h5>Projects By Tasks</h5>
+                    </div>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);"
+                           class=" btn btn-sm fs-12 btn-white d-inline-flex align-items-center"
+                           data-bs-toggle="dropdown">
+                            Project Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row align-items-center">
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <div>
+                            <canvas id="pieChart" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <p class="fs-16 project-report-badge-blue fw-normal mb-0 text-gray-5">Active Project</p>
+                                <p class="fs-20 fw-bold text-dark ">@ViewBag.OverdueProjects%</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="fs-16 project-report-badge-purple mb-0  fw-normal text-gray-5">Inactive Project</p>
+                                <p class="fs-20 fw-bold text-dark ">@ViewBag.OverdueProjects%</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="fs-16 project-report-badge-warning  mb-0 fw-normal text-gray-5">InProgress Task</p>
+                                <p class="fs-20 fw-bold text-dark ">@ViewBag.ActiveProjects%</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="fs-16 project-report-badge-success  mb-0 fw-normal text-gray-5">Completed Task</p>
+                                <p class="fs-20 fw-bold text-dark ">@ViewBag.CompletedProjects%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- /Total Exponses -->
+
+
+</div>
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5>Project List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            @* <div class="me-3">
+            <div class="input-icon-end position-relative">
+            <input type="text" class="form-control date-range bookingrange"
+            placeholder="dd/mm/yyyy - dd/mm/yyyy">
+            <span class="input-icon-addon">
+            <i class="ti ti-chevron-down"></i>
+            </span>
+            </div>
+            </div> *@
+            <div class="d-flex gap-3">
+                <select class="form-select" id="priorityDropdown">
+                    <option selected disabled>Select Priority</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+
+                <select class="form-select" id="statusDropdown">
+                    <option selected disabled>Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+
+                <select class="form-select" id="sortDropdown">
+                    <option selected disabled>Sort By</option>
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div>
+            <div class="custom-datatable-filter table-responsive">
+                <table class="table" id="ProjectTable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="no-sort">
+                            </th>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Leader</th>
+                            <th>Members</th>
+                            <th>Deadline</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-md">
+                                        <input class="form-check-input" type="checkbox" id="select-all">
+                                    </div>
+                                </td>
+                                <td>@p.ProjectId</td>
+                                <td>@p.ProjectName</td>
+                                <td>@p.ManagerName</td>
+                                <td>
+                                    <div class="avatar-list-stacked avatar-group-sm">
+
+                                        @foreach (var pic in p.Members) // Iterating through profile pictures list
+                                        {
+                                            <span class="avatar border-0">
+                                                <img src="/@pic" alt="Profile Picture" width="40" height="40" style="border-radius:50%;">
+                                            </span>
+
+                                        }
+                                        @if (p.Members?.Count > 3)
+                                        {
+                                            <span class="avatar group-counts bg-primary rounded-circle border-0 fs-10">
+                                                +@(p.Members.Count - 3)
+                                            </span>
+                                        }
+                                    </div>
+                                </td>
+                                <td>@p.EndDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (p.Priority == "High")
+                                    {
+                                        <span class="badge badge-danger-transparent">
+                                            <i class="ti ti-point-filled me-1"></i>High
+                                        </span>
+                                    }
+                                    else if (p.Priority == "Medium")
+                                    {
+                                        <span class="badge badge-warning-transparent">
+                                            <i class="ti ti-point-filled me-1"></i>Medium
+                                        </span>
+                                    }
+                                    else if (p.Priority == "Low")
+                                    {
+                                        <span class="badge badge-success-transparent">
+                                            <i class="ti ti-point-filled me-1"></i>Low
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (p.Status == "Active")
+                                    {
+                                        <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                            <i class="ti ti-point-filled me-1"></i>Active
+                                        </span>
+                                    }
+                                    else if (p.Status == "Inactive")
+                                    {
+                                        <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                            <i class="ti ti-point-filled me-1"></i>Inactive
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+    <p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+    <p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+</div>
+
+@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.datatable').DataTable(); // Ensure class matches table
+        });
+
+        var taskData = @Html.Raw(ViewBag.JsonData); // Get dynamic data from the controller
+
+        // Extracting labels and counts
+        var labels = taskData.map(function (item) { return item.Status; });
+        var counts = taskData.map(function (item) { return item.Count; });
+
+        // Pie Chart configuration
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Task Status Distribution',
+                    data: counts,
+                    backgroundColor: ['#FF9800', '#4CAF50', '#ff6384', '#9C27B0', '#2196F3'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' tasks';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const priorityDropdown = document.getElementById("priorityDropdown");
+        const statusDropdown = document.getElementById("statusDropdown");
+        const sortDropdown = document.getElementById("sortDropdown");
+
+        function applyFilters() {
+            const priority = priorityDropdown.value !== "Select Priority" ? priorityDropdown.value : "";
+            const status = statusDropdown.value !== "Select Status" ? statusDropdown.value : "";
+            const sort = sortDropdown.value !== "Sort By" ? sortDropdown.value : "";
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set("priority", priority);
+            urlParams.set("status", status);
+            urlParams.set("sort", sort);
+
+            window.location.search = urlParams.toString();
+        }
+
+        priorityDropdown.addEventListener("change", applyFilters);
+        statusDropdown.addEventListener("change", applyFilters);
+        sortDropdown.addEventListener("change", applyFilters);
+    });
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initialize DataTables
+        $('#ProjectTable').DataTable({
+            "paging": true,    // Enable pagination
+            "searching": true, // Enable search functionality
+            "ordering": true,  // Enable sorting
+            "info": true,      // Display information
+            "pageLength": 10,   // Default number of rows per page
+        });
+    });
+</script>

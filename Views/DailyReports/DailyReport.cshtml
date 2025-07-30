@@ -1,0 +1,685 @@
+﻿@model List<Pulse360.Models.Attendance>
+
+
+
+<!-- /Stacked Sidebar -->
+<!-- Page Wrapper -->
+<!-- Breadcrumb -->
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+	<div class="my-auto mb-2">
+		<h2 class="mb-1">Daily Report</h2>
+		<nav>
+			<ol class="breadcrumb mb-0">
+				<li class="breadcrumb-item">
+					<a href="index.html"><i class="ti ti-smart-home"></i></a>
+				</li>
+				<li class="breadcrumb-item">
+					HR
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Daily Report</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+		<div class="mb-2">
+			<div class="dropdown">
+				<a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+					<i class="ti ti-file-export me-1"></i>Export
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end p-3">
+					<li>
+						<a href="@Url.Action("ExportToPdf", "DailyReports")" class="dropdown-item rounded-1">
+							<i class="ti ti-file-type-pdf me-1"></i>Export as PDF
+						</a>
+					</li>
+					<li>
+						<a href="@Url.Action("ExportToCsv", "DailyReports")" class="dropdown-item rounded-1">
+							<i class="ti ti-file-type-xls me-1"></i>Export as CSV
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="head-icons ms-2">
+			<a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+				<i class="ti ti-chevrons-up"></i>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- /Breadcrumb -->
+<div class="row">
+	<div class="col-xl-6 d-flex">
+		<div class="row flex-fill">
+			<!-- Total Companies -->
+			<div class="col-lg-6 col-md-6 d-flex">
+				<div class="card flex-fill">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between">
+							<div>
+								<p class="fs-12 fw-normal mb-1 text-truncate">Total Present</p>
+								<h4>@ViewBag.TotalPresent</h4>
+							</div>
+							<div class="leave-report-icon">
+								<a href="#"><span class="p-2 border border-primary bg-transparent-primary rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-user-check text-primary"></i></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 d-flex">
+				<div class="card flex-fill">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between">
+							<div>
+								<p class="fs-12 fw-normal mb-1 text-truncate">Completed Tasks</p>
+								<h4>@ViewBag.Completed</h4>
+							</div>
+							<div class="leave-report-icon">
+								<a href="#"><span class="p-2 border border-success bg-transparent-success rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-subtask text-success"></i></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 d-flex">
+				<div class="card flex-fill">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between">
+							<div>
+								<p class="fs-12 fw-normal mb-1 text-truncate">Total Absent</p>
+								<h4>@ViewBag.TotalAbsent</h4>
+							</div>
+							<div class="leave-report-icon">
+								<a href="#"><span class="p-2 border border-danger bg-transparent-danger rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-user-x text-danger"></i></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-6 d-flex">
+				<div class="card flex-fill">
+					<div class="card-body">
+						<div class="d-flex align-items-center justify-content-between">
+							<div>
+								<p class="fs-12 fw-normal mb-1 text-truncate">Pending Tasks</p>
+								<h4>@ViewBag.InProgress</h4>
+							</div>
+							<div class="leave-report-icon">
+								<a href="#"><span class="p-2 border border-skyblue bg-transparent-skyblue rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-user-x text-skyblue"></i></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Company Location -->
+		</div>
+	</div>
+	<div class="col-xl-6 d-flex">
+		<div class="card flex-fill">
+			<div class="card-header border-0 pb-0">
+				<div class="d-flex flex-wrap justify-content-left align-items-left">
+					<div class="d-flex align-items-center ">
+						<span class="me-2"><i class="ti ti-chart-bar text-danger"></i></span>
+						<h5>Daily Attendance</h5>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+					</div>
+					<div class="d-flex align-items-center">
+						<p class="d-inline-flex align-items-center me-2 mb-0">
+							<i class="ti ti-square-filled fs-12 text-success me-2"></i>
+							Present
+						</p>
+						<p class="d-inline-flex align-items-center mb-0 me-2">
+							<i class="ti ti-square-filled fs-12 text-danger me-2"></i>
+							Absent
+						</p>
+					</div>
+					@* 	 <div class="dropdown">  *@
+
+					@* </div> *@
+				</div>
+				<div class="card-body py-0">
+					<div>
+						<canvas id="daily-report"> </canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<form id="filterForm" method="get" action="@Url.Action("DailyReport", "DailyReports")">
+			<div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+				<h5>Daily Attendance List</h5>
+				<div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+
+					@* <!-- Date Range Picker --> *@
+					@* <div class="me-3"> *@
+					@* 	<div class="input-icon-end position-relative"> *@
+					@* 		<input type="text" id="dateRange" name="dateRange" class="form-control date-range bookingrange" *@
+					@* 			   placeholder="dd/mm/yyyy - dd/mm/yyyy"> *@
+					@* 		<span class="input-icon-addon"> *@
+					@* 			<i class="ti ti-chevron-down"></i> *@
+					@* 		</span> *@
+					@* 	</div> *@
+					@* </div> *@
+
+					<!-- Status Dropdown -->
+					<div class="dropdown me-3">
+						<a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center"
+						   data-bs-toggle="dropdown">
+							Select Status
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end p-3">
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 statusFilter" data-value="">All</a></li>
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 statusFilter" data-value="Present">Present</a></li>
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 statusFilter" data-value="Absent">Absent</a></li>
+						</ul>
+					</div>
+
+					<!-- Sorting Dropdown -->
+					<div class="dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center"
+						   data-bs-toggle="dropdown">
+							Sort By: <span id="selectedSort">Last 7 Days</span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end p-3">
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 sortFilter" data-value="recent">Recently Added</a></li>
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 sortFilter" data-value="asc">Ascending</a></li>
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 sortFilter" data-value="desc">Descending</a></li>
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 sortFilter" data-value="lastMonth">Last Month</a></li>
+							<li><a href="javascript:void(0);" class="dropdown-item rounded-1 sortFilter" data-value="last7days">Last 7 Days</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="d-flex align-items-center justify-content-between flex-wrap row-gap-5">
+				<div class="col-sm-20 col-md-9">
+					<!-- Rows Per Page -->
+					<div class="dataTables_length" id="DataTables_Table_0_length">
+						<label>
+							Row Per Page
+							<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select form-select-sm">
+								<option value="10">10</option>
+								<option value="25">25</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+							</select>
+							Entries
+						</label>
+					</div>
+				</div>
+
+				<div class="col-6 col-md-2">
+					<!-- Search Field -->
+					<div id="DataTables_Table_0_filter" class="dataTables_filter">
+						<label>
+							<input type="search" id="searchInput" class="form-control form-control-sm" placeholder="Search" aria-controls="DataTables_Table_0">
+						</label>
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<input type="hidden" id="statusInput" name="status" value="">
+			<input type="hidden" id="sortInput" name="sort" value="">
+		</form>
+
+		<!-- Attendance List Table -->
+
+		<div class="card-body p-0">
+			<div class="custom-datatable-filter table-responsive">
+				<table class="table" id="attendanceTable">
+					<thead class="thead-light">
+						<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Department</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model != null && Model.Any())
+						{
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>
+										<div class="d-flex align-items-center">
+											<img src="/@(item.User != null && !string.IsNullOrEmpty(item.User.ProfilePicture) ? item.User.ProfilePicture : "/images/default-profile.png")"
+												 alt="Profile" class="rounded-circle" width="40" height="40">
+											<div class="ms-2">
+												<strong>@(item.User != null ? item.User.FirstName + " " + item.User.LastName : "N/A")</strong>
+												<div class="text-muted">@item.User?.Department?.Name</div>
+											</div>
+										</div>
+									</td>
+									<td>@item.Date.ToShortDateString()</td>
+									<td>@(item.User?.Department != null ? item.User.Department.Name : "N/A")</td>
+									<td>
+										@if (item.Status == "Present")
+										{
+											<span class="badge badge-soft-success d-inline-flex align-items-center badge-xs">
+												<i class="ti ti-point-filled me-1"></i> Present
+											</span>
+										}
+										else if (item.Status == "Absent")
+										{
+											<span class="badge badge-soft-danger d-inline-flex align-items-center badge-xs">
+												<i class="ti ti-point-filled me-1"></i> Absent
+											</span>
+										}
+										else if (item.Status == "Half Day")
+										{
+											<span class="badge badge-soft-warning d-inline-flex align-items-center badge-xs">
+												<i class="ti ti-point-filled me-1"></i> Half Day
+											</span>
+										}
+									</td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td colspan="4" class="text-center text-muted">No attendance records available.</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+
+				<!-- Pagination Section (After table and before footer) -->
+				<!-- Pagination and Info Section -->
+				<div class="row align-items-center">
+					<!-- Info Section: Showing 1 to 10 of 10 entries -->
+					<div class="col-sm-12 col-md-6">
+						<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+							Showing 1 to 10 of 10 entries
+						</div>
+					</div>
+
+					<!-- Rows per page Section -->
+					<!-- Pagination Section -->
+					<div class="col-sm-12 col-md-3">
+						<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+							<ul class="pagination">
+								<li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+									<a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">
+										<i class="ti ti-chevron-left"></i> <!-- Left Chevron Icon -->
+									</a>
+								</li>
+								<li class="paginate_button page-item active">
+									<a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+								</li>
+								<li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
+									<a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="next" tabindex="-1" class="page-link">
+										<i class="ti ti-chevron-right"></i> <!-- Right Chevron Icon -->
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- /Page Wrapper -->
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="assets/js/jquery-3.7.1.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Feather Icon JS -->
+	<script src="assets/js/feather.min.js"></script>
+
+	<!-- Slimscroll JS -->
+	<script src="assets/js/jquery.slimscroll.min.js"></script>
+
+	<!-- Color Picker JS -->
+	@* <script src="assets/plugins/@simonwep/pickr/pickr.es5.min.js"></script> *@
+
+	<!-- Datatable JS -->
+	<script src="assets/js/jquery.dataTables.min.js"></script>
+	<script src="assets/js/dataTables.bootstrap5.min.js"></script>
+
+	<!-- Daterangepikcer JS -->
+	<script src="assets/js/moment.js"></script>
+	<script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Select2 JS -->
+	<script src="assets/plugins/select2/js/select2.min.js"></script>
+
+	<!-- Bootstrap Tagsinput JS -->
+	<script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+	<!-- Chart JS -->
+	<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+	<script src="assets/plugins/apexchart/chart-data.js"></script>
+
+	<!-- Custom JS -->
+	<script src="assets/js/theme-colorpicker.js"></script>
+	<script src="assets/js/script.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	@section Scripts {
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<!-- DataTables JS -->
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+		<script src="~/js/dailyreportcss.js"></script>
+
+
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				var totalPresent = @ViewBag.TotalPresent;
+				var totalAbsent = @ViewBag.TotalAbsent;
+
+				var ctx = document.getElementById('daily-report').getContext('2d');
+
+				var dailyReportChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: ['Present', 'Absent'],
+						datasets: [{
+							data: [totalPresent, totalAbsent],
+							backgroundColor: [
+								'rgba(0, 200, 83, 2)', // ✅ Green for Present
+								'rgba(244, 67, 54, 2)'  // ✅ Red for Absent
+							],
+							borderColor: [
+								'rgba(0, 200, 83, 1)',
+								'rgba(244, 67, 54, 1)'
+							],
+							borderWidth: 1,
+							borderRadius: 10, // ✅ Adds rounded corners to bars
+							barThickness: 50 // ✅ Makes bars thinner (adjustable)
+						}]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						scales: {
+							x: {
+								ticks: {
+									font: {
+										size: 14,
+										weight: 'light'
+									},
+									color: '#565' // ✅ Darker text for readability
+								},
+								grid: {
+									display: false
+								}
+							},
+							y: {
+								beginAtZero: true,
+								ticks: {
+									stepSize: 5,
+									font: {
+										size: 12
+									}
+
+								},
+								grid: {
+									color: "#ddd" // ✅ Light grid lines for clarity
+								},
+								max: 10,
+							}
+						},
+						plugins: {
+							legend: {
+								display: false // ✅ Removes default legend (optional)
+
+							},
+							tooltip: {
+								callbacks: {
+									label: function (context) {
+										return `${context.dataset.data[context.dataIndex]} Employees`;
+									}
+								}
+							}
+						}
+					}
+				});
+
+
+
+				// ✅ Add custom legend below chart
+				var legendHTML = `
+
+				`;
+
+				document.getElementById("chart-legend").innerHTML = legendHTML;
+			});
+		</script>
+
+		<!-- ✅ Add this div below your chart for the custom legend -->
+		<div id="chart-legend"></div>
+
+
+		<!-- Include jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<script>
+
+		</script>
+
+
+
+		<script>
+
+			document.addEventListener("DOMContentLoaded", function () {
+				// Handle Status Filter Click
+				document.querySelectorAll(".statusFilter").forEach(item => {
+					item.addEventListener("click", function () {
+						document.getElementById("statusInput").value = this.dataset.value;
+						document.getElementById("filterForm").submit();
+					});
+				});
+
+				// Handle Sort Filter Click
+				document.querySelectorAll(".sortFilter").forEach(item => {
+					item.addEventListener("click", function () {
+						document.getElementById("sortInput").value = this.dataset.value;
+						document.getElementById("selectedSort").textContent = this.textContent;
+						document.getElementById("filterForm").submit();
+					});
+				});
+
+				// Handle Date Range Change
+				document.getElementById("dateRange").addEventListener("change", function () {
+					document.getElementById("filterForm").submit();
+				});
+			});
+
+			$(document).ready(function() {
+				$('#attendanceTable').DataTable({
+					"paging": true,           // Enable pagination
+					"searching": true,       // Enable search
+					"lengthMenu": [10, 25, 50, 100], // Rows per page options
+					"language": {
+						"search": "Search by name, date, department or status:"  // Custom search label
+					}
+				});
+			});
+		</script>
+
+		<script>
+			$(document).ready(function () {
+				var table = $('#attendanceTable').DataTable({
+					"paging": true,
+					"searching": true,
+					"ordering": true,
+					"info": true,
+					"pageLength": 10,
+				});
+
+
+					});
+
+
+		</script>
+
+		<script>
+				$(document).ready(function() {
+				// Handle the keyup event on the search input field
+				$('#searchInput').on('keyup', function() {
+					var searchValue = $(this).val().toLowerCase();  // Get the search input and convert to lowercase
+
+					// Loop through each row in the table and hide rows that don't match
+					$('#attendanceTable tbody tr').each(function() {
+						var row = $(this);
+						var nameColumn = row.find('td').eq(0).text().toLowerCase();  // Name column is the first column
+						var departmentColumn = row.find('td').eq(2).text().toLowerCase();  // Department column is the third column
+
+						// Check if the name or department contains the search value
+						if (nameColumn.indexOf(searchValue) > -1 || departmentColumn.indexOf(searchValue) > 1) {
+							row.show();  // Show the row if it matches
+						} else {
+							row.hide();  // Hide the row if it doesn't match
+						}
+					});
+				});
+			});
+		</script>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+	}
+
+	<style>
+		/* Badge Styling */
+		.badge-soft-success {
+			background-color: #28a745; /* Green */
+			color: white;
+			font-size: 0.840rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		.badge-soft-danger {
+			background-color: #dc3545; /* Red */
+			color: white;
+			font-size: 0.875rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		.badge-xs {
+			font-size: 0.50rem;
+			padding: 0.20rem 0.3rem;
+		}
+
+		.badge-d-inline-flex {
+			display: inline-flex;
+		}
+
+		.align-items-center {
+			align-items: center;
+		}
+
+		.me-1 {
+			margin-right: 0.20rem;
+		}
+
+		.ti-point-filled {
+			font-size: 1rem;
+		}
+
+		/* Optional: For unknown status */
+		.badge-soft-secondary {
+			background-color: #6c757d; /* Gray */
+			color: white;
+			font-size: 0.80rem;
+			padding: 0.2rem 0.5rem;
+		}
+
+		.pagination {
+			display: flex;
+			justify-content: flex-end;
+			padding: 0;
+			list-style: none;
+		}
+
+		.page-item {
+			margin: 0 5px;
+		}
+
+		.page-link {
+			padding: 8px 12px;
+			border-radius: 5px;
+			text-decoration: none;
+			color: #007bff;
+		}
+
+			.page-link:hover {
+				background-color: #f1f1f1;
+				color: #0056b3;
+			}
+
+		.page-item.active .page-link {
+			background-color: #007bff;
+			color: white;
+		}
+
+		.page-item.disabled .page-link {
+			color: #ccc;
+			pointer-events: none;
+		}
+
+		.page-item i {
+			font-size: 16px;
+		}
+
+		.dataTables_info {
+			font-size: 14px;
+			color: #555;
+			margin-left: 20px; /* This shifts the text to the right */
+		}
+
+
+
+		.dataTables_length {
+			text-align: right; /* Align 'Row per page' to the right */
+			margin-left: 20px;
+		}
+
+		.dataTables_paginate {
+			text-align: right; /* Align pagination (1, 2, 3, etc.) to the right */
+			margin-left: 70px;
+		}
+
+		.pagination {
+			display: flex;
+			justify-content: flex-end; /* Align the pagination links to the right */
+			margin-right: -300px;
+			margin-bottom: 10px;
+		}
+
+	</style>

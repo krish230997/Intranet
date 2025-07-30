@@ -1,0 +1,256 @@
+﻿@{
+    ViewData["Title"] = "Termination Management";
+}
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Termination</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href=""><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Performance
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Termination</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="mb-2">
+            <a href="#" class="btn btn-primary d-flex align-items-center" id="addTerminationButton"><i class="ti ti-circle-plus me-2"></i>Add Termination</a>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
+        <h5>Termination List</h5>
+        <div class="d-flex align-items-center">
+            <!-- Search Input -->
+            
+
+            <div class="dropdown me-2">
+                <a href="#" class="dropdown-toggle btn btn-white fs-12" data-bs-toggle="dropdown">
+                    <p class="fs-12 d-inline-flex me-1">Sort By:</p> Ascending/Descending
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                    <li><a href="#" class="dropdown-item sort-option" data-sort="asc">Ascending</a></li>
+                    <li><a href="#" class="dropdown-item sort-option" data-sort="desc">Descending</a></li>
+                </ul>
+            </div>
+                
+                <div class="dropdown">
+                    <select id="dateFilter" class="form-select">
+                        <option value="all">All Records</option>
+                        <option value="today">Today</option>
+                        <option value="tomorrow">Tomorrow</option>
+                        <option value="last7days">Last 7 Days</option>
+                        <option value="lastmonth">Last Month</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table" id="proTable">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Termination Type</th>
+                <th>Notice Date</th>
+                <th>Resign Date</th>
+                <th>Reason</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addTerminationModal" tabindex="-1" aria-labelledby="addTerminationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTerminationModalLabel">Add Termination</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="addTerminationPartial"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Termination Modal -->
+<div class="modal fade" id="editTerminationModal" tabindex="-1" aria-labelledby="editTerminationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTerminationModalLabel">Edit Termination</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="editTerminationPartial"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalContainer"></div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+   <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+ 
+    <script>
+
+
+             $(document).ready(function () {
+            let terminations = []; // Store fetched terminations globally
+
+        //     // Initialize DataTable with pagination options
+        //             let table = $('#proTable').DataTable({
+        //     "pageLength": 5, // Set default entries per page
+        //     "lengthMenu": [[5,10, 25, 50, 100], [5,10, 25, 50, 100]], // Set dropdown options
+        //     "ordering": false, // Disable default sorting
+        //     //"searching": false, // Disable built-in search since custom search is implemented
+        //     "paging": true, // Enable pagination
+        //     "info": true, // Show "Showing X of Y entries"
+        //     "dom": "lfrtip" // Ensures pagination is shown
+        // });
+
+            // Fetch and populate termination list
+            function fetchTerminations() {
+                $.ajax({
+                    url: '/Termination/GetTerminations',
+                    type: 'GET',
+                    success: function (data) {
+                        terminations = data; // Store fetched data
+                        renderTable(terminations);
+                    }
+                });
+            }
+
+            // Function to render the table
+            function renderTable(data) {
+                const tableBody = $("#proTable tbody");
+                tableBody.empty();
+                data.forEach(item => {
+                    tableBody.append(`
+                        <tr>
+                            <td><img src='/${item.profilePicture}' class="rounded-circle" style="width: 40px; height: 40px;"/> ${item.employeeName}</td>
+                            <td>${item.terminationType}</td>
+                            <td>${item.noticeDate}</td>
+                            <td>${item.resignDate}</td>
+                            <td>${item.reason}</td>
+                            <td>
+                                <a href='#' class='editTermination' data-id='${item.terminationId}'><i class='ti ti-edit'></i></a>
+                                <a href='#' class='deleteTermination' data-id='${item.terminationId}'><i class='bi bi-trash'></i></a>
+                            </td>
+                        </tr>
+                    `);
+                });
+            }
+
+            // Search Functionality
+            $("#terminationSearch").on("keyup", function () {
+                let searchText = $(this).val().toLowerCase();
+                let filteredData = terminations.filter(item =>
+                    item.employeeName.toLowerCase().includes(searchText) ||
+                    item.terminationType.toLowerCase().includes(searchText)
+                );
+                renderTable(filteredData);
+            });
+
+            // Sorting Functionality
+            $(".sort-option").on("click", function () {
+                let sortOrder = $(this).data("sort");
+                let rows = $("#proTable tbody tr").get();
+
+                rows.sort(function (a, b) {
+                    let nameA = $(a).find("td").eq(0).text().toLowerCase();
+                    let nameB = $(b).find("td").eq(0).text().toLowerCase();
+
+                    return sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+                });
+
+                $.each(rows, function (index, row) {
+                    $("#proTable tbody").append(row);
+                });
+
+                $(".dropdown-toggle:contains('Sort By')").html(
+                    `<p class="fs-12 d-inline-flex me-1">Sort By:</p> ${sortOrder === "asc" ? "Ascending" : "Descending"}`
+                );
+            });
+
+            // Date Filter Functionality
+            $("#dateFilter").on("change", function () {
+                let selectedFilter = $(this).val();
+                filterTerminationsByDate(selectedFilter);
+            });
+
+                    function filterTerminationsByDate(filterOption) {
+            let today = moment().startOf("day");
+            let startDate, endDate;
+
+            if (filterOption === "today") {
+                startDate = today;
+                endDate = today.clone().endOf("day");
+            }
+            else if (filterOption === "tomorrow") {
+                startDate = moment().add(1, "days").startOf("day");
+                endDate = moment().add(1, "days").endOf("day");
+            }
+            else if (filterOption === "last7days") {
+                startDate = moment().subtract(6, "days").startOf("day");
+                endDate = today.clone().endOf("day");
+            }
+            else if (filterOption === "lastmonth") {
+                startDate = moment().subtract(1, "months").startOf("month");
+                endDate = moment().subtract(1, "months").endOf("month");
+            }
+            else if (filterOption === "all") {
+                renderTable(terminations);
+                return;
+            }
+            else {
+                return;
+            }
+
+            let filteredData = terminations.filter(termination => {
+                let noticeDate = moment(termination.noticeDate, "YYYY-MM-DD"); // Ensure proper format
+                return noticeDate.isSameOrAfter(startDate) && noticeDate.isSameOrBefore(endDate);
+            });
+
+            renderTable(filteredData);
+        }
+
+
+            // Initial fetch
+            fetchTerminations();
+        });
+
+    </script>
+
+
+
+}
+<script src="~/js/termination.js"></script>

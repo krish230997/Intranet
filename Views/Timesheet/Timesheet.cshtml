@@ -1,0 +1,157 @@
+﻿<partial name="Notification" />
+	@model Timesheet
+
+<div class="content">
+	<!-- Breadcrumb -->
+	<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+		<div class="my-auto mb-2">
+			<h2 class="mb-1">Timesheets</h2>
+		</div>
+
+		<div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+			<!-- Export Options -->
+			<div class="me-2 mb-2">
+				<div class="dropdown">
+					<a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+						<i class="ti ti-file-export me-1"></i>Export
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end p-3">
+						<li>
+							<a href="javascript:void(0);" class="dropdown-item rounded-1" id="exportPdf">
+								<i class="ti ti-file-type-pdf me-1"></i>Export as PDF
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" class="dropdown-item rounded-1" id="exportExcel">
+								<i class="ti ti-file-type-xls me-1"></i>Export as Excel
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="mb-2">
+				<input type="submit" name="name" value="Add Timesheet" class="btn btn-primary d-flex align-items-center" style="background-color: #F26522" id="openmodal" />
+			</div>
+			<div class="head-icons ms-2">
+				<a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+					<i class="ti ti-chevrons-up"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3 mb-3">
+		<button id="allBtn" class="btn btn-outline-secondary me-2">All</button>
+		<button id="weeklyBtn" class="btn btn-outline-secondary me-2">Weekly</button>
+		<button id="monthlyBtn" class="btn btn-outline-secondary me-2">Monthly</button>
+		<form id="approvalForm" action="/Timesheet/SendForApproval" method="post">
+			<input type="hidden" id="timesheetIds" name="timesheetIds" />
+			<button id="sendForApproval" type="button" class="btn btn-outline-primary" disabled>Send for Approval</button>
+		</form>
+	</div>
+	<br />
+
+
+	<!-- Performance Indicator list -->
+	<div class="card">
+		<div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+			<h5>Timesheet</h5>
+			<div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3 ms-auto">
+				<div class="dropdown me-3">
+					<input type="text" class="form-control" placeholder="Search by project Name" id="inp" />
+				</div>
+				<div class="dropdown">
+					<select id="opt" class="form-control">
+						<option>Sort By</option>
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+			<div class="dropdown me-3">
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title" id="exampleModalLabel">Add today's Work</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form method="post" id="myform">
+									Project <select class="form-control" name="ProjectId" asp-items="@ViewBag.project" asp-for="ProjectId">
+										<option value="">Select a Project</option>
+									</select><br />
+
+									Date <input type="date" class="form-control" name="Date" /><br />
+
+									Hours <input type="number" class="form-control" name="WorkHours" /><br />
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" id="savebtn">Add</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body p-0">
+			<div class="custom-filter">
+				<div id="s_Table_0_wrapper" class="s_wrapper dt-bootstrap5 no-footer">
+					<div class="row mb-3 ms-auto mt-3">
+						<div class="col-md-6">
+							<label>
+								Show
+								<select id="entriesPerPage" class="form-select d-inline-block w-auto">
+									<option value="5" selected>5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+								</select> entries
+							</label>
+						</div>
+					</div>
+
+					<!-- Table Wrapper -->
+					<div class="table-responsive">
+						<table class="table no-footer w-100" id="timesheetTable">
+							<thead class="thead-light">
+								<tr>
+									<th><input type="checkbox" id="selectAll" /></th>
+									<th>Employee</th>
+									<th>Project</th>
+									<th>Date</th>
+									<th>Worked Hours</th>
+									<th>Status</th>
+								
+								</tr>
+							</thead>
+							<tbody id="mydata">
+							</tbody>
+
+						</table>
+					</div>
+
+					<!-- Pagination -->
+					<nav>
+						<ul class="pagination justify-content-end mt-3 me-3 mb-3" id="pagination"></ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/TimesheetJavascript.js"></script>
+
+
+
+

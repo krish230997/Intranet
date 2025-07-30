@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Pulse360.Models.Designation>
+
+<h2>Designations List</h2>
+
+<p>
+    <a asp-action="AddDesignation" class="btn btn-primary">Add New Designation</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>
+                    <a asp-action="EditDesignation" asp-route-id="@item.DesignationId" class="btn btn-warning">Edit</a>
+                    <form asp-action="DeleteDesignation" asp-route-id="@item.DesignationId" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this designation?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

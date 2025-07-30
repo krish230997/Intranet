@@ -1,0 +1,76 @@
+﻿@model TaskBoards
+@{
+    ViewData["Title"] = "Task Board";
+}
+<div class="card p-4">
+    <h2>Task Board</h2>
+
+    @* @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+ *@
+
+ <partial name="Notification"></partial>
+
+
+    <form method="post" asp-action="TaskBoard" asp-controller="TaskAssign">
+        <div class="form-group">
+            <br />
+            <label for="ProjectId">Project Name</label>
+            <select class="form-control" id="ProjectId" name="ProjectId" required>
+                <option value="">Select Project</option>
+                @foreach (var project in ViewBag.Projects)
+                {
+                    <option value="@project.ProjectId">@project.ProjectName</option>
+                }
+            </select>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <label for="TaskId">Task Name</label>
+            <select class="form-control" id="TaskId" name="TaskId" required>
+                <option value="">Select Task</option>
+            </select>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <label for="Percentage">Percentage</label>
+            <input type="number" class="form-control" id="Percentage" name="Percentage" min="0" max="100" required>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <label for="DueDate">Due Date</label>
+            <input type="date" class="form-control" id="DueDate" name="DueDate" required>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("ProjectId").addEventListener("change", function () {
+        var projectId = this.value;
+        var taskDropdown = document.getElementById("TaskId");
+
+        taskDropdown.innerHTML = '<option value="">Loading...</option>';
+
+        if (projectId) {
+            fetch('/TaskAssign/GetTasksByProject?projectId=' + projectId)
+                .then(response => response.json())
+                .then(data => {
+                    taskDropdown.innerHTML = '<option value="">Select Task</option>';
+                    data.forEach(task => {
+                        taskDropdown.innerHTML += `<option value="${task.taskId}">${task.title}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error fetching tasks:', error));
+        } else {
+            taskDropdown.innerHTML = '<option value="">Select Task</option>';
+        }
+    });
+</script>

@@ -1,0 +1,59 @@
+﻿@model Attendance
+
+<h2 class="text-center">Edit Attendance</h2>
+
+<div class="container">
+    <form asp-action="EditAttendance" method="post" class="mx-auto" style="max-width: 500px;">
+        <input type="hidden" asp-for="AttendanceId" />
+
+        <div class="form-group mb-3">
+            <label asp-for="Date" class="control-label">Date</label>
+            <input asp-for="Date" type="date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="CheckIn" class="control-label">Check In</label>
+            <input asp-for="CheckIn" type="time" class="form-control" />
+            <span asp-validation-for="CheckIn" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="CheckOut" class="control-label">Check Out</label>
+            <input asp-for="CheckOut" type="time" class="form-control" />
+            <span asp-validation-for="CheckOut" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="BreakHours" class="control-label">Break</label>
+            <input asp-for="BreakHours" type="text" class="form-control" />
+            <span asp-validation-for="BreakHours" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Late" class="control-label">Late</label>
+            <input asp-for="Late" type="text" class="form-control" />
+            <span asp-validation-for="Late" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ProductionHours" class="control-label">Production Hours</label>
+            <input asp-for="ProductionHours" type="number" step="0.01" class="form-control" />
+            <span asp-validation-for="ProductionHours" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Status" class="control-label">Status</label>
+            <select asp-for="Status" class="form-control">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Half Day">Half Day</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+    </form>
+</div>
+
+

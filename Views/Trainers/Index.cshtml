@@ -1,0 +1,170 @@
+﻿@model IEnumerable<Pulse360.Models.Trainer>
+
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success text-left w-40" role="alert">
+        @TempData["msg"]
+    </div>
+}
+
+<br />
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Trainers</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">Performance</li>
+                <li class="breadcrumb-item active" aria-current="page">Trainers List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+        <div class="mb-2">
+            <div class="d-flex my-xl-auto right-content align-items-center">
+                <a asp-controller="Trainers" asp-action="AddTrainer" class="btn btn-primary d-flex align-items-center">
+                    <i class="ti ti-circle-plus me-2"></i>Add Trainer
+                </a>
+            </div>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5>Trainer List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <div class="dropdown">
+                <select id="sortBy" class="form-select">
+                <option value="ascending">Sort By: Ascending</option>
+                <option value="descending">Descending</option>
+                <option value="recentlyAdded" selected>Sort By:Recently Added</option>
+                </select>
+             </div>
+        </div>
+    </div>
+
+
+    <div class="card-body">
+    <!-- Trainers Table -->
+        <table class="table" id="trainersTable">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">TrainerId</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+        <tbody>
+            @foreach (var d in Model)
+            {
+                <tr class="trainer-row">
+                    <th scope="row">@d.TrainerId</th>
+                    <td>
+                        <div class="d-flex align-items-center file-name-icon">
+                            <a href="#" class="avatar avatar-md avatar-circle">
+                                <img src="~/Content/uploads/@d.ProfilePicture" style="border-radius:80px; padding-right:5px;" class="img-fluid" alt="img"></img>@d.FirstName
+                            </a>
+                        </div>
+                    </td>
+                    <td>@d.Phone</td>
+                    <td>@d.Email</td>
+                    <td>@d.Description</td>
+                    @* <td> *@
+                    @*     <span class="px-2 py-1 text-white rounded @((d.Status == "Active") ? "bg-success" : "bg-danger")"> *@
+                    @*         @d.Status *@
+                    @*     </span> *@
+                    @* </td> *@
+                    <td>
+                        @if (d.Status == "Active")
+                        {
+                            <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>Active
+                            </span>
+                        }
+                        else if (d.Status == "Inactive")
+                        {
+                            <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>Inactive
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>@d.Status
+                            </span>
+                        }
+                    </td>
+
+                    <td>
+                            
+                            <a class="me-2" asp-controller="Trainers" asp-action="EditTrainer" asp-route-id="@d.TrainerId">
+                            <i class="ti ti-edit"></i>
+                        </a>
+
+                            <a class="me-2" asp-controller="Trainers" asp-action="DeleteTrainer" asp-route-id="@d.TrainerId" onclick="return confirm('Are you sure to delete this record?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+        </table>
+    </div>
+</div>
+
+    @section scripts {
+        <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                var table = $('#trainersTable').DataTable({
+                    pageLength: 10,
+                        lengthMenu: [[10, 25, 50, -1], ["10", "25", "50", "All"]], // Custom dropdown labels
+                        dom: 'lfrtip',
+                    language: {
+                           searchPlaceholder: "Search", // Placeholder text for search box
+                            search: "", // Hide default "Search:" label
+                            lengthMenu: "Row Per Page:  _MENU_  Entries",
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "Next",
+                            previous: "Previous"
+                        }
+                    }
+                });
+
+                $('#sortBy').change(function () {
+                    var sortBy = $(this).val();
+                    var columnIndex = 0;
+
+                    if (sortBy === "ascending") {
+                        table.order([columnIndex, 'asc']).draw();
+                    } else if (sortBy === "descending") {
+                        table.order([columnIndex, 'desc']).draw();
+                    } else if (sortBy === "recentlyAdded") {
+                        table.order([columnIndex, 'desc']).draw();
+                    }
+                });
+            });
+        </script>
+    }
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

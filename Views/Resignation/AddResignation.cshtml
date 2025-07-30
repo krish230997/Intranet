@@ -1,0 +1,56 @@
+﻿@model Pulse360.Models.Resignation
+
+
+
+<div class="card">
+	<div class="card-header">
+		<h3 class="card-title">Add Resignation</h3>
+	</div>
+	<div class="card-body">
+        <form asp-action="AddResignation" method="post" id="resignationForm">
+            <div class="form-group mb-3">
+                <label for="UserID">Resigning Employee</label>
+                <select asp-for="UserID" class="form-control" required>
+                    @foreach (var user in (SelectList)ViewBag.Users)
+                    {
+                        <option value="@user.Value">@user.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="NoticeDate">Notice Date</label>
+                <input asp-for="NoticeDate" class="form-control" type="date" required />
+                <span asp-validation-for="NoticeDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="ResignDate">Resignation Date</label>
+                <input asp-for="ResignDate" class="form-control" type="date" required />
+                <span asp-validation-for="ResignDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Reason">Reason</label>
+                <textarea asp-for="Reason" class="form-control" required></textarea>
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+        @section Scripts {
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+        }
+
+		<br />
+		<br />
+		<span class="text-danger">@TempData["msg"]</span>
+	</div>
+</div>
+
+
+
+

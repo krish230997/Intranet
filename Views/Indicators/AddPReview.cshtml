@@ -1,0 +1,281 @@
+﻿@model PerformanceReview
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, html5, responsive, Projects">
+    <meta name="author" content="Dreams technologies - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Smarthr Admin Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+    <!-- Theme Script js -->
+    <script src="assets/js/theme-script.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Feather CSS -->
+    <link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
+
+    <!-- Tabler Icon CSS -->
+    <link rel="stylesheet" href="assets/plugins/tabler-icons/tabler-icons.css">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="assets/plugins/flatpickr/flatpickr.min.css">
+    @* <link rel="stylesheet" href="assets/plugins/@simonwep/pickr/themes/nano.min.css"> *@
+
+    <!-- Daterangepikcer CSS -->
+    <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Bootstrap Tagsinput CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+
+        <div class="content">
+
+            <!-- Breadcrumb -->
+            <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+                <div class="my-auto mb-2">
+                    <h2 class="mb-1">Performance Review</h2>
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Performance
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Performance Review</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="head-icons ms-2">
+                    <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                        <i class="ti ti-chevrons-up"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- /Breadcrumb -->
+
+            <section class="card border-0">
+                <div class="card-header border border-bottom-0 text-center">
+                    <h3 class="mb-2">Employee Basic Information</h3>
+                    <p class="text-muted">Lorem ipsum dollar</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="table-responsive">
+                            <form method="post" action="@Url.Action("AddPReview", "Indicators")">
+                                <!-- Define the action and controller -->
+                                <table class="table table-bordered table-nowrap mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="name">Name</label>
+                                                    <input type="text" class="form-control" asp-for="Name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="depart3">Department</label>
+                                                    <input type="text" class="form-control" asp-for="Department">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="departa">Designation</label>
+                                                    <input type="text" class="form-control" asp-for="Designation">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="qualif">Qualification: </label>
+                                                    <input type="text" class="form-control" asp-for="Qualification">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="eid">Emp ID</label>
+                                                    <input type="text" class="form-control" asp-for="EmployeeId">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="doj">Date of Join</label>
+                                                    <input type="date" class="form-control" asp-for="DateofJoin">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="doc">Date of Confirmation</label>
+                                                    <input type="date" class="form-control" asp-for="DateofConfirmation">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="qualif1">Previous years of Exp</label>
+                                                    <input type="text" class="form-control" asp-for="PreviousyearsofExp">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="name1"> RO's Name</label>
+                                                    <input type="text" class="form-control" asp-for="ROName">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="depart1"> RO Designation: </label>
+                                                    <input type="text" class="form-control" asp-for="RODesignation">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="mb-3">
+                                    <input type="submit" class="btn btn-primary" value="Add Review" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+
+
+        </div>
+        <!-- /Main Wrapper -->
+        <!-- jQuery -->
+        <script src="assets/js/jquery-3.7.1.min.js"></script>
+
+        <!-- Bootstrap Core JS -->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Feather Icon JS -->
+        <script src="assets/js/feather.min.js"></script>
+
+        <!-- Slimscroll JS -->
+        <script src="assets/js/jquery.slimscroll.min.js"></script>
+
+        <!-- Color Picker JS -->
+        @* <script src="assets/plugins/@simonwep/pickr/pickr.es5.min.js"></script> *@
+
+        <!-- Datatable JS -->
+        <script src="assets/js/jquery.dataTables.min.js"></script>
+        <script src="assets/js/dataTables.bootstrap5.min.js"></script>
+
+        <!-- Daterangepikcer JS -->
+        <script src="assets/js/moment.js"></script>
+        <script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+        <!-- Select2 JS -->
+        <script src="assets/plugins/select2/js/select2.min.js"></script>
+
+        <!-- Chart JS -->
+        <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+        <script src="assets/plugins/apexchart/chart-data.js"></script>
+
+        <!-- Bootstrap Tagsinput JS -->
+        <script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+        <!-- Custom JS -->
+        <script src="assets/js/theme-colorpicker.js"></script>
+        <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>@* @model PerformanceReview
+
+<form method="post" id="myform">
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label"> Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+    </div>
+
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Department</label>
+        <input type="text" class="form-control" asp-for="Department">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">EmployeeId</label>
+        <input type="text" class="form-control" asp-for="EmployeeId">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Designation</label>
+        <input type="text" class="form-control" asp-for="Designation">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Date of Join</label>
+        <input type="date" class="form-control" asp-for="DateofJoin">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">RO's Name</label>
+        <input type="text" class="form-control" asp-for="ROName">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Date of Confirmation</label>
+        <input type="date" class="form-control" asp-for="DateofConfirmation">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">RO's Designation</label>
+        <input type="text" class="form-control" asp-for="RODesignation">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Qualification</label>
+        <input type="text" class="form-control" asp-for="Qualification">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Previous years of Exp</label>
+        <input type="text" class="form-control" asp-for="PreviousyearsofExp">
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Add Review" />
+
+
+</form>
+
+
+
+
+
+ *@

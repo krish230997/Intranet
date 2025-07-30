@@ -1,0 +1,40 @@
+﻿@model Pulse360.Models.Promotion
+
+<form id="promotionForm" method="POST">
+    <div class="mb-3">
+        <label for="UserId" class="form-label">Employee</label>
+        <select id="UserId" name="UserID" class="form-select" required>
+            <option value="">Select Employee</option>
+            @foreach (var user in (SelectList)ViewBag.Users)
+            {
+                <option value="@user.Value">@user.Text</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="DesignationFrom" class="form-label">Designation From</label>
+        <select id="DesignationFrom" name="DesignationFrom" class="form-select" required>
+            <option value="">Select Designation</option>
+            @foreach (var designation in (SelectList)ViewBag.Designations)
+            {
+                <option value="@designation.Value">@designation.Text</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="DesignationTo" class="form-label">Designation To</label>
+        <select id="DesignationTo" name="DesignationTo" class="form-select" required>
+            <option value="">Select Designation</option>
+            @foreach (var designation in (SelectList)ViewBag.Designations)
+            {
+                <option value="@designation.Value">@designation.Text</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Date" class="form-label">Promotion Date</label>
+        <input type="date" id="Date" name="Date" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

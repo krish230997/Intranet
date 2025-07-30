@@ -1,0 +1,98 @@
+﻿@model List<Pulse360.Models.EmployeeSalaries>
+
+<div class="d-flex flex-wrap gy-2 justify-content-between my-4">
+    <div class="payroll-btns">
+    </div>
+
+    <div class="mb-2">
+        @*  <a href="#" id="openearningmodal" data-bs-target="#earning" class="btn btn-primary d-flex align-items-center">
+        <i class="ti ti-circle-plus me-2"></i>Add Earning
+        </a> *@
+        <button id="generatePayslipsButton" class="btn btn-primary">Generate Payslips for Selected Employees</button>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <h5>Employee Salary List</h5>
+        <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
+            <form method="get" class="d-flex align-items-center gap-2">
+                <input type="text" name="dateRange" placeholder="dd/mm/yyyy - dd/mm/yyyy" class="form-control me-2">
+                @* <select name="designation" class="form-select me-2">
+                <option value="">All Designations</option>
+                @foreach (var designation in Model.Select(e => e.User.Designation.Name).Distinct())
+                {
+                <option value="@designation">@designation</option>
+                }
+                </select>  *@
+                <select name="sortBy" class="form-select me-2">
+                    <option value="Recently Added">Recently Added</option>
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                    <option value="Last Month">Last Month</option>
+                    <option value="Last 7 Days">Last 7 Days</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="selectAllEmployees" /></th>
+                    <th>Emp ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    @* <th>Designation</th> *@
+                    <th>Joining Date</th>
+                    <th>Salary</th>
+                    <th>GeneratePayslip PDF</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var salary in Model)
+                {
+                    <tr>
+                        <td><input type="checkbox" class="employeeRowCheckbox" data-id="@salary.User.UserId" /></td>
+                        <td>Emp-@salary.User.UserId</td>
+                        <td>
+                            <div class="d-flex align-items-center file-name-icon">
+                                <a href="#" class="avatar avatar-md">
+                                    <img src="~/@salary.User.ProfilePicture" class="img-fluid rounded-circle" alt="Profile">
+                                </a>
+                                <div class="ms-2">
+                                    <h6 class="fw-medium"><a href="#">@salary.User.FirstName @salary.User.LastName</a></h6>
+                                    @* <span class="d-block mt-1">@salary.User.Designation.Name</span> *@
+                                </div>
+                            </div>
+                        </td>
+                        <td>@salary.User.Email</td>
+                        <td>@salary.User.PhoneNumber</td>
+                        @* <td>@salary.User.Designation.Name</td> *@
+                        <td>@salary.User.DateOfJoining.ToString("dd MMM yyyy")</td>
+                        <td>$@salary.TotalSalary</td>
+                        <td><a asp-action="GeneratePayslip" asp-controller="Payslip" asp-route-id="@salary.User.UserId">GeneratePayslip PDF</a></td>
+                        <td>
+                            @* <a asp-action="Edit" asp-controller="EmpSalaries" asp-route-id="@salary.SalaryId" class="btn btn-sm">
+                        <i class='fas fa-edit'></i>
+                        </a> *@
+
+                            <a asp-action="Delete" asp-controller="EmpSalaries" asp-route-id="@salary.SalaryId" class="btn btn-sm">
+                                <i class='bi bi-trash'></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/EmpSalJavaScript.js"></script>

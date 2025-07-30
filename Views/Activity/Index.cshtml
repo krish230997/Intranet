@@ -1,0 +1,486 @@
+﻿@model List<Pulse360.Models.Activitys>
+
+<!-- Breadcrumb -->
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Activity</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Admin
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Activity List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="me-2 mb-2">
+            <div class="d-flex align-items-center border bg-white rounded p-1 me-2 icon-list">
+                <a href="employees.html" class="btn btn-icon btn-sm active bg-primary text-white me-1"><i class="ti ti-list-tree"></i></a>
+                <a href="employees-grid.html" class="btn btn-icon btn-sm"><i class="ti ti-layout-grid"></i></a>
+            </div>
+        </div>
+        <div class="me-2 mb-2">
+            <div class="dropdown">
+                <a id="exportDropdown" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu  dropdown-menu-end p-3">
+                    <li>
+                        <a href="@Url.Action("ExportToExcel", "Activity")" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ExportToPdf", "Activity")" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mb-2">
+            <a data-bs-toggle="modal" data-bs-target="#createActivityModal" class="btn btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add Activity</a>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@* <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Activity</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Admin
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Activity List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="me-2 mb-2">
+            <!-- Export Dropdown -->
+            <div class="dropdown">
+                <button class="dropdown-toggle btn btn-white d-inline-flex align-items-center" type="button" id="exportDropdown" data-bs-toggle="dropdown">
+                    Export
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                    <li><a class="dropdown-item" href="@Url.Action("ExportToExcel", "Activity")">Export to Excel</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("ExportToPdf", "Activity")">Export to PDF</a></li>
+                </ul>
+            </div>
+
+            &nbsp;
+            <!-- Add Activity Button -->
+            <button type="button" class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#createActivityModal">
+                <i class="ti ti-circle-plus me-2"></i>
+                Add Activity
+            </button>
+
+            &nbsp;
+            <div class="ms-2 head-icons">
+                <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                    <i class="ti ti-chevrons-up"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+@* <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">Activity List</h5>
+
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <div class="me-3">
+                <div class="input-icon-end position-relative">
+                    <input type="text" id="searchInput" placeholder="Search Activities....">
+                    <span class="input-icon-addon">
+                        <i class="ti ti-chevron-down"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="dropdown">
+                <select id="statusFilter" class="form-select">
+                    <option value="">All Statuses</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="pending">Pending</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <div class="dropdown-toggle btn btn-white d-inline-flex align-items-center">
+                <select id="dateSort" class="form-select">
+                    <option value="">Sort by Date</option>
+                    <option value="asc">Oldest First</option>
+                    <option value="desc">Newest First</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table" id="activitiesTable">
+            <thead class="thead-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Due Date</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var activity in Model)
+                {
+                    <tr>
+                        <td>@activity.Title</td>
+                        <td>@activity.ActivityType</td>
+                        <td>@activity.DueDate.ToShortDateString()</td>
+                        <td>@activity.Owner</td>
+                        <td>@activity.Status</td>
+                        <td>@activity.CreatedDate.ToShortDateString()</td>
+                        <td>
+                            <a data-bs-toggle="modal" data-bs-target="#editActivityModal"
+                               data-id="@activity.ActivityId" data-title="@activity.Title" data-activitytype="@activity.ActivityType"
+                               data-duedate="@activity.DueDate.ToString("yyyy-MM-dd")" data-owner="@activity.Owner"
+                               data-status="@activity.Status" data-description="@activity.Description">
+                                <i class="ti ti-edit"></i>
+
+                            </a>
+                            &nbsp;
+                            <a data-bs-toggle="modal" data-bs-target="#deleteModal"
+                               data-id="@activity.ActivityId" data-title="@activity.Title">
+                                <i class="bi bi-trash"></i>
+
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+ *@
+
+
+
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5>Activity List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <div class="me-3">
+                <div class="input-icon-end position-relative">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search Activities...">
+                </div>
+            </div>
+            <div class="dropdown me-2">
+                <select id="statusFilter" class="form-select">
+                    <option value="">All Status</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="pending">Pending</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            <div class="dropdown me-2">
+                <select id="dateSort" class="form-select">
+                    <option value="">Sort by Date</option>
+                    <option value="asc">Oldest First</option>
+                    <option value="desc">Newest First</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table" id="activitiesTable">
+            <thead class="thead-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Due Date</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var activity in Model)
+                    {
+                        <tr>
+                            <td>@activity.Title</td>
+                            <td>@activity.ActivityType</td>
+                            <td>@activity.DueDate.ToShortDateString()</td>
+                            <td>@activity.Owner</td>
+                            <td>@activity.Status</td>
+                            <td>@activity.CreatedDate.ToShortDateString()</td>
+                            <td>
+                                <a data-bs-toggle="modal" data-bs-target="#editActivityModal"
+                                   data-id="@activity.ActivityId" data-title="@activity.Title"
+                                   data-activitytype="@activity.ActivityType"
+                                   data-duedate="@activity.DueDate.ToString("yyyy-MM-dd")"
+                                   data-owner="@activity.Owner" data-status="@activity.Status"
+                                   data-description="@activity.Description">
+                                    <i class="ti ti-edit"></i>
+                                </a>
+                                &nbsp;
+                                <a data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                   data-id="@activity.ActivityId" data-title="@activity.Title">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center">No data found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Add Activity Modal -->
+<div class="modal" id="createActivityModal" tabindex="-1" aria-labelledby="createActivityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createActivityModalLabel">Add Activity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post">
+                    <div class="form-group">
+                        <label for="createTitle">Title</label>
+                        <input type="text" class="form-control" id="createTitle" name="Title" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="createActivityType">Activity Type</label>
+                        <input type="text" class="form-control" id="createActivityType" name="ActivityType" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="createDueDate">Due Date</label>
+                        <input type="date" class="form-control" id="createDueDate" name="DueDate" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="createOwner">Owner</label>
+                        <input type="text" class="form-control" id="createOwner" name="Owner" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="createStatus">Status</label>
+                        <select class="form-control" id="createStatus" name="Status" required>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="createDescription">Description</label>
+                        <textarea class="form-control" id="createDescription" name="Description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Add Activity</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Activity Modal -->
+<div class="modal fade" id="editActivityModal" tabindex="-1" aria-labelledby="editActivityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editActivityModalLabel">Edit Activity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" id="editActivityId" name="ActivityId" />
+                    <div class="form-group">
+                        <label for="editTitle">Title</label>
+                        <input type="text" class="form-control" id="editTitle" name="Title" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editActivityType">Activity Type</label>
+                        <input type="text" class="form-control" id="editActivityType" name="ActivityType" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editDueDate">Due Date</label>
+                        <input type="date" class="form-control" id="editDueDate" name="DueDate" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editOwner">Owner</label>
+                        <input type="text" class="form-control" id="editOwner" name="Owner" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editStatus">Status</label>
+                        <select class="form-control" id="editStatus" name="Status" required>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDescription">Description</label>
+                        <textarea class="form-control" id="editDescription" name="Description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Update Activity</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Activity Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Activity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the activity <strong id="activityTitle"></strong>?</p>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteActivityId" name="ActivityId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Populate Edit Modal
+    const editModal = document.getElementById('editActivityModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        document.getElementById('editActivityId').value = button.getAttribute('data-id');
+        document.getElementById('editTitle').value = button.getAttribute('data-title');
+        document.getElementById('editActivityType').value = button.getAttribute('data-activitytype');
+        document.getElementById('editDueDate').value = button.getAttribute('data-duedate');
+        document.getElementById('editOwner').value = button.getAttribute('data-owner');
+        document.getElementById('editStatus').value = button.getAttribute('data-status');
+        document.getElementById('editDescription').value = button.getAttribute('data-description');
+    });
+
+    // Populate Delete Modal
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        document.getElementById('deleteActivityId').value = button.getAttribute('data-id');
+        document.getElementById('activityTitle').textContent = button.getAttribute('data-title');
+    });
+
+
+    function filterActivities() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#activitiesTable tbody tr");
+        rows.forEach(row => {
+            let title = row.cells[0].innerText.toLowerCase();
+            row.style.display = title.includes(input) ? "" : "none";
+        });
+    }
+
+    function exportToExcel() {
+        alert("Exporting to Excel...");
+        // Implement export logic here
+    }
+
+    function exportToPDF() {
+        alert("Exporting to PDF...");
+        // Implement export logic here
+    }
+</script>
+<!-- Add this script block below your existing JavaScript -->
+<script>
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function () {
+        var searchValue = this.value.toLowerCase(); // Get search term in lowercase
+        var rows = document.querySelectorAll('#activitiesTable tbody tr'); // Get all table rows
+        rows.forEach(function (row) {
+            var cells = row.getElementsByTagName('td'); // Get all cells in the row
+            var matchFound = false;
+            // Loop through each cell and check if any cell matches the search term
+            for (var i = 0; i < cells.length; i++) {
+                if (cells[i].textContent.toLowerCase().includes(searchValue)) {
+                    matchFound = true;
+                    break; // Exit loop once a match is found
+                }
+            }
+            // Show or hide the row based on the match
+            row.style.display = matchFound ? '' : 'none';
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('statusFilter').addEventListener('change', function () {
+        applyFilters();
+    });
+
+    document.getElementById('dateSort').addEventListener('change', function () {
+        applyFilters();
+    });
+
+    function applyFilters() {
+        let status = document.getElementById('statusFilter').value;
+        let sortByDate = document.getElementById('dateSort').value;
+        let url = new URL(window.location.href);
+
+        if (status) {
+            url.searchParams.set('statusFilter', status);
+        } else {
+            url.searchParams.delete('statusFilter');
+        }
+
+        if (sortByDate) {
+            url.searchParams.set('sortByDate', sortByDate);
+        } else {
+            url.searchParams.delete('sortByDate');
+        }
+
+        window.location.href = url.toString();
+    }
+</script>

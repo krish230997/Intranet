@@ -1,0 +1,546 @@
+﻿
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, html5, responsive, Projects">
+    <meta name="author" content="Dreams technologies - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Attendance | Smarthr Admin Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+    <!-- Theme Script js -->
+    <script src="assets/js/theme-script.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Feather CSS -->
+    <link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
+
+    <!-- Tabler Icon CSS -->
+    <link rel="stylesheet" href="assets/plugins/tabler-icons/tabler-icons.css">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="assets/plugins/flatpickr/flatpickr.min.css">
+    @* <link rel="stylesheet" href="assets/plugins/@simonwep/pickr/themes/nano.min.css"> *@
+
+    <!-- Daterangepikcer CSS -->
+    <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+
+
+</head>
+
+<body>
+    <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+        <div class="my-auto mb-2">
+            <h2 class="mb-1">Attendance Admin</h2>
+            <nav>
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        Employee
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Attendance Admin</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+
+            <div class="me-2 mb-2">
+                <div class="dropdown">
+                    <!-- Dropdown Button -->
+                    <button class="btn btn-white dropdown-toggle d-inline-flex align-items-center" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ti ti-file-export me-1"></i> Export
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="exportDropdown">
+                        <li>
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="exportToPDF()">
+                                <i class="ti ti-file-type-pdf me-1"></i> Export as PDF
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="exportToExcel()">
+                                <i class="ti ti-file-type-xls me-1"></i> Export as Excel
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <a href="#" class="btn btn-primary d-flex align-items-center"
+                   data-bs-target="#attendance_report" data-bs-toggle="modal">
+                    <i class="ti ti-file-analytics me-2"></i>Report
+                </a>
+            </div>
+            <div class="ms-2 head-icons">
+                <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                    <i class="ti ti-chevrons-up"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card border-0">
+        <div class="card-body">
+            <div class="row align-items-center mb-4">
+                <div class="col-md-5">
+                    <div class="mb-3 mb-md-0">
+                        <h4 class="mb-1">Attendance Details Today</h4>
+                        <p>Data from the @ViewBag.TotalEmployees total no of employees</p>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="d-flex align-items-center justify-content-md-end">
+                        <h6>Total Absentees Today</h6>
+                        <div class="avatar-list-stacked avatar-group-sm ms-4">
+                            @foreach (var employee in ViewBag.AbsentEmployees)
+                            {
+                                <span class="avatar avatar-rounded">
+                                    @if (!string.IsNullOrEmpty(employee.ProfilePicture))
+                                    {
+                                        <img class="border border-white" src="/@employee.ProfilePicture" alt="@employee.FullName" />
+                                    }
+                                    else
+                                    {
+                                        <img class="border border-white" src="/Content/admin_img.png" alt="Default Profile" />
+                                    }
+                                </span>
+                            }
+                            @if (ViewBag.AbsentEmployees.Count > 5)
+                            {
+                                <a class="avatar bg-primary avatar-rounded text-fixed-white fs-12" href="javascript:void(0);">
+                                    +@(ViewBag.AbsentEmployees.Count - 5)
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border rounded">
+                <div class="row gx-0">
+                    <div class="col-md col-sm-4 border-end">
+                        <div class="p-3">
+                            <span class="fw-medium mb-1 d-block">Present</span>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5>@ViewBag.Present</h5>
+                                <span class="badge badge-success d-inline-flex align-items-center">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i>
+                                    +1%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-sm-4 border-end">
+                        <div class="p-3">
+                            <span class="fw-medium mb-1 d-block">Late Login</span>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5>@ViewBag.LateLogin</h5>
+                                <span class="badge badge-danger d-inline-flex align-items-center">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i>
+                                    -1%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-sm-4 border-end">
+                        <div class="p-3">
+                            <span class="fw-medium mb-1 d-block">Uninformed</span>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5>@ViewBag.Uninformed</h5>
+                                <span class="badge badge-danger d-inline-flex align-items-center">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i>
+                                    -12%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-sm-4 border-end">
+                        <div class="p-3">
+                            <span class="fw-medium mb-1 d-block">Permisson</span>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5>@ViewBag.Permission</h5>
+                                <span class="badge badge-success d-inline-flex align-items-center">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i>
+                                    +1%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-sm-4">
+                        <div class="p-3">
+                            <span class="fw-medium mb-1 d-block">Absent</span>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5>@ViewBag.Absent</h5>
+                                <span class="badge badge-danger d-inline-flex align-items-center">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i>
+                                    -19%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* table *@
+
+
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+            <h5>Admin Attendance</h5>
+
+            <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+                <div class="d-flex mb-3">
+                    <div class="me-3">
+                        <label for="startDate" class="me-2">Start Date:</label>
+                        <input type="date" class="form-control" id="startDate" onchange="filterTable()">
+                    </div>
+                    <div class="me-3">
+                        <label for="endDate" class="me-2">End Date:</label>
+                        <input type="date" class="form-control" id="endDate" onchange="filterTable()">
+                    </div>
+                </div>
+
+
+                <div class="dropdown me-3">
+                    <select class="form-select form-select-sm me-3" id="departmentFilter">
+                        <option value="">All Departments</option>
+                        @foreach (var dept in ViewBag.Departments)
+                        {
+                            <option value="@dept.Name">@dept.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="dropdown me-3">
+
+
+                    <select class="form-select form-select-sm me-3" id="statusFilter" onchange="filterTable();">
+                        <option value="">All</option>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                        <option value="Half Day">Half Day</option>
+                    </select>
+                </div>
+
+                <div class="dropdown">
+
+
+                    <select class="form-select form-select-sm me-3" id="sortFilter" onchange="sortTable();">
+
+                        <option value="recent">Recently Added</option>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                        <option value="lastMonth">Last Month</option>
+                        <option value="last7Days">Last 7 Days</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Left Side: Rows Per Page -->
+                <div class="d-flex align-items-center">
+                    <label class="me-3">Rows</label>
+                    <select class="form-select form-select-sm me-3" id="rowsPerPage" onchange="paginateTable();">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>Entries</span>
+                </div>
+
+                <!-- Right Side: Search Bar -->
+                <div style="width: 200px;">
+                    <input type="text" class="form-control form-control-sm" id="searchInput" placeholder="Search" oninput="filterTable();">
+                </div>
+            </div>
+
+
+
+
+            <div class="card-body p-0">
+                <div class="custom-datatable-filter table-responsive">
+                    <table class="table" id="attendanceTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>AId</th>
+                                <th>Date</th>
+                                <th>Employee</th>
+                                <th>Status</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Break</th>
+                                <th>Late</th>
+                                <th>Production Hours</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceList">
+                            @foreach (var record in Model)
+                            {
+                                var user = record.User;
+                                <tr>
+                                    <td>@record.AttendanceId</td>
+                                    <td>@record.Date.ToString("yyyy/MM/dd")</td>
+                                    @* <td>@record.User.FirstName  @record.User.LastName</td> *@
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="/@(user != null && !string.IsNullOrEmpty(user.ProfilePicture) ? user.ProfilePicture : "/images/default-profile.png")"
+                                                 alt="Profile" class="rounded-circle" width="40" height="40">
+                                            <div class="ms-2">
+                                                <strong>@(user != null ? user.FirstName + " " + user.LastName : "N/A")</strong>
+                                                <div class="text-muted">@(user != null ? user.Department.Name : "No Department")</div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @if (record.Status == "Present")
+                                        {
+                                            <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Present
+                                            </span>
+                                        }
+                                        else if (record.Status == "Absent")
+                                        {
+                                            <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Absent
+                                            </span>
+                                        }
+                                        else if (record.Status == "Half Day")
+                                        {
+                                            <span class="badge badge-warning d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Half Day
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>@record.CheckIn?.ToString("hh:mm tt")</td>
+                                    <td>@record.CheckOut?.ToString("hh:mm tt")</td>
+                                    <td>@record.BreakHours hrs</td>
+                                    <td>@record.Late min</td>
+                                    <td>
+                                        @{
+                                            var productionHours = record.ProductionHours; // Ensure ProductionHours is a TimeSpan
+                                        }
+                                        @if (productionHours < 4)
+                                        {
+                                            <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>@(record.ProductionHours)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>@(record.ProductionHours)
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="EditAttendance" asp-route-AttendanceId="@record.AttendanceId" class="me-2">
+                                            <i class="ti ti-edit"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        var allRows = [];
+
+        function filterTable() {
+            var searchText = document.getElementById("searchInput").value.toLowerCase();
+            var statusFilter = document.getElementById("statusFilter").value.toLowerCase();
+        var departmentFilter = document.getElementById("departmentFilter").value.toLowerCase();
+
+         var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+
+            var table = document.getElementById("attendanceTable");
+            var rows = table.getElementsByTagName("tr");
+
+            if (allRows.length === 0) {
+                allRows = Array.from(rows).slice(1);
+            }
+
+            var filteredRows = allRows.slice();
+
+
+            if (searchText || statusFilter || departmentFilter || startDate || endDate) {
+                filteredRows = filteredRows.filter(function(row) {
+                    var nameCell = row.cells[2];
+                    var statusCell = row.cells[3];
+                     var departmentCell = row.cells[2]?.querySelector(".text-muted");
+                     var dateCell = row.cells[1];
+                     var dateText = dateCell ? dateCell.innerText : '';
+                    var rowDate = new Date(dateText.replace(/(\d{4})\/(\d{2})\/(\d{2})/, '$2/$3/$1'));
+
+
+                     var matchesSearch = false;
+                    if (nameCell && statusCell && departmentCell) {
+                        var nameText = nameCell.innerText.toLowerCase();
+                        var statusText = statusCell.innerText.toLowerCase();
+                        var departmentText = departmentCell.innerText.toLowerCase();
+
+
+
+                        matchesSearch = nameText.includes(searchText) || statusText.includes(searchText) || departmentText.includes(searchText);
+
+                        }
+                       var matchesStatus = statusFilter === "" || statusText.includes(statusFilter);
+                       var matchesDepartment = departmentFilter === "" || departmentText.includes(departmentFilter);
+                       var matchesStartDate = !startDate || rowDate >= new Date(startDate);
+                       var matchesEndDate = !endDate || rowDate <= new Date(endDate);
+
+                      return matchesSearch && matchesStatus && matchesDepartment && matchesStartDate && matchesEndDate;
+
+
+                });
+            }
+
+
+            var tbody = table.getElementsByTagName("tbody")[0];
+            tbody.innerHTML = '';
+
+            if (filteredRows.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='10' class='text-center'>No data found</td></tr>";
+            } else {
+                filteredRows.forEach(function(row) {
+                    tbody.appendChild(row);
+                });
+            }
+
+            paginateTable();
+        }
+
+        function paginateTable() {
+            var table = document.getElementById("attendanceTable");
+            var rows = Array.from(table.getElementsByTagName("tr")).slice(1);
+            var rowsPerPage = parseInt(document.getElementById("rowsPerPage").value);
+            var rowsToShow = rowsPerPage === "all" ? rows.length : rowsPerPage;
+
+            rows.forEach((row, index) => {
+                row.style.display = (index < rowsToShow) ? "" : "none";
+            });
+        }
+
+
+
+            function sortTable() {
+            var table = document.getElementById("attendanceTable");
+            var rows = Array.from(table.getElementsByTagName("tr")).slice(1);
+            var sortValue = document.getElementById("sortFilter").value;
+            var now = new Date();
+
+            rows.sort((rowA, rowB) => {
+                var cellA = rowA.getElementsByTagName("td")[1].textContent;
+                var cellB = rowB.getElementsByTagName("td")[1].textContent;
+                var dateA = new Date(cellA);
+                var dateB = new Date(cellB);
+
+                switch (sortValue) {
+                    case "asc":
+                        return dateA - dateB;
+                    case "desc":
+                        return dateB - dateA;
+                    case "recent":
+                        return dateB - dateA;
+                    case "lastMonth":
+                        return (now - dateA < 30 * 24 * 60 * 60 * 1000) ? -1 : 1;
+                    case "last7Days":
+                        return (now - dateA < 7 * 24 * 60 * 60 * 1000) ? -1 : 1;
+                    default:
+                        return 0;
+                }
+
+            });
+
+            rows.forEach(row => table.appendChild(row));
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          document.getElementById("searchInput")?.addEventListener("input", filterTable);
+        document.getElementById("statusFilter")?.addEventListener("change", filterTable);
+        document.getElementById("departmentFilter")?.addEventListener("change", filterTable);
+        document.getElementById("rowsPerPage")?.addEventListener("change", paginateTable);
+         document.getElementById("sortFilter")?.addEventListener("change", sortTable);
+            filterTable();
+            paginateTable();
+        });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ensure Bootstrap dropdown functionality works
+            var exportDropdown = new bootstrap.Dropdown(document.getElementById("exportDropdown"));
+
+            // Additional initialization for Bootstrap elements if needed
+        });
+    </script>
+    <script>
+
+
+        function exportToPDF() {
+
+            window.location.href = '/AdminAttendance/ExportToPDF';
+        }
+
+        function exportToExcel() {
+
+            window.location.href = '/AdminAttendance/ExportToExcel';
+        }
+    </script>
+
+</body>

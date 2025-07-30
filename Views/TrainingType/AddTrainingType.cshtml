@@ -1,0 +1,51 @@
+﻿@model Pulse360.Models.TrainingType
+
+
+<div class="card p-4">
+    <!-- Add Training Type Form -->
+    <form method="post" action="/TrainingType/AddTrainingType">
+
+    <h3 class="text-start mb-3">Add Training Type</h3>
+    <div class="mb-3">
+        <label for="TrainingTypeName" class="form-label">Training Type</label>
+        <input type="text" class="form-control" name="TrainingTypeName" id="TrainingTypeName" required />
+        <span class="text-danger" id="TrainingTypeNameError"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" name="Description" id="Description" required/>
+        <span class="text-danger" id="DescriptionError"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Status" class="form-label">Status</label>
+        <select class="form-control" name="Status" id="Status" required>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+        <span class="text-danger" id="StatusError"></span>
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </div>
+</form>
+</div>
+<!-- Add Validation Scripts -->
+@* @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+} *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+

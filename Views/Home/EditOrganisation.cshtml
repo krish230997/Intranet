@@ -1,0 +1,100 @@
+﻿@model Organization
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Edit Organisation</h3>
+    </div>
+    <div class="card-body">
+        @* @if (TempData["error"] != null)
+        {
+        <div class="alert alert-danger">
+        @TempData["error"]
+        </div>
+        } *@
+
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="row">
+
+
+
+                <!-- Left Column -->
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="control-label">Organisation Name</label>
+                        <div class="input-group">
+                            <input type="hidden" asp-for="OrganizationId" />
+                            <input asp-for="OrganizationName" class="form-control" required>
+                            <span class="input-group-text">
+                                <i class="ti ti-user"></i>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="control-label">Organisation Contact</label>
+                        <div class="input-group">
+                            <input asp-for="OrganizationPhone" class="form-control" required>
+                            <span class="input-group-text">
+                                <i class="ti ti-phone"></i>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="control-label">Organisation Address</label>
+                        <div class="input-group">
+                            <textarea asp-for="OrganizationAddress" class="form-control"></textarea>
+                            <span class="input-group-text">
+                                <i class="ti ti-address"></i>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="control-label">Organisation Email</label>
+                        <div class="input-group">
+                            <input asp-for="OrganizationEmail" class="form-control" required>
+                            <span class="input-group-text">
+                                <i class="ti ti-mail"></i>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="control-label">Organisation Logo (PNG/JPG only)</label>
+                        <div class="input-group">
+                            <input type="file" name="OrganizationLogo" class="form-control" accept=".png,.jpg,.jpeg" />
+                            <img src="@Model.OrganizationLogo" height="100" width="100" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="control-label">Organisation Description</label>
+                        <div class="input-group">
+                            <textarea asp-for="OrganizationDescription" class="form-control"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-action="FetchOraganisation" asp-controller="Home" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

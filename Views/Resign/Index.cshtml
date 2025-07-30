@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Resignation Template</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .template-gallery {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .template-item {
+            width: 30%;
+            text-align: center;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .template-item img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-bottom: 15px;
+            }
+
+        .btn {
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+
+
+        .btn-preview {
+            background-color: #007BFF;
+        }
+
+            .btn-preview:hover {
+                background-color: #0056b3;
+            }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+        <div class="my-auto mb-2">
+            <h2 class="mb-1">Generate Resign Letter</h2>
+            <nav>
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        Admin
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Generate Resign Letter</li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+
+    <br />
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+            <h5 class="mb-0">Generate Resign Letter</h5>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <h1>Select Resignation Letter Template</h1>
+                <p style="text-align: center;">Choose a template for Resignation Letter.</p>
+                <p style="text-align: center;">Click on Image to Preview Template</p>
+
+                <div class="template-gallery">
+                    <div class="template-item">
+                        <img src="/Content/Logos/rt1.png" alt="Template 1" onclick="previewImage('/Content/Logos/rt1.png')">
+                        <a class="btn btn-primary" asp-controller="Resign" asp-action="resign" asp-route-templateName="templet1">Customize</a>
+                    </div>
+
+                    <div class="template-item">
+                        <img src="/Content/Logos/rt2.png" alt="Template 2" onclick="previewImage('/Content/Logos/rt2.png')">
+                        <a class="btn btn-primary" asp-controller="Resign" asp-action="resign" asp-route-templateName="templet2">Customize</a>
+                    </div>
+                    <div class="template-item">
+                        <img src="/Content/Logos/rt3.png" alt="Template 3" onclick="previewImage('/Content/Logos/rt3.png')">
+                        <a class="btn btn-primary" asp-controller="Resign" asp-action="resign" asp-route-templateName="templet3">Customize</a>
+                    </div>
+                    <div class="template-item">
+                        <img src="/Content/Logos/rt4.png" alt="Template 4" onclick="previewImage('/Content/Logos/rt4.png')">
+                        <a class="btn btn-primary" asp-controller="Resign" asp-action="resign" asp-route-templateName="templet4">Customize</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        function previewImage(src) {
+            const previewWindow = window.open("", "ImagePreview", "width=800,height=600");
+            previewWindow.document.write('<html><head><title>Image Preview</title></head><body style="margin:0;display:flex;align-items:center;justify-content:center;background-color:#f4f4f4;"><img src="' + src + '" style="max-width:100%;max-height:100%;border-radius:8px;"></body></html>');
+        }
+    </script>
+</body>
+</html>

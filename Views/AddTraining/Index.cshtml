@@ -1,0 +1,316 @@
+﻿@model IEnumerable<Pulse360.Models.Training>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success text-left w-40" role="alert">
+        @TempData["msg"]
+    </div>
+    @* <span class="text-success">@TempData["msg"]</span> *@
+}
+
+
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Training</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">Performance</li>
+                <li class="breadcrumb-item active" aria-current="page">Training List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+        <div class="mb-2">
+            <a asp-controller="AddTraining" asp-action="AddTraining" class="btn btn-primary d-flex align-items-center">
+            <i class="ti ti-circle-plus me-2"></i>Add Training
+            </a>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+   </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="mb-1">Training List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <div class="dropdown">
+                <select id="sortBy" class="form-select">
+                <option value="ascending">Sort By: Ascending</option>
+                <option value="descending">Descending</option>
+                <option value="recent7">Last 7 Days</option>
+                <option value="recentlyAdded">Recently Added</option>
+                <option value="lastMonth">Last Month</option>
+            </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+    <!-- Training Table -->
+        <table class="table" id="trainingTable">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">TrainingId</th>
+                <th scope="col">Trainer Name</th>
+                <th scope="col">Training Type</th>
+                <th scope="col">User (Employee)</th>
+                <th scope="col">Training Cost</th>
+                <th scope="col">Description</th>
+                <th scope="col">Status</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Actions</th>
+                </tr>
+            </thead>
+        <tbody>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.TrainingId</td>
+
+                    <td>
+
+                        <div class="d-flex align-items-center file-name-icon">
+                            <a href="#" class="avatar avatar-md avatar-circle">
+                                    <img src="~/Content//uploads/@d.ProfilePicture" style="border-radius:80px; padding-right:5px;" class="img-fluid" alt="img"></img>@d.Trainer.FirstName
+                            </a>
+                            </div> 
+
+                    </td>
+
+
+                    <td>@d.TrainingType.TrainingTypeName</td>
+                    <td>
+                        @foreach (var item in @d.images)
+                        {
+                            <div class="d-flex align-items-center file-name-icon">
+                                <a href="#" class="avatar avatar-md avatar-circle">
+                                        <img src="@Url.Content("/" + item)" style="border-radius:80px; padding-right:5px;" class="img-fluid" alt="img"></img>@d.User.FirstName @d.User.LastName
+                                    </a> 
+                            </div>
+
+                        }
+
+                    </td>
+                    <td>@d.TrainingCost</td>
+                    <td>@d.Description</td>
+                    <td>
+                        @if (d.Status == "Active")
+                        {
+                            <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>Active
+                            </span>
+                        }
+                        else if (d.Status == "Inactive")
+                        {
+                            <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>@d.Status
+                            </span>
+                            }  
+                        else
+                        {
+                            <span class="badge badge-secondary d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>@d.Status
+                            </span>
+                        }
+                    </td>
+
+                    @* <td>@d.Status</td> *@
+                    <td>@d.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@d.EndDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                            <a class="me-2" asp-controller="AddTraining" asp-action="DeleteTraining" asp-route-id="@d.TrainingId" onclick="return confirm('Are you sure to delete this record?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                            <a class="me-2" asp-controller="AddTraining" asp-action="EditTraining" asp-route-id="@d.TrainingId">
+                             <i class="ti ti-edit"></i>
+
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+ </div>
+
+    @section scripts {
+        <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+        <script>
+                $(document).ready(function () {
+                    var table = $('#trainingTable').DataTable({
+                        pageLength: 5,
+                        lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]], // Rows per page options
+                        dom: 'lfrtip',
+                        language: {
+                         searchPlaceholder: "Search", // Placeholder text for search box
+                         search: "", // Hide default "Search:" label
+                         lengthMenu: "Row Per Page:  _MENU_  Entries",
+                            paginate: {
+                                first: "First",
+                                last: "Last",
+                                next: "Next",
+                                previous: "Previous"
+                            }
+                        },
+                        buttons: [
+                            'copy', 'excel', 'pdf' // Optional
+                        ]
+                    });
+
+
+                    // Sorting function based on dropdown selection
+                    $('#sortBy').change(function () {
+                        var sortBy = $(this).val();
+                        var columnIndex = 7;
+
+                        if (sortBy === "ascending") {
+                            table.order([columnIndex, 'asc']).draw();
+                        } else if (sortBy === "descending") {
+                            table.order([columnIndex, 'desc']).draw();
+
+
+                        }
+
+                            // Last 7 Days filter
+                    else if (sortBy === "recent7") {
+                        var today = new Date(); // Get today's date
+                        var sevenDaysAgo = new Date(today); // Copy today's date
+                        sevenDaysAgo.setDate(today.getDate() - 7); // Subtract 7 days to get the date 7 days ago
+
+                        table.rows().every(function () {
+                            var row = this.node();
+                            var startDate = new Date($(row).find('td').eq(7).text()); // Get the start date from the Start Date column
+
+                            // Show the row if the start date is within the last 7 days
+                            if (startDate >= sevenDaysAgo && startDate <= today) {
+                                $(row).show();
+                            } else {
+                                $(row).hide();
+                            }
+                        });
+                    }
+
+                    // Recently Added filter (show today's date only)
+                    else if (sortBy === "recentlyAdded") {
+                        var today = new Date(); // Get today's date
+                        today.setHours(0, 0, 0, 0); // Set the time to 00:00:00 to compare only the date part
+
+                        table.rows().every(function () {
+                            var row = this.node();
+                            var startDate = new Date($(row).find('td').eq(7).text()); // Get the start date from the Start Date column
+                            startDate.setHours(0, 0, 0, 0); // Set the time to 00:00:00 to compare only the date part
+
+                            // Show the row if the start date is today
+                            if (startDate.getTime() === today.getTime()) {
+                                $(row).show();
+                            } else {
+                                $(row).hide();
+                            }
+                        });
+                    }
+
+                    // Last Month filter
+                    else if (sortBy === "lastMonth") {
+                        var lastMonth = new Date();
+                        lastMonth.setMonth(lastMonth.getMonth() - 1);
+                        table.rows().every(function () {
+                            var row = this.node();
+                            var startDate = new Date($(row).find('td').eq(7).text());
+                            if (startDate < lastMonth) {
+                                $(row).hide();
+                            } else {
+                                $(row).show();
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    }
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+@* <!-- Training Table -->
+<table class="table table-striped table-dark" id="trainingTable" style="width: 100%;">
+    <thead>
+        <tr>
+            <th scope="col" style="display: none;">TrainingId</th>
+            <th scope="col">Training Type</th>
+            <th scope="col">Trainer</th>
+            <th scope="col">Trainer Profile</th> <!-- Add Trainer Profile Picture -->
+
+            <th scope="col">Employee</th>
+            <th scope="col">User Profile</th> <!-- Add User Profile Picture -->
+            <th scope="col">Time Duration</th>
+            <th scope="col">Description</th
+            <th scope="col">Cost</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        { <tr>
+                <td>@d.TrainingId</td>
+               <td>@d.TrainingType.TrainingTypeName</td>
+                <td>@d.Trainer.FirstName @d.Trainer.LastName</td>
+                <td> <!-- Display the trainer's profile picture -->
+                    @if (!string.IsNullOrEmpty(d.Trainer.ProfilePicture))
+                    {
+                        <img src="@Url.Content(d.Trainer.ProfilePicture)" alt="Trainer Profile" style="width: 50px; height: 50px; border-radius: 50%;" />
+                    }
+                    else
+                    {
+                        <span>No Profile Picture</span>
+                    }
+                </td>
+
+                <td>@d.User.FirstName @d.User.LastName</td>
+                <td>
+                    <!-- Display the user's profile picture -->
+                    @if (!string.IsNullOrEmpty(d.User.ProfilePicture))
+                    {
+                        <img src="@Url.Content(d.User.ProfilePicture)" alt="User Profile" style="width: 50px; height: 50px; border-radius: 50%;" />
+                    }
+                    else
+                    {
+                        <span>No Profile Picture</span>
+                    }
+                </td>
+
+                <td>@d.Description</td>
+                <td>@d.TrainingCost</td>
+                <td>
+                    <span class="px-2 py-1 text-white rounded @((d.Status == "Active") ? "bg-success" : "bg-danger")">
+                        @d.Status
+                    </span>
+                </td>
+                <td>@d.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@d.EndDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a class="btn btn-sm btn-danger me-2" asp-controller="AddTraining" asp-action="DeleteTraining" asp-route-id="@d.TrainingId" onclick="return confirm('Are you sure to delete this record?')">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a class="btn btn-sm btn-primary" asp-controller="AddTraining" asp-action="EditTraining" asp-route-id="@d.TrainingId">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+ *@

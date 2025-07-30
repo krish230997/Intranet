@@ -1,0 +1,629 @@
+﻿@model IEnumerable<Pulse360.Models.Tickets>
+@{
+    ViewBag.Title = "Tickets";
+}
+
+
+<style>
+    .card-body {
+        position: relative;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 100px; 
+    }
+
+    canvas {
+        max-width: 100% !important; 
+        height: 100% !important; 
+    }
+</style>
+
+
+
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Tickets</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Employee
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Tickets</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="me-2 mb-2">
+            <div class="d-flex align-items-center border bg-white rounded p-1 icon-list">
+                <a href="#" id="listViewBtn" class="btn btn-icon btn-sm me-1">
+                    <i class="ti ti-list-tree"></i>
+                </a>
+                <a href="#" id="cardViewBtn" class="btn btn-icon btn-sm active bg-primary text-white">
+                    <i class="ti ti-layout-grid"></i>
+                </a>
+            </div>
+        </div>
+        <div class="me-2 mb-2">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu  dropdown-menu-end p-3">
+                    <li>
+                        <a href="@Url.Action("ExportToPdf", "Tickets")" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ExportToExcel", "Tickets")" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mb-2">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#createCategoryModal" class="btn btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add Category</a>
+        </div>
+        &nbsp; &nbsp;
+        <div class="mb-2">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#createTicketModal" class="btn btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add New Ticket</a>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4">
+    <h1>Tickets</h1>
+
+    <div class="d-flex flex-wrap justify-content-end align-items-center mb-4 gap-2">
+
+
+
+
+        <!-- View Toggle Buttons -->
+        @* <div class="d-flex align-items-center border bg-white rounded p-1 icon-list">
+            <a href="#" id="listViewBtn" class="btn btn-icon btn-sm me-1">
+                <i class="ti ti-list-tree"></i>
+            </a>
+            <a href="#" id="cardViewBtn" class="btn btn-icon btn-sm active bg-primary text-white">
+                <i class="ti ti-layout-grid"></i>
+            </a>
+        </div> *@
+
+        <!-- Create Category Button -->
+        @* <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
+            Create Category
+        </button> *@
+
+        <!-- Export Button Group -->
+       @*  <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Export
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@Url.Action("ExportToExcel", "Tickets")">Export to Excel</a></li>
+                <li><a class="dropdown-item" href="@Url.Action("ExportToPdf", "Tickets")">Export to PDF</a></li>
+            </ul>
+        </div> *@
+        <!-- Create Ticket Button -->
+       @*  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTicketModal">
+            Create Ticket
+        </button> *@
+    </div>
+
+
+
+
+
+
+    <!-- Ticket Summary Boxes -->
+    <div class="row mb-4">
+        <!-- Open Tickets Card -->
+        <div class="col-xl-3 col-md-6 d-flex">
+            <div class="card flex-fill">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 d-flex">
+                            <div class="flex-fill">
+                                <div class="border border-dashed border-primary rounded-circle d-inline-flex align-items-center justify-content-center p-1 mb-3">
+                                    <span class="avatar avatar-lg avatar-rounded bg-transparent-primary">
+                                        <i class="ti ti-folder-open fs-20"></i>
+                                    </span>
+                                </div>
+                                <p class="fw-medium fs-12 mb-1">Total Tickets</p>
+                                <h4>@ViewBag.OpenTicketsCount</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end d-flex">
+                            <div class="d-flex flex-column justify-content-between align-items-end">
+                                <span class="badge bg-transparent-dark text-dark d-inline-flex align-items-center mb-3">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i> +19.01%
+                                </span>
+                                <!-- Chart Container -->
+                                <div class="chart-container">
+                                    <canvas id="openTicketsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- In Progress Tickets Card -->
+        <div class="col-xl-3 col-md-6 d-flex">
+            <div class="card flex-fill">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 d-flex">
+                            <div class="flex-fill">
+                                <div class="border border-dashed border-warning rounded-circle d-inline-flex align-items-center justify-content-center p-1 mb-3">
+                                    <span class="avatar avatar-lg avatar-rounded bg-transparent-warning">
+                                        <i class="ti ti-folder-open fs-20"></i>
+                                    </span>
+                                </div>
+                                <p class="fw-medium fs-12 mb-1">In Progress Tickets</p>
+                                <h4>@ViewBag.InProgressTicketsCount</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end d-flex">
+                            <div class="d-flex flex-column justify-content-between align-items-end">
+                                <span class="badge bg-transparent-dark text-dark d-inline-flex align-items-center mb-3">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i> +12.5%
+                                </span>
+                                <!-- Chart Container -->
+                                <div class="chart-container">
+                                    <canvas id="inProgressTicketsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- High Priority Tickets Card -->
+        <div class="col-xl-3 col-md-6 d-flex">
+            <div class="card flex-fill">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 d-flex">
+                            <div class="flex-fill">
+                                <div class="border border-dashed border-danger rounded-circle d-inline-flex align-items-center justify-content-center p-1 mb-3">
+                                    <span class="avatar avatar-lg avatar-rounded bg-transparent-danger">
+                                        <i class="ti ti-alert-circle fs-20"></i>
+                                    </span>
+                                </div>
+                                <p class="fw-medium fs-12 mb-1">High Priority Tickets</p>
+                                <h4>@ViewBag.HighPriorityTicketsCount</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end d-flex">
+                            <div class="d-flex flex-column justify-content-between align-items-end">
+                                <span class="badge bg-transparent-dark text-dark d-inline-flex align-items-center mb-3">
+                                    <i class="ti ti-arrow-wave-right-up me-1"></i> +25.3%
+                                </span>
+                                <!-- Chart Container -->
+                                <div class="chart-container">
+                                    <canvas id="highPriorityTicketsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Low Priority Tickets Card -->
+        <div class="col-xl-3 col-md-6 d-flex">
+            <div class="card flex-fill">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 d-flex">
+                            <div class="flex-fill">
+                                <div class="border border-dashed border-success rounded-circle d-inline-flex align-items-center justify-content-center p-1 mb-3">
+                                    <span class="avatar avatar-lg avatar-rounded bg-transparent-success">
+                                        <i class="ti ti-check-circle fs-20"></i>
+                                    </span>
+                                </div>
+                                <p class="fw-medium fs-12 mb-1">Low Priority Tickets</p>
+                                <h4>@ViewBag.LowPriorityTicketsCount</h4>
+                            </div>
+                        </div>
+                        <div class="col-6 text-end d-flex">
+                            <div class="d-flex flex-column justify-content-between align-items-end">
+                                <span class="badge bg-transparent-dark text-dark d-inline-flex align-items-center mb-3">
+                                    <i class="ti ti-arrow-wave-right-down me-1"></i> +8.9%
+                                </span>
+                                <!-- Chart Container -->
+                                <div class="chart-container">
+                                    <canvas id="lowPriorityTicketsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket List -->
+    <div class="row">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                    <h5 class="mb-0">Ticket List</h5>
+                    <div class="d-flex align-items-center flex-wrap row-gap-3">
+                        <!-- Priority Filter -->
+                        <div class="me-2">
+                            <label for="priorityFilter" class="me-2 fw-medium">Priority:</label>
+                            <select id="priorityFilter" class="form-select form-select-sm w-auto">
+                                <option value="All">All</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <!-- Status Filter -->
+                        <div class="me-2">
+                            <label for="statusFilter" class="me-2 fw-medium">Status:</label>
+                            <select id="statusFilter" class="form-select form-select-sm w-auto">
+                                <option value="All">All</option>
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Hold">Hold</option>
+                            </select>
+                        </div>
+
+
+                        <!-- Sort By Date -->
+                        <div>
+                            <label for="sortByDate" class="me-2 fw-medium">Sort by:</label>
+                            <select id="sortByDate" class="form-select form-select-sm w-auto">
+                                <option value="Newest">Newest First</option>
+                                <option value="Oldest">Oldest First</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main Content (70%) -->
+        <div class="col-xl-9 col-md-8">
+            <!-- List View -->
+            <div id="listView" class="row">
+                @foreach (var ticket in Model)
+                {
+                    var priorityColor = ticket.Priority switch
+                    {
+                        "High" => "badge-danger",
+                        "Medium" => "badge-warning",
+                        "Low" => "badge-success",
+                        _ => "badge-secondary"
+                    };
+
+                    var statusColor = ticket.Status switch
+                    {
+                        "Open" => "bg-outline-pink",
+                        "Pending" => "bg-outline-warning",
+                        "Closed" => "bg-outline-secondary",
+                        _ => "bg-outline-dark"
+                    };
+
+                    var timeSinceUpdate = (DateTime.Now - ticket.CreatedAt).TotalHours;
+                    var updatedTime = timeSinceUpdate < 1 ? "Just now" : $"Updated {Math.Floor(timeSinceUpdate)} hours ago";
+
+                    <div class="col-md-12 mb-4 ticket-item" data-priority="@ticket.Priority" data-status="@ticket.Status" data-createdat="@ticket.CreatedAt">
+                        <div class="card">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h5 class="text-info fw-medium">@ticket.EventCategory</h5>
+                                <span class="badge @priorityColor"><i class="ti ti-circle-filled fs-5 me-1"></i>@ticket.Priority</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="badge bg-info text-white rounded-pill px-3 py-1"><strong>Ticket ID:</strong> @ticket.TicketId</p>
+                                <div class="d-flex justify-content-start align-items-center">
+                                    <h5 class="me-2"><a href="ticket-details.html">@ticket.TicketTitle</a></h5>
+                                    <span class="badge @statusColor"><i class="ti ti-circle-filled fs-5 me-1"></i>@ticket.Status</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
+                                    <p>Assigned to @ticket.AssignedToUser?.FirstName @ticket.AssignedToUser?.LastName</p>
+                                    <p>Assigned by @ticket.AssignedByUser?.FirstName @ticket.AssignedByUser?.LastName</p>
+                                    <p>@updatedTime</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Card View -->
+            <div id="cardView" class="row d-none">
+                @foreach (var ticket in Model)
+                {
+                    var priorityColorCard = ticket.Priority switch
+                    {
+                        "High" => "badge-danger",
+                        "Medium" => "badge-warning",
+                        "Low" => "badge-success",
+                        _ => "badge-secondary"
+                    };
+
+                    <div class="col-xl-3 col-lg-4 col-md-6 ticket-item" data-priority="@ticket.Priority" data-status="@ticket.Status" data-createdat="@ticket.CreatedAt">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <a href="ticket-details.html" class="avatar avatar-xl avatar-rounded border-primary">
+                                        <img src=@ViewBag.ProfilePicture class="img-fluid" alt="img">
+                                    </a>
+                                </div>
+                                <div class="text-center mb-3">
+                                    <h6><a href="ticket-details.html">@ticket.TicketTitle</a></h6>
+                                    <span class="badge bg-info-transparent">Tic - @ticket.TicketId</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Category</span>
+                                    <h6 class="fw-medium">@ticket.EventCategory</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>Status</span>
+                                    <span class="badge bg-outline-secondary">@ticket.Status</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Priority</span>
+                                    <span class="badge @priorityColorCard"><i class="ti ti-circle-filled fs-5 me-1"></i>@ticket.Priority</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Sidebar (30%) -->
+        <div class="col-xl-3 col-md-4">
+            <div class="card shadow-sm border">
+                <div class="card-body p-0">
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        var count = ViewBag.TicketCountsPerCategory.ContainsKey(category.CategoryName)
+                        ? ViewBag.TicketCountsPerCategory[category.CategoryName]
+                        : 0;
+
+                        <div class="d-flex align-items-center justify-content-between border-bottom p-3">
+                            <a href="javascript:void(0);">@category.CategoryName</a>
+                            <div class="d-flex align-items-center">
+                                <span class="badge badge-xs bg-dark rounded-circle">@count</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
+<!-- Create Ticket Modal -->
+<div class="modal" id="createTicketModal" tabindex="-1" aria-labelledby="createTicketModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-action="Create">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createTicketModalLabel">Create Ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="TicketTitle" class="form-label">Ticket Title</label>
+                        <input type="text" class="form-control" id="TicketTitle" name="TicketTitle" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="EventCategory" class="form-label">Event Category</label>
+                        <select class="form-select" id="EventCategory" name="EventCategory" required>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.CategoryName">@category.CategoryName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="Subject" name="Subject" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="AssignedTo" class="form-label">Assign To</label>
+                        <select class="form-select" id="AssignedTo" name="AssignedTo" required>
+                            @foreach (var user in ViewBag.Users)
+                            {
+                                <option value="@user.UserId">@user.FullName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Priority" class="form-label">Priority</label>
+                        <select class="form-select" id="Priority" name="Priority" required>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Status" class="form-label">Status</label>
+                        <select class="form-select" id="Status" name="Status" required>
+                            <option value="Open" selected>Open</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Hold">Hold</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="TicketDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="TicketDescription" name="TicketDescription" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Create Category Modal -->
+<div class="modal" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-action="CreateCategory">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createCategoryModalLabel">Create Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="CategoryName" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="CategoryName" name="CategoryName" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.getElementById('listViewBtn').addEventListener('click', function () {
+        document.getElementById('listView').classList.remove('d-none');
+        document.getElementById('cardView').classList.add('d-none');
+        this.classList.add('bg-primary', 'text-white');
+        document.getElementById('cardViewBtn').classList.remove('bg-primary', 'text-white');
+    });
+
+    document.getElementById('cardViewBtn').addEventListener('click', function () {
+        document.getElementById('cardView').classList.remove('d-none');
+        document.getElementById('listView').classList.add('d-none');
+        this.classList.add('bg-primary', 'text-white');
+        document.getElementById('listViewBtn').classList.remove('bg-primary', 'text-white');
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function createChart(ctx, label, data, backgroundColor, borderColor) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Array(data.length).fill(''), // Remove month labels
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }, // Hide legend
+                    tooltip: { enabled: false } // Hide tooltips
+                },
+                scales: {
+                    x: { display: false }, // Hide X-axis
+                    y: { display: false }  // Hide Y-axis
+                }
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        createChart(document.getElementById('openTicketsChart').getContext('2d'), 'Open Tickets', [8, 5, 6, 3, 4, 6, 7, 3, 8, 6, 4, 7], "rgba(54, 162, 235, 0.6)", "rgba(54, 162, 235, 1)");
+        createChart(document.getElementById('inProgressTicketsChart').getContext('2d'), 'In Progress Tickets', [5, 7, 6, 4, 8, 3, 6, 7, 9, 5, 6], "rgba(255, 159, 64, 0.6)", "rgba(255, 159, 64, 1)");
+        createChart(document.getElementById('highPriorityTicketsChart').getContext('2d'), 'High Priority Tickets', [9, 6, 5, 8, 7, 4, 6, 3, 5, 8, 6], "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 1)");
+        createChart(document.getElementById('lowPriorityTicketsChart').getContext('2d'), 'Low Priority Tickets', [4, 6, 7, 3, 5, 6, 8, 5, 7, 3, 6], "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 1)");
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const priorityFilter = document.getElementById("priorityFilter");
+        const statusFilter = document.getElementById("statusFilter");
+        const sortByDate = document.getElementById("sortByDate");
+
+        function applyFilters() {
+            let selectedPriority = priorityFilter.value;
+            let selectedStatus = statusFilter.value;
+            let sortOrder = sortByDate.value;
+
+            let listView = document.getElementById("listView");
+            let cardView = document.getElementById("cardView");
+
+            let listTickets = Array.from(listView.children);
+            let cardTickets = Array.from(cardView.children);
+
+            function filterAndSortTickets(tickets, view) {
+                // Filter by Priority & Status
+                tickets.forEach(ticket => {
+                    let ticketPriority = ticket.getAttribute("data-priority");
+                    let ticketStatus = ticket.getAttribute("data-status");
+
+                    let priorityMatch = selectedPriority === "All" || ticketPriority === selectedPriority;
+                    let statusMatch = selectedStatus === "All" || ticketStatus === selectedStatus;
+
+                    if (priorityMatch && statusMatch) {
+                        ticket.classList.remove("d-none");
+                    } else {
+                        ticket.classList.add("d-none");
+                    }
+                });
+
+                // Sort by CreatedAt Date
+                let visibleTickets = tickets.filter(ticket => !ticket.classList.contains("d-none"));
+                visibleTickets.sort((a, b) => {
+                    let dateA = new Date(a.getAttribute("data-createdat"));
+                    let dateB = new Date(b.getAttribute("data-createdat"));
+
+                    return sortOrder === "Newest" ? dateB - dateA : dateA - dateB;
+                });
+
+                // Reorder elements in DOM
+                visibleTickets.forEach(ticket => view.appendChild(ticket));
+            }
+
+            // Apply filtering and sorting to both views
+            filterAndSortTickets(listTickets, listView);
+            filterAndSortTickets(cardTickets, cardView);
+        }
+
+        // Attach event listeners
+        priorityFilter.addEventListener("change", applyFilters);
+        statusFilter.addEventListener("change", applyFilters);
+        sortByDate.addEventListener("change", applyFilters);
+
+        // Run filters initially to apply default sorting and filtering
+        applyFilters();
+    });
+</script>

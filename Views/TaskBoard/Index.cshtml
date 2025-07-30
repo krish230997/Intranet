@@ -1,0 +1,350 @@
+﻿@model IEnumerable<dynamic>
+
+<partial name="Notification"></partial>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+	<div class="my-auto mb-2">
+		<h2 class="mb-1">Task Board</h2>
+		<nav>
+			<ol class="breadcrumb mb-0">
+				<li class="breadcrumb-item">
+					<a href="index.html"><i class="ti ti-smart-home"></i></a>
+				</li>
+				<li class="breadcrumb-item">
+					Projects
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Task Board</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+		<div class="dropdown me-2">
+			<a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+				<i class="ti ti-file-export me-2"></i> Export
+			</a>
+			<ul class="dropdown-menu  dropdown-menu-end p-3">
+				<li>
+					<a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+				</li>
+			</ul>
+		</div>
+		<a asp-controller="TaskAssign" asp-action="TaskBoard" class="btn btn-primary d-inline-flex align-items-center">
+			<i class="ti ti-circle-plus me-1"></i>Add New Board
+		</a>
+		<div class="head-icons ms-2 mb-0">
+			<a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+				<i class="ti ti-chevrons-up"></i>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="card">
+	@foreach (var project in Model)
+	{
+		<div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+			<h3 class="text-black  p-2 rounded-2 me-4">@project.ProjectName</h3>
+			<div class="d-flex align-items-center flex-wrap row-gap-3">
+
+				<div class="d-flex align-items-center me-3">
+					<p class="mb-0 me-3 pe-3 border-end fs-14">Total Task : <span class="text-dark">@project.TotalTasks</span></p>
+					<p class="mb-0 me-3 pe-3 border-end fs-14">Pending : <span class="text-dark">@project.PendingTasks</span></p>
+					<p class="mb-0 fs-14">Completed : <span class="text-dark">@project.CompletedTasks</span></p>
+				</div>
+				<div class="input-icon-start position-relative">
+					<form method="get" action="@Url.Action("Index", "TaskBoard")" class="d-flex align-items-center gap-2">
+						<span class="input-icon-addon">
+							<i class="ti ti-search"></i>
+						</span>
+						<input type="text" name="searchQuery" class="form-control" placeholder="Search Project">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="d-flex align-items-center flex-wrap row-gap-3 mb-3">
+						<h6 class="me-2">Priority</h6>
+						<ul class="nav nav-pills border d-inline-flex p-1 rounded bg-light todo-tabs" id="pills-tab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto active" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-selected="true">All</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-selected="false">High</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto" data-bs-toggle="pill" data-bs-target="#pills-medium" type="button" role="tab" aria-selected="false">Medium</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto" data-bs-toggle="pill" data-bs-target="#pills-low" type="button" role="tab" aria-selected="false">Low</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="d-flex align-items-center justify-content-lg-end flex-wrap row-gap-3 mb-3">
+
+						<div class="dropdown me-2">
+							<a href="javascript:void(0);" id="statusDropdown" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+								Select Status
+							</a>
+							<ul class="dropdown-menu dropdown-menu-end p-3">
+								<li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-status="Inprogress">Inprogress</a></li>
+								<li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-status="Onhold">Onhold</a></li>
+								<li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-status="Completed">Completed</a></li>
+							</ul>
+						</div>
+						@* <div class="d-flex align-items-center border rounded p-2">
+							<span class="d-inline-flex me-2">Sort By :</span>
+							<div class="dropdown">
+								<a href="javascript:void(0);" id="sortDropdown" class="dropdown-toggle btn btn-white d-inline-flex align-items-center border-0 bg-transparent p-0 text-dark" data-bs-toggle="dropdown">
+									Created Date
+								</a>
+								<ul class="dropdown-menu dropdown-menu-end p-3">
+									<li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="CreatedDate">Created Date</a></li>
+									<li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="High">High</a></li>
+									<li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="Medium">Medium</a></li>
+								</ul>
+							</div>
+						</div> *@
+					</div>
+				</div>
+			</div>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+					<div class="d-flex align-items-start overflow-auto project-status pb-4">
+						<div class="p-3 rounded bg-transparent-secondary w-100 me-3">
+							<div class="bg-white p-2 rounded mb-2">
+								<div class="kanban-board d-flex flex-wrap">
+									@foreach (var status in ViewBag.Statuses as List<string>)
+									{
+										<div class="kanban-column flex-fill p-2" style="min-width: 250px; max-width: 25%;">
+											<h4 class="text-center bg-light p-3 rounded shadow-sm mb-2">@status</h4>
+											<div class="kanban-drag-wrap bg-light p-3 rounded shadow-sm" style="min-height: 150px; border: 1px solid #e0e0e0;">
+
+												@foreach (var task in ((IEnumerable<dynamic>)project.Tasks).Where(t => t.Status.Equals(status, StringComparison.OrdinalIgnoreCase)))
+												{
+													<div class="card kanban-card mb-3 shadow-sm rounded-3 border" style="border-color: #e0e0e0;">
+														<div class="card-body">
+															<div class="d-flex align-items-center justify-content-between mb-2">
+																<span class="badge bg-outline-dark me-2">@task.Priority</span>
+																<div class="dropdown">
+																	<a href="javascript:void(0);" data-bs-toggle="dropdown">
+																		<i class="ti ti-dots-vertical"></i>
+																	</a>
+																	<ul class="dropdown-menu dropdown-menu-end p-2">
+																		<li>
+																			<a href="@Url.Action("Edit", "Task", new { taskId = task.TaskId })" class="dropdown-item">
+																				<i class="ti ti-edit me-2"></i>Edit
+																			</a>
+																		</li>
+																		<li>
+																			<a href="@Url.Action("Delete", "Task", new { taskId = task.TaskId }) " class="dropdown-item">
+																				<i class="ti ti-trash me-2"></i>Delete
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+
+															<h6 class="card-title">@task.Title</h6>
+
+															<div class="progress progress-sm mb-2">
+																<div class="progress-bar bg-warning" style="width: @(task.Percentage)%">
+																	@(task.Percentage)%
+																</div>
+															</div>
+
+															<p class="fw-medium mb-0">
+																Due on:
+																<span class="text-gray-9">
+																	@(task.DueDate?.ToString("dd MMM yyyy") ?? "N/A")
+																</span>
+															</p>
+
+															<div class="d-flex align-items-center justify-content-between border-top pt-2 mt-2">
+																<div class="avatar-list-stacked avatar-group-sm me-3">
+																	@if (task.Members != null && task.Members.Count > 0)
+																	{
+																		int counter = 0;
+																		@foreach (var pic in task.Members)
+																		{
+																			if (counter >= 3) { break; } // Show only 3 images
+																			<span class="avatar border-0">
+																				<img src="/@pic" alt="Profile Picture" width="40" height="40" style="border-radius:50%;">
+																			</span>
+																			counter++;
+																		}
+																		@if (task.Members.Count > 3)
+																		{
+																			<span class="avatar group-counts bg-primary rounded-circle border-0 fs-10">
+																				+@(task.Members.Count - 3)
+																			</span>
+																		}
+																	}
+																</div>
+															</div>
+
+														</div>
+													</div>
+												}
+
+												<div class="pt-2">
+													<a asp-action="Task" asp-controller="Task" class="btn btn-white border border-dashed d-flex align-items-center justify-content-center">
+														<i class="ti ti-plus me-2"></i> New Task
+													</a>
+												</div>
+
+												@if (!((IEnumerable<dynamic>)project.Tasks).Any(t => t.Status.Equals(status, StringComparison.OrdinalIgnoreCase)))
+												{
+													<p class="text-center text-muted">No tasks</p>
+												}
+
+											</div>
+										</div>
+									}
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}
+
+</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const searchInput = document.querySelector('input[name="searchQuery"]');
+		const priorityButtons = document.querySelectorAll(".todo-tabs button");
+		const statusDropdownItems = document.querySelectorAll('.dropdown-menu a.dropdown-item');
+		const sortDropdownItems = document.querySelectorAll('.dropdown-menu a.dropdown-item');
+
+		function filterTasks() {
+			const searchValue = searchInput.value.toLowerCase();
+			const activePriority = document.querySelector(".todo-tabs .nav-link.active")?.textContent.trim();
+			const activeStatus = document.querySelector(".dropdown-menu a.active")?.textContent.trim();
+
+			document.querySelectorAll(".kanban-card").forEach(card => {
+				const taskTitle = card.querySelector(".card-title").textContent.toLowerCase();
+				const taskPriority = card.querySelector(".badge")?.textContent.trim();
+				const taskStatus = card.closest(".kanban-column")?.querySelector("h4").textContent.trim();
+
+				let matchesSearch = taskTitle.includes(searchValue);
+				let matchesPriority = !activePriority || activePriority === "All" || taskPriority === activePriority;
+				let matchesStatus = !activeStatus || taskStatus === activeStatus;
+
+				card.style.display = (matchesSearch && matchesPriority && matchesStatus) ? "block" : "none";
+			});
+		}
+
+		function sortTasks(sortBy) {
+			document.querySelectorAll(".kanban-drag-wrap").forEach(column => {
+				let tasks = Array.from(column.querySelectorAll(".kanban-card"));
+
+				tasks.sort((a, b) => {
+					if (sortBy === "High" || sortBy === "Medium") {
+						let priorityOrder = { "High": 1, "Medium": 2, "Low": 3 };
+						let priorityA = priorityOrder[a.querySelector(".badge").textContent.trim()] || 99;
+						let priorityB = priorityOrder[b.querySelector(".badge").textContent.trim()] || 99;
+						return priorityA - priorityB;
+					} else {
+						let dateA = new Date(a.querySelector(".text-gray-9").textContent.trim() || "1970-01-01");
+						let dateB = new Date(b.querySelector(".text-gray-9").textContent.trim() || "1970-01-01");
+						return dateA - dateB;
+					}
+				});
+
+				column.innerHTML = "";
+				tasks.forEach(task => column.appendChild(task));
+			});
+		}
+
+		searchInput.addEventListener("input", filterTasks);
+
+		priorityButtons.forEach(button => {
+			button.addEventListener("click", function () {
+				document.querySelector(".todo-tabs .active")?.classList.remove("active");
+				this.classList.add("active");
+				filterTasks();
+			});
+		});
+
+		statusDropdownItems.forEach(item => {
+			item.addEventListener("click", function () {
+				document.querySelector(".dropdown-menu a.active")?.classList.remove("active");
+				this.classList.add("active");
+				filterTasks();
+			});
+		});
+
+		sortDropdownItems.forEach(item => {
+			item.addEventListener("click", function () {
+				sortTasks(this.textContent.trim());
+			});
+		});
+
+	});
+
+	$(document).ready(function () {
+		$(".dropdown-menu .dropdown-item").click(function () {
+			var selectedStatus = $(this).data("status"); // Get selected status
+
+			$("#statusDropdown").text(selectedStatus); // Update button text
+
+			filterTable(selectedStatus); // Apply filtering
+		});
+
+		$(".dropdown-menu .dropdown-item").click(function () {
+			var selectedSort = $(this).data("sort"); // Get selected sort option
+			$("#sortDropdown").text($(this).text()); // Update button text
+			sortTable(selectedSort); // Apply sorting function
+		});
+	});
+
+	function filterTable(status) {
+		$("#projectsTable tbody tr").each(function () {
+			var rowStatus = $(this).find(".statusColumn").text().trim();
+
+			if (status === "All" || rowStatus === status) {
+				$(this).show();
+			} else {
+				$(this).hide();
+			}
+		});
+	}
+
+	
+
+	function sortTable(sortBy) {
+		var rows = $("#projectsTable tbody tr").get(); // Get all table rows
+
+		rows.sort(function (a, b) {
+			var valA, valB;
+
+			if (sortBy === "CreatedDate") {
+				valA = new Date($(a).find(".createdDateColumn").text().trim()); // Get Created Date
+				valB = new Date($(b).find(".createdDateColumn").text().trim());
+				return valA - valB; // Sort by date
+			}
+			else if (sortBy === "High" || sortBy === "Medium") {
+				valA = $(a).find(".priorityColumn").text().trim(); // Get Priority text
+				valB = $(b).find(".priorityColumn").text().trim();
+				var order = ["High", "Medium", "Low"];
+				return order.indexOf(valA) - order.indexOf(valB); // Sort by priority
+			}
+			return 0;
+		});
+
+		$.each(rows, function (index, row) {
+			$("#projectsTable tbody").append(row); // Reorder table rows
+		});
+	}
+</script>
+

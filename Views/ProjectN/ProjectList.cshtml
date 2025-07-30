@@ -1,0 +1,246 @@
+﻿@* @model IEnumerable<Pulse360.Models.Projects> *@
+
+ @model IEnumerable<dynamic>
+
+<partial name="Notification"></partial>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Projects</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">Employee</li>
+                <li class="breadcrumb-item active" aria-current="page">Projects List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+        <div class="me-2 mb-2">
+            <div class="d-flex right-content align-items-center border bg-white rounded p-1 me-2 icon-list">
+                <a asp-action="ProjectList" asp-controller="ProjectN" class="btn btn-icon btn-sm active me-1"><i class="ti ti-list-tree"></i></a>
+                <a asp-action="ProjectGrid" asp-controller="ProjectN" class="btn btn-icon btn-sm "><i class="ti ti-layout-grid"></i></a>
+            </div>
+        </div>
+        <div class="dropdown me-2 mb-2">
+            <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                <i class="ti ti-file-export me-1"></i>Export
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end p-3">
+                <li><a class="dropdown-item rounded-1 exportPdf" href="#"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a></li>
+                <li><a class="dropdown-item rounded-1 exportExcel" href="#"><i class="ti ti-file-type-xls me-1"></i>Export as Excel</a></li>
+
+            </ul>
+        </div>
+        <div class="mb-2">
+            <a asp-controller="ProjectN" asp-action="ProjectUpload" class="btn btn-primary d-flex align-items-center">
+                <i class="ti ti-circle-plus me-2"></i>Add Project
+            </a>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5>Project List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <!-- Status Filter -->
+            <div class="dropdown me-3">
+                <select id="statusFilter" class="form-select">
+                    <option value="all">All</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+            <!-- Sort By Filter -->
+            <div class="dropdown">
+                <div class="d-flex align-items-center">
+                    <label class="me-2 mb-0">Sort By:</label>
+                    <select id="sortBy" class="form-select">
+                        <option value="ascending">Ascending</option>
+                        <option value="descending">Descending</option>
+                        <option value="recent7">Last 7 Days</option>
+                        <option value="recentlyAdded">Recently Added</option>
+                        <option value="lastMonth">Last Month</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table" id="attendanceTable">
+            <thead class="thead-light">
+                <tr>
+                    <th>Project Id</th>
+                    <th>Project Name</th>
+                    <th>Team Members</th>
+                    <th>Deadline</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model)
+                {
+                    <tr>
+                        <td>@project.ProjectId</td>
+                        <td><h6 class="fw-medium">@project.ProjectName</h6></td>
+                        <td>
+                            <div class="avatar-list-stacked avatar-group-sm">
+
+                                @foreach (var pic in project.Members) // Iterating through profile pictures list
+                                {
+                                    <span class="avatar border-0">
+                                        <img src="/@pic" alt="Profile Picture" width="40" height="40" style="border-radius:50%;">
+                                    </span>
+
+                                }
+                                @if (project.Members?.Count > 3)
+                                {
+                                    <span class="avatar group-counts bg-primary rounded-circle border-0 fs-10">
+                                        +@(project.Members.Count - 3)
+                                    </span>
+                                }
+                            </div>
+                        </td>
+                        <td>@project.EndDate.ToString("yyyy-MM-dd")</td>
+                        @* <td>@project.Priority</td> *@
+
+                        <td>
+                            <div class="d-inline-flex align-items-center">
+                                <span class="rounded-circle d-flex justify-content-center align-items-center me-2
+        @(project.Priority == "High" ? "bg-transparent-danger" : project.Priority == "Medium" ? "bg-transparent-warning" : "bg-transparent-success")">
+                                    <i class="ti ti-point-filled
+            @(project.Priority == "High" ? "text-danger" : project.Priority == "Medium" ? "text-warning" : "text-success")">
+                                    </i>
+                                </span>
+                                @project.Priority
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="badge @(project.Status == "Active" ? "badge-success" : "badge-danger") d-inline-flex align-items-center badge-xs">
+                                <i class="ti ti-point-filled me-1"></i>@project.Status
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="ProjectN" asp-route-id="@project.ProjectId"><i class="ti ti-edit"></i></a>
+                            &nbsp;
+                            <a asp-controller="ProjectN" asp-action="Delete" asp-route-id="@project.ProjectId" onclick="return confirm('Are you sure to delete this record?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons Extension -->
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#attendanceTable').DataTable({
+                pageLength: 10,
+                lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+                dom: 'lfrtip',
+                language: {
+                    search: "Search:",
+                    lengthMenu: "Show _MENU_ entries per page",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },  // For DataTables buttons (we manually trigger them)
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Project List',
+                        exportOptions: { columns: ':visible' }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Project List',
+                        exportOptions: { columns: ':visible' }
+                    }
+                ]
+            });
+
+            // Bind Dropdown Clicks to DataTable Buttons (manual export)
+            $('.exportPdf').on('click', function (e) {
+                e.preventDefault();
+                table.button(0).trigger();
+            });
+            $('.exportExcel').on('click', function (e) {
+                e.preventDefault();
+                table.button(1).trigger();
+            });
+
+            // Status Filter (change event)
+            $('#statusFilter').on('change', function () {
+                var status = $(this).val();
+                console.log("Selected Status:", status);
+
+                if (status === 'all') {
+                    table.column(4).search('').draw();  // Reset search for 'All'
+                } else {
+                    table.column(4).search('^' + status + '$', true, true).draw();  // Exact match search
+                }
+            });
+
+            // Sort By Filter
+            $('#sortBy').on('change', function () {
+                var sortType = $(this).val();
+
+                if (sortType === 'ascending' || sortType === 'descending') {
+                    table.order([3, sortType === 'ascending' ? 'asc' : 'desc']).draw();  // Sort by Deadline (column 3)
+                } else if (sortType === 'recentlyAdded') {
+                    table.order([0, 'desc']).draw();  // Sort by Project ID (descending)
+                } else if (sortType === 'recent7') {
+                    filterByDateRange(7);   // Last 7 Days
+                } else if (sortType === 'lastMonth') {
+                    filterByDateRange(30);  // Last 30 Days
+                }
+            });
+
+            // Date Range Filter Function (for recent 7 days, last month, etc.)
+            function filterByDateRange(days) {
+                var currentDate = new Date();
+                var pastDate = new Date();
+                pastDate.setDate(currentDate.getDate() - days);
+
+                $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                    var date = new Date(data[3]);  // Deadline (column 3)
+                    return date >= pastDate && date <= currentDate;
+                });
+
+                table.draw();
+                $.fn.dataTable.ext.search.pop();  // Clear filter after drawing
+            }
+        });
+    </script>
+}
+

@@ -1,0 +1,211 @@
+﻿@model List<GoalTypeList>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, html5, responsive, Projects">
+    <meta name="author" content="Dreams technologies - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Smarthr Admin Template</title>
+
+
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+
+
+        <div class="content">
+
+            <!-- Breadcrumb -->
+            <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+                <div class="my-auto mb-2">
+                    <h2 class="mb-1">Goal Type</h2>
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Performance
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Add New Goal Type</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+                    <div class="mb-2">
+                        <a class="btn btn-primary" asp-action="AddGoal">Add Goal</a>
+
+
+                    </div>
+                    <div class="head-icons ms-2">
+                        <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                            <i class="ti ti-chevrons-up"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /Breadcrumb -->
+            <!-- Performance Indicator list -->
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                    <h5>Goal Type List</h5>
+                    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+
+                        <div class="dropdown">
+
+                            <select class="form-select form-select-sm me-3" id="sortFilter" onchange="sortTable();">
+
+                                <option value="recent">Recently Added</option>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                                <option value="lastMonth">Last Month</option>
+                                <option value="last7Days">Last 7 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body ">
+
+                    <table class="table" id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceList">
+                            @foreach (var d in Model)
+                            {
+                                <tr>
+                                    <td>@d.GoalId</td>
+                                    <td>@d.GoalType</td>
+                                    <td>@d.Description</td>
+                                    <td>
+                                        @if (d.Status == "Active")
+                                        {
+                                            <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Active
+                                            </span>
+                                        }
+                                        else if (d.Status == "Inactive")
+                                        {
+                                            <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>Inactive
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-secondary d-inline-flex align-items-center badge-xs">
+                                                <i class="ti ti-point-filled me-1"></i>@d.Status
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="EditGoalType" asp-route-id="@d.GoalId"
+                                           class="me-2">
+                                            <i class="ti ti-edit"></i>
+                                        </a>
+                                        <form asp-action="DeleteGoalType" asp-route-id="@d.GoalId" method="post" class="d-inline">
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this goal type?');" style="background:none;border:none">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <!-- /Performance Indicator list -->
+
+        </div>
+
+        <div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+            <p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+            <p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+        </div>
+
+
+
+
+    </div>
+    <!-- /Main Wrapper -->
+    @section Scripts {
+        <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                var table = $('#attendanceTable').DataTable({
+                    pageLength: 5,  // Default number of rows per page
+                    lengthMenu: [[5, 10, 25, 50, -1], ["5", "10", "25", "50", "All"]], // Custom dropdown labels
+                    dom: 'lfrtip', // Layout (length menu, filter, table, pagination)
+                    language: {
+                        searchPlaceholder: "Search", // Placeholder text for search box
+                        search: "", // Hide default "Search:" label
+                        lengthMenu: "<span style='margin-left:20px;'>Rows Per Page : _MENU_  Entries", // Custom text for entries per page dropdown
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "Next",
+                            previous: "Previous"
+                        }
+                    },
+                    columnDefs: [
+                        { "type": "id", "targets": 0 }  // Ensure the Created Date column is treated as a date
+                    ]
+                });
+
+                // Update the number of rows per page based on user selection
+                $('#rowsPerPage').on('change', function () {
+                    var rows = $(this).val();
+                    table.page.len(rows).draw();  // Update the table with the new rows per page
+                });
+
+                // Sorting functionality for Ascending, Descending, and Recently Added
+                $('#sortFilter').on('change', function () {
+                    var value = $(this).val();
+                    switch (value) {
+                        case 'recent':
+                            // Sort by Created Date in descending order (most recent first)
+                            table.order([0, 'desc']).draw();  // Assuming Created Date is in column 4 (index 4)
+                            break;
+                        case 'asc':
+                            // Sort by Created Date in ascending order
+                            table.order([0, 'asc']).draw();  // Assuming Created Date is in column 4 (index 4)
+                            break;
+                        case 'desc':
+                            // Sort by Created Date in descending order
+                            table.order([0, 'desc']).draw();  // Assuming Created Date is in column 4 (index 4)
+                            break;
+                    }
+                });
+            });
+        </script>
+    }
+
+</body>
+
+</html>

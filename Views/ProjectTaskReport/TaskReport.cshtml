@@ -1,0 +1,429 @@
+﻿<!-- Breadcrumb -->
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Task Report</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    HR
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Task Report</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="mb-2">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu  dropdown-menu-end p-3">
+                    <li>
+                        <a asp-action="TaskExportToPDF" asp-controller="ProjectTaskReport" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                    </li>
+                    <li>
+                        <a asp-action="TaskExportToExcel" asp-controller="ProjectTaskReport" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+<div class="row">
+
+    <!-- Total Exponses -->
+    <div class="col-lg-6 col-md-6 d-flex">
+        <div class="row flex-fill">
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <div>
+                                    <span class="fs-14 fw-normal text-truncate mb-1">Total Tasks</span>
+                                    <h5>@ViewBag.TotalTasks</h5>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <p class="data-attributes">
+                                    <span class="peity-chart" data-peity='{ "fill": ["#F26522", "rgba(67, 87, 133, .09)"], "innerRadius": 16, "radius": 32 }'>100%</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <div>
+                                    <span class="fs-14 fw-normal text-truncate mb-1">Completed Tasks</span>
+                                    <h5>@ViewBag.Completed</h5>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <p class="data-attributes">
+                                    <span class="peity-chart" data-peity='{ "fill": ["#03C95A", "rgba(67, 87, 133, .09)"], "innerRadius": 16, "radius": 32 }'>@ViewBag.CompletedPercentage/100</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <div>
+                                    <span class="fs-14 fw-normal text-truncate mb-1">OnHold Tasks</span>
+                                    <h5>@ViewBag.OnHold</h5>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <p class="data-attributes">
+                                    <span class="peity-chart" data-peity='{ "fill": ["#F26522", "rgba(67, 87, 133, .09)"], "innerRadius": 16, "radius": 32 }'>@ViewBag.OnHoldPercentage/100</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-body ">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <div>
+                                    <span class="fs-14 fw-normal text-truncate mb-1">Overdue Tasks</span>
+                                    <h5>@ViewBag.Overdue</h5>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <p class="data-attributes">
+                                    <span class="peity-chart" data-peity='{ "fill": ["#03C95A", "rgba(67, 87, 133, .09)"], "innerRadius": 16, "radius": 32 }'>@ViewBag.OverduePercentage/100</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Total Exponses -->
+    <!-- Total Exponses -->
+    <div class="col-lg-6 col-md-6 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header border-0">
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="d-flex align-items-center ">
+                        <span class="me-2"><i class="ti ti-chart-pie text-danger"></i></span>
+                        <h5>Tasks</h5>
+                    </div>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class=" btn btn-sm fs-12 btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                            Task Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row align-items-center">
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                        <div class="position-relative payment-total">
+                            <div>
+                                <canvas id="pieChart" width="200" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <div class="d-flex task-report-icons">
+                                    <span class="me-2"><i class="ti ti-arrow-badge-right-filled text-success"></i></span>
+                                    <h6 class="fs-16">Completed <span class="fs-14 fw-normal">@ViewBag.Completed%</span></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex task-report-icons">
+                                    <span class="me-2"><i class="ti ti-arrow-badge-right-filled text-skyblue"></i></span>
+                                    <h6 class="fs-16">Pending<br /> <span class="fs-14 fw-normal">@ViewBag.Overdue%</span></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex task-report-icons">
+                                    <span class="me-2"><i class="ti ti-arrow-badge-right-filled text-warning"></i></span>
+                                    <h6 class="fs-16">Inprogress <br /><span class="fs-14 fw-normal">@ViewBag.InProgress%</span></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex task-report-icons">
+                                    <span class="me-2"><i class="ti ti-arrow-badge-right-filled text-purple"></i></span>
+                                    <h6 class="fs-16">On Hold<br /> <span class="fs-14 fw-normal">@ViewBag.OnHold%</span></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Total Exponses -->
+</div>
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5>Tasks List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            @*  <div class="me-3">
+            <div class="input-icon-end position-relative">
+            <input type="text" class="form-control date-range bookingrange" placeholder="dd/mm/yyyy - dd/mm/yyyy">
+            <span class="input-icon-addon">
+            <i class="ti ti-chevron-down"></i>
+            </span>
+            </div>
+            </div> *@
+            <div class="d-flex gap-3">
+                <select class="form-select" id="priorityDropdown">
+                    <option selected disabled>Select Priority</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+
+                <select class="form-select" id="statusDropdown">
+                    <option selected disabled>Select Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Inprogress">Inprogress</option>
+                    <option value="Onhold">Onhold</option>
+                </select>
+
+                <select class="form-select" id="sortDropdown">
+                    <option selected disabled>Sort By</option>
+                    <option value="Recently Added">Recently Added</option>
+                    <option value="Ascending">Ascending</option>
+                    <option value="Descending">Descending</option>
+                    <option value="Last Month">Last Month</option>
+                    <option value="Last 7 Days">Last 7 Days</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="custom-datatable-filter table-responsive">
+            <table class="table" id="TaskTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Task Name</th>
+                        <th>Project Name</th>
+                        <th>Due Date</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model)
+                    {
+                        <tr>
+                            <td>@t.TaskId</td>
+                            <td>@t.Title</td>
+                            <td>@t.Project?.ProjectName</td>
+                            <td>@t.Deadline.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                @if (t.Priority == "High")
+                                {
+                                    <span class="badge badge-danger-transparent">
+                                        <i class="ti ti-point-filled me-1"></i>High
+                                    </span>
+                                }
+                                else if (t.Priority == "Medium")
+                                {
+                                    <span class="badge badge-warning-transparent">
+                                        <i class="ti ti-point-filled me-1"></i>Medium
+                                    </span>
+                                }
+                                else if (t.Priority == "Low")
+                                {
+                                    <span class="badge badge-success-transparent">
+                                        <i class="ti ti-point-filled me-1"></i>Low
+                                    </span>
+                                }
+
+                            </td>
+                            <td>
+                                @if (t.Status == "Completed")
+                                {
+                                    <span class="badge badge-success d-inline-flex align-items-center badge-xs">
+                                        <i class="ti ti-point-filled me-1"></i>Completed
+                                    </span>
+                                }
+                                else if (t.Status == "Onhold")
+                                {
+                                    <span class="badge badge-warning d-inline-flex align-items-center badge-xs">
+                                        <i class="ti ti-point-filled me-1"></i>On Hold
+                                    </span>
+                                }
+                                else if (t.Status == "Inprogress")
+                                {
+                                    <span class="badge badge-primary d-inline-flex align-items-center badge-xs">
+                                        <i class="ti ti-point-filled me-1"></i>In Progress
+                                    </span>
+                                }
+                                else if (t.Status == "Pending")
+                                {
+                                    <span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+                                        <i class="ti ti-point-filled me-1"></i>Overdue
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+    <p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+    <p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+</div>
+
+@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peity/3.3.0/jquery.peity.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".peity-chart").peity("pie");
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.datatable').DataTable(); // Ensure class matches table
+        });
+
+        var taskData = @Html.Raw(ViewBag.JsonData); // Get dynamic data from the controller
+
+        // Extracting labels and counts
+        var labels = taskData.map(function (item) { return item.Status; });
+        var counts = taskData.map(function (item) { return item.Count; });
+
+        // Pie Chart configuration
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Task Status Distribution',
+                    data: counts,
+                    backgroundColor: ['#FF9800', '#4CAF50', '#ff6384', '#9C27B0', '#2196F3'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '80%',
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' tasks';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const priorityDropdown = document.getElementById("priorityDropdown");
+        const statusDropdown = document.getElementById("statusDropdown");
+        const sortDropdown = document.getElementById("sortDropdown");
+
+        function applyFilters() {
+            const priority = priorityDropdown.value !== "Select Priority" ? priorityDropdown.value : "";
+            const status = statusDropdown.value !== "Select Status" ? statusDropdown.value : "";
+            const sort = sortDropdown.value !== "Sort By" ? sortDropdown.value : "";
+
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (priority) {
+                urlParams.set("priority", priority);
+            } else {
+                urlParams.delete("priority");
+            }
+
+            if (status) {
+                urlParams.set("status", status);
+            } else {
+                urlParams.delete("status");
+            }
+
+            if (sort) {
+                urlParams.set("sort", sort);
+            } else {
+                urlParams.delete("sort");
+            }
+
+            window.location.search = urlParams.toString();
+        }
+
+        priorityDropdown.addEventListener("change", applyFilters);
+        statusDropdown.addEventListener("change", applyFilters);
+        sortDropdown.addEventListener("change", applyFilters);
+    });
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initialize DataTables
+        $('#TaskTable').DataTable({
+            "paging": true,    // Enable pagination
+            "searching": true, // Enable search functionality
+            "ordering": true,  // Enable sorting
+            "info": true,      // Display information
+            "pageLength": 10,   // Default number of rows per page
+        });
+    });
+</script>

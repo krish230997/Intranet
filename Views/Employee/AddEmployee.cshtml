@@ -1,0 +1,370 @@
+﻿@model User
+
+<input type="submit" value="Add Emp" class="btn btn-primary" id="openmod" />
+
+<button id="exportBtn" class="btn btn-success">Export</button>
+
+<br />
+<div class="col-lg-3 col-md-6 d-flex">
+	<div class="card flex-fill">
+		<div class="card-body d-flex align-items-center justify-content-between">
+			<div class="d-flex align-items-center overflow-hidden">
+				<div>
+					<span class="avatar avatar-lg bg-dark rounded-circle"><i class="ti ti-users"></i></span>
+				</div>
+				<div class="ms-2 overflow-hidden">
+					<p>Total Active Members: @ViewBag.ActiveMemberCount</p>
+					<p>Total Active Members: @ViewBag.InactiveMemberCount</p>
+					<p>Total Active Members: @ViewBag.TotalMemberCount</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p>Total Active Members: @ViewBag.ActiveMemberCount</p>
+<p>Total Active Members: @ViewBag.InactiveMemberCount</p>
+<p>Total Active Members: @ViewBag.TotalMemberCount</p>
+<br />
+
+<!-- Export Options Modal -->
+<div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exportModalLabel">Export Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<button id="exportToPDF" class="btn btn-primary">Export to PDF</button>
+				<button id="exportToExcel" class="btn btn-secondary">Export to Excel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<br />
+User List
+<select id="sts" class="form-control">
+	<option value="0">Status</option>
+	<option value="Active">Active</option>
+	<option value="Inactive">Inactive</option>
+</select>
+<select id="opt" class="form-control">
+	<option value="0">Sort By</option>
+	<option value="asc">ascending</option>
+	<option value="desc">descending</option>
+</select>
+<br />
+Row Per Page
+<select id="rows">
+	<option value="0">--Select--</option>
+	<option value="5">5</option>
+	<option value="10">10</option>
+	<option value="15">15</option>
+	<option value="20">20</option>
+</select>
+search
+<input type="text" id="inp" class="form-control" />
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="d-flex align-items-center">
+					<h4 class="modal-title me-2" id="exampleModalLabel">Add New Employee</h4><span>Employee  ID : EMP -0024</span>
+				</div>
+				<button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close">
+					<i class="ti ti-x"></i>
+				</button>
+			</div>
+			<form method="post" id="myempform" enctype="multipart/form-data">
+				<div class="contact-grids-tab">
+					<ul class="nav nav-underline" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#basic-info" type="button" role="tab" aria-selected="true">Basic Information</button>
+						</li>
+					</ul>
+				</div>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="basic-info" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
+						<div class="modal-body pb-0 ">
+							<div class="row">
+								<div class="col-md-12">
+									
+								
+							<div class="profile-upload">
+								<div class="mb-3">
+									<label class="form-label">Profile Image</label>
+											<input type="file" name="ProfilePicture" class="form-control" value="Choose">
+								</div>
+							</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">First Name <span class="text-danger"> *</span></label>
+										<input type="text" class="form-control" name="FirstName" placeholder="Enter FIrst Name" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Last Name</label>
+										<input type="text" class="form-control" name="LastName" placeholder="Enter Last Name" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Email <span class="text-danger"> *</span></label>
+										<input type="text" class="form-control" name="Email" placeholder="Enter Email" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Joining Date <span class="text-danger"> *</span></label>
+										<div class="input-icon-end position-relative">
+											<input type="text" class="form-control datetimepicker" name="DateOfJoining" placeholder="dd/mm/yyyy">
+											<span class="input-icon-addon">
+												<i class="ti ti-calendar text-gray-7"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Date of Birth <span class="text-danger"> *</span></label>
+										<div class="input-icon-end position-relative">
+											<input type="text" class="form-control datetimepicker" name="DateOfBirth" placeholder="dd/mm/yyyy">
+											<span class="input-icon-addon">
+												<i class="ti ti-calendar text-gray-7"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								@* <div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Email <span class="text-danger"> *</span></label>
+										<input type="text" class="form-control" name="Email" placeholder="Enter Email" />
+									</div>
+								</div> *@
+								<div class="col-md-6">
+									<div class="mb-3 ">
+										<label class="form-label">Password <span class="text-danger"> *</span></label>
+										<div class="pass-group">
+											<input type="password" class="form-control" name="PasswordHash" placeholder="Enter Password" />
+											<span class="ti toggle-password ti-eye-off"></span>
+										</div>
+									</div>
+								</div>
+								@* <div class="col-md-6">
+									<div class="mb-3 ">
+										<label class="form-label">Confirm Password <span class="text-danger"> *</span></label>
+										<div class="pass-group">
+											<input type="password" class="pass-inputs form-control">
+											<span class="ti toggle-passwords ti-eye-off"></span>
+										</div>
+									</div>
+								</div> *@
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Phone Number <span class="text-danger"> *</span></label>
+										<input type="text" class="form-control" name="PhoneNumber" placeholder="Enter Phone no" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Role</label>
+										<select name="RoleId" class="form-control" id="roleDropdown">
+											<option value="">-- Select Role --</option>
+											@foreach (var role in ViewBag.Roles)
+											{
+												<option value="@role.Value">@role.Text</option>
+											}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Department</label>
+										<select name="DepartmentId" class="form-control" id="departmentDropdown">
+											<option value="">-- Select Department --</option>
+											@foreach (var department in ViewBag.Departments)
+											{
+												<option value="@department.Value">@department.Text</option>
+											}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Designation</label>
+										<select name="DesignationtId" class="form-control">
+											<option value="">-- Select Designation --</option>
+											@foreach (var designation in ViewBag.Designations)
+											{
+												<option value="@designation.Value">@designation.Text</option>
+											}
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Reporting Manager</label>
+										<select name="ReportingManager" class="form-control" id="managerDropdown" disabled>
+											<option value="">-- Select Manager --</option>
+											@if (ViewBag.Managers != null)
+											{
+												foreach (var manager in ViewBag.Managers)
+												{
+													<option value="@manager.Value" data-department-id="@manager.DepartmentId">@manager.Text</option>
+												}
+											}
+										</select>
+										<!-- Hidden input to store the manager's name -->
+										<input type="hidden" name="ReportingManagerName" id="ReportingManagerName" />
+										<br />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Status</label>
+										<select class="form-control" name="Status">
+											<option>Active</option>
+											<option>Inactive</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label class="form-label">Gender</label>
+										<select class="form-control" name="Gender">
+											<option>Male</option>
+											<option>Female</option>
+										</select><br />
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="mb-3">
+										<label class="form-label">Address <span class="text-danger"> *</span></label>
+										@* <textarea class="form-control" rows="3"></textarea> *@
+										<textarea rows="3" class="form-control" name="Address" value=""></textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="mb-3">
+										<label class="form-label">About <span class="text-danger"> *</span></label>
+										@* <textarea class="form-control" rows="3"></textarea> *@
+										<textarea rows="3" class="form-control" name="AboutEmployee"></textarea>
+									</div>
+								</div>
+							</div>
+						</<div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-light border me-2" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="savebtn1">Save </button>
+					</div>
+				</div>
+			</div>
+		</div>
+				</div>
+	
+</</form></div>
+</div>
+</div>
+
+<div class="table-responsive border rounded">
+	<table class="table" id="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Profile</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Pass</th>
+				<th scope="col">Number</th>
+				<th scope="col">Role</th>
+				<th scope="col">Department</th>
+
+				<th scope="col">Designation</th>
+				<th scope="col">Reporting manager</th>
+				<th scope="col">DOJ</th>
+				<th scope="col">Status</th>
+				<th scope="col">DOB</th>
+				<th scope="col">Gender</th>
+				<th scope="col">Address</th>
+				<th scope="col">About</th>
+
+				<th scope="col">A</th>
+			</tr>
+		</thead>
+		<tbody id="mydata"></tbody>
+	</table>
+</div>
+
+
+
+
+	<script>
+
+
+	$(document).ready(function () {
+		// Show Manager dropdown only if 'Employee' role is selected
+		$("#roleDropdown").change(function () {
+			var selectedRoleName = $("#roleDropdown option:selected").text();
+
+			if (selectedRoleName === "Employee") {
+				$("#managerContainer").show();
+				$("#managerDropdown").prop("disabled", true); // Initially disabled
+			} else {
+				$("#managerContainer").hide();
+				$("#managerDropdown").prop("disabled", true).val(""); // Hide and reset
+				$("#ReportingManagerName").val(""); // Clear the hidden input
+			}
+		});
+
+		// Filter and populate managers when department is selected
+		$("#departmentDropdown").change(function () {
+			var departmentId = $(this).val();
+			var selectedRoleName = $("#roleDropdown option:selected").text();
+
+			if (selectedRoleName === "Employee" && departmentId) {
+				$("#managerDropdown").prop("disabled", false);
+
+				// Filter managers by department
+				$("#managerDropdown option").each(function () {
+					var managerDepartmentId = $(this).data("department-id");
+					if (managerDepartmentId == departmentId || managerDepartmentId === undefined) {
+						$(this).show();
+					} else {
+						$(this).hide();
+					}
+				});
+
+				// Reset the selected value
+				$("#managerDropdown").val("");
+				$("#ReportingManagerName").val(""); // Clear the hidden input
+			} else {
+				$("#managerDropdown").prop("disabled", true).val("");
+				$("#ReportingManagerName").val(""); // Clear the hidden input
+			}
+		});
+
+		// Update the hidden input with the selected manager's name
+		$("#managerDropdown").change(function () {
+			var selectedManagerName = $("#managerDropdown option:selected").text();
+			console.log(selectedManagerName);
+			$("#ReportingManagerName").val(selectedManagerName);
+		});
+	});
+</script>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.18/jspdf.plugin.autotable.min.js"></script>
+<script src="~/js/emp.js"></script>

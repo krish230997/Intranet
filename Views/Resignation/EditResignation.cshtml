@@ -1,0 +1,46 @@
+﻿@model Pulse360.Models.Resignation
+
+<div class="modal fade" id="editResignationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editResignationForm" asp-action="EditResignation" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Resignation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" asp-for="ResignationId" />
+                    <input type="hidden" asp-for="DepartmentId" />
+                    <div class="form-group">
+                        <label for="UserID">Resigning Employee</label>
+                        <select asp-for="UserID" class="form-control">
+                            @foreach (var user in (SelectList)ViewBag.Users)
+                            {
+                                <option value="@user.Value">@user.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NoticeDate">Notice Date</label>
+                        <input asp-for="NoticeDate" class="form-control" type="date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="ResignDate">Resignation Date</label>
+                        <input asp-for="ResignDate" class="form-control" type="date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Reason">Reason</label>
+                        <textarea asp-for="Reason" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveResignationChanges">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+x   

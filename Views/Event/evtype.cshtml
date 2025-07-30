@@ -1,0 +1,171 @@
+﻿@model List<EventTypes>
+
+@{
+    ViewData["Title"] = "Event Types";
+}
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Holidays</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Event
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Holidays List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        <div class="me-2 mb-2">
+
+            @* <div class="btn-add-event-container">
+                <button class="btn btn-primary btn-add-event" id="btnmod" data-bs-toggle="modal">
+                    <i class="ti ti-circle-plus me-2"></i>
+                    Add Holidays
+                </button>
+
+            </div> *@
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Add Event Type</h5>
+                </div>
+                <div class="card-body">
+                    <form id="addEventTypeForm">
+                        <div class="mb-3">
+                            <label for="eventTypeName" class="form-label">Event Type Name</label>
+                            <input type="text" class="form-control" id="eventTypeName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventTypeColor" class="form-label">Color</label>
+                            <input type="color" class="form-control form-control-color" id="eventTypeColor" value="#563d7c" required>
+                            <small class="form-text text-muted">Choose a color for this event type</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="ti ti-circle-plus me-2"></i>Add Event Type</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Existing Event Types</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Color</th>
+                                    <th>Sample</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var eventType in Model)
+                                {
+                                    <tr>
+                                        <td>@eventType.Name</td>
+                                        <td>@eventType.Color</td>
+                                        <td>
+                                            <div style="width: 30px; height: 30px; border-radius: 4px; background-color: @eventType.Color"></div>
+                                        </td>
+                                        <td>
+                                            <form asp-action="DeleteEvent" asp-route-id="@eventType.Id" method="post"  style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                                                <button style="background:none;border:none">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="EventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addEventForm">
+                    <div class="mb-3">
+                        <label for="eventTitle" class="form-label">Event Title</label>
+                        <input type="text" class="form-control" id="eventTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDate" class="form-label">Event Date</label>
+                        <input type="date" class="form-control" id="eventDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventType" class="form-label">Event Type</label>
+                        <select class="form-control" id="eventType" required>
+                            <option value="">Select Event Type</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.getElementById('addEventTypeForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const eventTypeName = document.getElementById('eventTypeName').value;
+            const eventTypeColor = document.getElementById('eventTypeColor').value;
+
+            fetch('/Event/Create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: eventTypeName,
+                    color: eventTypeColor
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Refresh the page to show new event type
+                        location.reload();
+                    } else {
+                        alert('Failed to add event type');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while adding the event type');
+                });
+        });
+    </script>
+}

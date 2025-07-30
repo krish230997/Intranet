@@ -1,0 +1,107 @@
+﻿<partial name="Notification"></partial>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h2 class="mb-4">Salary Payslip</h2>
+            <h4>Month: @ViewBag.Month @ViewBag.Year</h4>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5><strong>From:</strong> @ViewBag.Organization.OrganizationName</h5>
+            <p>@ViewBag.Organization.OrganizationAddress</p>
+            <p>Email: @ViewBag.Organization.OrganizationEmail</p>
+            <p>Phone: @ViewBag.Organization.OrganizationPhone</p>
+        </div>
+        <div class="col-md-6 text-right">
+            <h5><strong>To:</strong> @ViewBag.User.FirstName @ViewBag.User.LastName</h5>
+            <p>@ViewBag.User.Designation.Name</p>
+            <p>Email: @ViewBag.User.Email</p>
+            <p>Phone: @ViewBag.User.PhoneNumber</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h5><strong>Total Working Hours in @ViewBag.Month:</strong> @ViewBag.TotalHoursInMonth</h5>
+            <h5><strong>Worked Hours:</strong> @ViewBag.TotalWorkingHours</h5>
+            <h5><strong>Hourly Rate:</strong> <span class="text-success">$@ViewBag.HourlyRate.ToString("F2")</span></h5>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="mb-3">Earnings</h4>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var earning in ViewBag.Earnings)
+                    {
+                        <tr>
+                            <td>@earning.EarningType.EarningName</td>
+                            <td>$@((ViewBag.TotalWorkingHours * earning.EarningsPercentage * ViewBag.HourlyRate / 100).ToString("F2"))</td>
+                        </tr>
+                    }
+                    <tr class="table-success">
+                        <td><strong>Total Earnings</strong></td>
+                        <td><strong>$@ViewBag.TotalEarnings.ToString("F2")</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <h4 class="mb-3">Deductions</h4>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var deduction in ViewBag.Deductions)
+                    {
+                        <tr>
+                            <td>@deduction.DeductionType.DeductionsName</td>
+                            <td>$@((ViewBag.TotalWorkingHours * deduction.DeductionPercentage * ViewBag.HourlyRate / 100).ToString("F2"))</td>
+                        </tr>
+                    }
+                    <tr class="table-danger">
+                        <td><strong>Total Deductions</strong></td>
+                        <td><strong>$@ViewBag.TotalDeductions.ToString("F2")</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h3 class="text-primary"><strong>Net Salary: $@ViewBag.NetSalary.ToString("F2")</strong></h3>
+            <p>(@ConvertToWords(ViewBag.NetSalary))</p>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string ConvertToWords(decimal amount)
+    {
+        return new System.Globalization.CultureInfo("en-US").NumberFormat.CurrencySymbol + amount.ToString("N2");
+    }
+}

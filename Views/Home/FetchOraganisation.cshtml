@@ -1,0 +1,175 @@
+﻿@* @model IEnumerable<Pulse360.Models.Organization>
+
+@{
+    ViewData["Title"] = "Organizations List";
+}
+
+<h2>Organizations List</h2>
+
+<p>
+    <a asp-action="AddOrganisation" class="btn btn-primary">Add New Organization</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.OrganizationName)</th>
+
+            <th>@Html.DisplayNameFor(model => model.OrganizationAddress)</th>
+            <th>@Html.DisplayNameFor(model => model.OrganizationPhone)</th>
+            <th>@Html.DisplayNameFor(model => model.OrganizationEmail)</th>
+            <th>@Html.DisplayNameFor(model => model.OrganizationLogo)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var org in Model)
+        {
+            <tr>
+                <td>@org.OrganizationName</td>
+                <td>@org.OrganizationAddress</td>
+                <td>@org.OrganizationPhone</td>
+                <td>@org.OrganizationEmail</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(org.OrganizationLogo))
+                    {
+                        <img src="@org.OrganizationLogo" alt="Logo" style="width:100px;height:auto;" />
+                    }
+                    else
+                    {
+                        <span>No Logo</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="DeleteOrganisation" asp-route-id="@org.OrganizationId" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table> *@
+
+
+@model IEnumerable<Pulse360.Models.Organization>
+
+<partial name="Notification"></partial>
+<head>
+
+    <style>
+        #UploadDocumentListTable th,
+        #UploadDocumentListTable td {
+            text-align: center;
+            border-right: none !important;
+            border-left: none !important;
+        }
+
+    </style>
+
+</head>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Organizations List</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">Organizations</li>
+                <li class="breadcrumb-item active" aria-current="page">Organizations List</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+        <div class="mb-2">
+            <div class="d-flex my-xl-auto right-content align-items-center">
+                <a asp-controller="Home" asp-action="AddOrganisation" class="btn btn-primary d-flex align-items-center">
+                    <i class="ti ti-circle-plus me-2"></i>Add Organizations
+                </a>
+            </div>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">Organizations List</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-4" id="OrgTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationName)</th>
+
+                    <th>@Html.DisplayNameFor(model => model.OrganizationAddress)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationPhone)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationEmail)</th>
+                    <th>@Html.DisplayNameFor(model => model.OrganizationLogo)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    @foreach (var org in Model)
+                    {
+                        <tr>
+                        <td>@org.OrganizationName</td>
+                        <td>@org.OrganizationAddress</td>
+                        <td>@org.OrganizationPhone</td>
+                        <td>@org.OrganizationEmail</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(org.OrganizationLogo))
+                            {
+                                <img src="@org.OrganizationLogo" alt="Logo" style="width:100px;height:auto;" />
+                            }
+                            else
+                            {
+                                <span>No Logo</span>
+                            }
+                        </td>
+                            <td>
+
+                            <a asp-action="DeleteOrganisation" asp-route-id="@org.OrganizationId" onclick="return confirm('Are you sure to delete this data?')"><i class="bi bi-trash"></i></a>
+                            <a asp-action="EditOrganisation" asp-route-id="@org.OrganizationId"><i class="ti ti-edit"></i></a>
+
+                            </td>
+
+                        </tr>
+                    }
+                
+                @* else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No leave records found.</td>
+                    </tr>
+                } *@
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#OrgTable').DataTable({
+            "paging": true,          // Enable pagination
+            "searching": true,       // Enable search functionality
+            "lengthChange": true,    // Allow users to change the number of rows per page
+            "pageLength": 5,        // Set default rows per page
+            "lengthMenu": [5, 10, 25, 50, 100],
+            "language": {
+                "lengthMenu": "Row Per Page _MENU_ Entries",
+                "emptyTable": "No records found."
+            }
+        });
+    });
+</script>

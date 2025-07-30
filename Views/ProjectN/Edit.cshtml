@@ -1,0 +1,146 @@
+﻿@model Projects
+<h2>Edit Project</h2>
+
+<form asp-action="Edit" asp-controller="ProjectN" asp-route-id="@Model.ProjectId" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+
+    <div class="mb-3">
+        <label class="form-label">Project Name</label>
+        <input type="text" name="ProjectName" class="form-control" value="@Model.ProjectName" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Client Name</label>
+        <input type="text" name="ClientName" class="form-control" value="@Model.ClientName" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="Description" class="form-control" rows="4" required>@Model.Description</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Start Date</label>
+        <input type="date" name="StartDate" class="form-control" value="@Model.StartDate.ToString("yyyy-MM-dd")" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">End Date</label>
+        <input type="date" name="EndDate" class="form-control" value="@Model.EndDate.ToString("yyyy-MM-dd")" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Priority</label>
+        @Html.DropDownListFor(
+                 model => model.Priority,
+                 new SelectList(new[] { "High", "Medium", "Low" }, Model.Priority),
+                 "Select Priority",
+                 new { @class = "form-select", required = "required" }
+                 )
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Currency Type</label>
+        @Html.DropDownListFor(
+                 model => model.PriceType,
+                 ViewBag.CurrencyList as SelectList,
+                 "Select Currency Type",
+                 new { @class = "form-select", required = "required" }
+                 )
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select name="Status" class="form-select" required>
+            @foreach (var status in ViewBag.StatusList)
+            {
+                <option value="@status.Value" selected="@status.Selected">@status.Text</option>
+            }
+        </select>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Team Members</label>
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Team Members
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach (var user in ViewBag.Users as List<User>)
+                    {
+                        bool isChecked = Model.Users != null && Model.Users.Any(u => u.UserId == user.UserId);
+                        <li class="dropdown-item">
+                            <input type="checkbox" class="form-check-input" name="Users" value="@user.UserId" id="member_@user.UserId" @(isChecked ? "checked" : "")>
+                            <label class="form-check-label" for="member_@user.UserId">@user.FirstName</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Project Manager Name</label>
+        <input type="text" name="ManagerName" class="form-control" value="@Model.ManagerName" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Logo (Optional)</label>
+        @if (!string.IsNullOrEmpty(Model.LogoPath))
+        {
+            <div>
+                <img src="/@Model.LogoPath.Replace("wwwroot/", "")" alt="Project Logo" style="max-height:100px;" />
+                <p>Current Logo</p>
+            </div>
+        }
+        <input type="file" name="logo" class="form-control">
+        
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">File (Optional)</label>
+        @if (!string.IsNullOrEmpty(Model.FilePath))
+        {
+            <div>
+                <a href="/@Model.FilePath.Replace("wwwroot/", "")" target="_blank">Download Current File</a>
+            </div>
+        }
+        <input type="file" name="file" class="form-control">
+      
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const dropdownButton = document.getElementById('dropdownMenuButton');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const selectedMembers = Array.from(checkboxes)
+                    .filter(chk => chk.checked)
+                    .map(chk => chk.nextElementSibling.innerText);
+
+                if (selectedMembers.length > 0) {
+                    dropdownButton.textContent = selectedMembers.join(', ') + " (Selected)";
+                } else {
+                    dropdownButton.textContent = "Select Team Members";
+                }
+            });
+        });
+
+        // Set initial dropdown button text based on pre-checked boxes
+        const initiallyChecked = Array.from(checkboxes)
+            .filter(chk => chk.checked)
+            .map(chk => chk.nextElementSibling.innerText);
+        if (initiallyChecked.length > 0) {
+            dropdownButton.textContent = initiallyChecked.join(', ') + " (Selected)";
+        }
+    });
+</script>

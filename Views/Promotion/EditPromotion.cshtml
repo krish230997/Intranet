@@ -1,0 +1,26 @@
+﻿@model Pulse360.Models.Promotion
+
+<form id="editPromotionForm" method="POST">
+    <input type="hidden" id="PromotionId" name="PromotionId" value="@Model.PromotionId" /> <!-- Hidden field for PromotionId -->
+
+    <div class="mb-3">
+        <label for="UserId" class="form-label">Employee</label>
+        <select id="UserId" name="UserId" class="form-select" asp-items="@ViewBag.Users" required>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="DesignationFrom" class="form-label">Designation From</label>
+        <select id="DesignationFrom" name="DesignationFrom" class="form-select" asp-items="@ViewBag.DesignationsFrom" required>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="DesignationTo" class="form-label">Designation To</label>
+        <select id="DesignationTo" name="DesignationTo" class="form-select" asp-items="@ViewBag.DesignationsTo" required>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Date" class="form-label">Promotion Date</label>
+        <input type="date" id="Date" name="Date" class="form-control" required value="@Model.Date.ToString("yyyy-MM-dd")" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

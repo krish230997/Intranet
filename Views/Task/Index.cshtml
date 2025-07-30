@@ -1,0 +1,441 @@
+﻿@model IEnumerable<dynamic>
+
+<partial name="Notification"></partial>
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Tasks</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">Employee</li>
+                <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+
+        <div class="mb-2">
+            <a asp-controller="Task" asp-action="Task" class="btn btn-primary d-flex align-items-center">
+                <i class="ti ti-circle-plus me-2"></i>Add Task
+            </a>
+        </div>
+        <div class="head-icons ms-2">
+           
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+@* <div class="d-flex flex-wrap justify-content-end align-items-center mb-4 gap-2">
+    <a asp-controller="Task" asp-action="Task" class="btn btn-primary d-flex align-items-center">
+        <i class="ti ti-circle-plus me-2"></i>Add Project
+    </a>
+</div> *@
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-8">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center flex-wrap row-gap-3 mb-3">
+                        <h6 class="me-2">Priority</h6>
+                        <ul class="nav nav-pills border d-inline-flex p-1 rounded bg-light todo-tabs" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active filter-btn" data-priority="All">All</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link filter-btn" data-priority="High">High</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link filter-btn" data-priority="Medium">Medium</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link filter-btn" data-priority="Low">Low</button>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="d-flex align-items-center justify-content-lg-end flex-wrap row-gap-3 mb-3">
+                        <div class="input-icon w-120 position-relative me-2">
+                            <span class="input-icon-addon">
+                                <i class="ti ti-calendar"></i>
+                            </span>
+                            <input type="date" class="form-control" id="DueDateFilter">
+                        </div>
+
+                        @* <div class="dropdown me-2">
+                        <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                        All Tags
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-end p-3">
+                        <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1">All Tags</a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Internal</a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Projects</a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Meetings</a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Reminder</a>
+                        </li>
+                        <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Research</a>
+                        </li>
+                        </ul>
+                        </div> *@
+                       @*  <div class="d-flex align-items-center">
+                            <span class="d-inline-flex me-2">Sort By : </span>
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center border-0 bg-transparent p-0 text-dark" data-bs-toggle="dropdown">
+                                    Created Date
+                                </a>
+                                <ul class="dropdown-menu  dropdown-menu-end p-3">
+                                    <li>
+                                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Created Date</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Priority</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="dropdown-item rounded-1">Due Date</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <!-- Left Side - Project Cards (40% width) with Scroll -->
+            <div class="col-xl-4" style="height: 100vh; overflow-y: auto;">
+                @foreach (var project in Model)
+                {
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center pb-3 mb-3 border-bottom">
+                                <a class="flex-shrink-0 me-2">
+                                    <img src="/@project.LogoPath.Replace("wwwroot/", "")"
+                                         alt="Project Logo"
+                                         style="width: 50px; height: 50px; object-fit: cover;">
+                                </a>
+                                <div>
+                                    <h6 class="mb-1"><a>@project.ProjectName</a></h6>
+                                    <div class="d-flex align-items-center">
+                                        <span>@project.TotalTasks tasks</span>
+                                        <span class="mx-1"><i class="ti ti-point-filled text-primary"></i></span>
+                                        <span>@project.CompletedTasks Completed</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <span class="mb-1 d-block">Deadline</span>
+                                        <p class="fw-medium mb-0">
+                                            Due on:
+                                            <span class="text-gray-9">
+                                                @(project.Deadline.ToString("dd MMM yyyy"))
+                                            </span>
+                                        </p>
+                                        Fixes &
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <span class="mb-1 d-block">Value</span>
+                                        <p class="text-dark">$@project.Value</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-light p-2">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <span class="fw-medium d-flex align-items-center">
+                                            <i class="ti ti-clock text-primary me-2"></i>Total @project.TotalHours Hrs
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                                <small class="text-dark">@project.Percentage% Completed</small>
+                                            </div>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: @project.Percentage%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Right Side - Task Details (60% width) -->
+            <div class="col-xl-8" style="height: 100vh; overflow-y: auto;">
+                <div class="row">
+                    @foreach (var project in Model)
+                    {
+                        var totalTasks = project.TotalTasks;
+                        var completedTasks = project.CompletedTasks;
+                        var completionPercentage = totalTasks > 0 ? (completedTasks * 100 / totalTasks) : 0;
+
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="mb-3">@project.ProjectName</h5>
+                                        <div class="bg-light p-2 rounded">
+                                            <span class="d-block mb-1">Tasks Done</span>
+                                            <h4 class="mb-2">@completedTasks / @totalTasks</h4>
+                                            <div class="progress progress-xs mb-2">
+                                                <div class="progress-bar bg-info" role="progressbar" style="width: @completionPercentage%"></div>
+                                            </div>
+                                            <p>@completionPercentage%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-group list-group-flush mb-4">
+                                    <div class="list-group-item list-item-hover shadow-sm rounded mb-2 p-3">
+                                        <div class="row align-items-center row-gap-3">
+                                            <div class="col-lg-6 col-md-7">
+                                                <div class="todo-inbox-check d-flex align-items-center flex-wrap row-gap-3">
+                                                    <span class="me-2 d-flex align-items-center"><i class="ti ti-grid-dots text-dark"></i></span>
+                                                    <span class="me-2 d-flex align-items-center rating-select"><i class="ti ti-star-filled filled"></i></span>
+                                                    <div class="strike-info">
+                                                        <h4 class="fs-14 text-truncate">@project.ProjectName</h4>
+                                                    </div>
+                                                    <span class="badge bg-transparent-dark text-dark rounded-pill ms-2"><i class="ti ti-calendar me-1"></i>@project.Deadline.ToString("dd MMM yyyy")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-5">
+                                                <div class="d-flex align-items-center justify-content-md-end flex-wrap row-gap-3">
+                                                    <span class="badge badge-skyblue me-3">@project.TotalTasks tasks</span>
+                                                    <span class="badge bg-soft-pink d-inline-flex align-items-center me-3"><i class="fas fa-circle fs-6 me-1"></i>@project.CompletedTasks</span>
+                                                    <div class="d-flex align-items-center">
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const priorityButtons = document.querySelectorAll(".todo-tabs .nav-link");
+        const sortDropdownItems = document.querySelectorAll(".dropdown-menu a");
+        const dateInput = document.querySelector(".datetimepicker");
+        const projectCards = document.querySelectorAll(".col-xl-4 .card");
+
+        let selectedPriority = "All";
+        let selectedSort = "Created Date";
+        let selectedDate = "";
+
+        function filterProjects() {
+            projectCards.forEach(card => {
+                const priority = card.getAttribute("data-priority");
+                const dueDate = card.getAttribute("data-duedate");
+                let show = true;
+                
+                // Priority Filter
+                if (selectedPriority !== "All" && priority !== selectedPriority) {
+                    show = false;
+                }
+
+                // Due Date Filter
+                if (selectedDate && dueDate !== selectedDate) {
+                    show = false;
+                }
+
+                card.style.display = show ? "block" : "none";
+            });
+
+            sortProjects();
+        }
+
+        function sortProjects() {
+            let container = document.querySelector(".col-xl-4");
+            let cardsArray = Array.from(projectCards).filter(card => card.style.display !== "none");
+
+            cardsArray.sort((a, b) => {
+                if (selectedSort === "Priority") {
+                    return a.getAttribute("data-priority").localeCompare(b.getAttribute("data-priority"));
+                } else if (selectedSort === "Due Date") {
+                    return new Date(a.getAttribute("data-duedate")) - new Date(b.getAttribute("data-duedate"));
+                } else {
+                    return 0; // Default Created Date sorting can be based on dataset attributes
+                }
+            });
+
+            cardsArray.forEach(card => container.appendChild(card));
+        }
+
+        // Event Listeners
+        priorityButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                selectedPriority = this.textContent.trim();
+                priorityButtons.forEach(btn => btn.classList.remove("active"));
+                this.classList.add("active");
+                filterProjects();
+            });
+        });
+
+        sortDropdownItems.forEach(item => {
+            item.addEventListener("click", function () {
+                selectedSort = this.textContent.trim();
+                sortProjects();
+            });
+        });
+
+        dateInput.addEventListener("change", function () {
+            selectedDate = this.value;
+            filterProjects();
+        });
+
+
+        filterProjects(); // Initial filter
+    });
+
+
+</script> *@
+
+@* <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const priorityButtons = document.querySelectorAll(".todo-tabs .nav-link");
+    const sortDropdownItems = document.querySelectorAll(".dropdown-menu a");
+    const dateInput = document.getElementById("DueDateFilter");
+    const projectCards = document.querySelectorAll(".col-xl-4 .card");
+
+    let selectedPriority = "All";
+    let selectedSort = "Created Date";
+    let selectedDate = "";
+
+    function filterProjects() {
+        projectCards.forEach(card => {
+            const priority = card.getAttribute("data-priority")?.trim().toLowerCase();
+            const dueDate = card.getAttribute("data-duedate")?.trim();
+            let show = true;
+
+            console.log(`Filtering: Priority(${priority}), DueDate(${dueDate})`);
+
+            // Priority Filter
+            if (selectedPriority !== "All" && priority !== selectedPriority.toLowerCase()) {
+                show = false;
+            }
+
+            // Due Date Filter
+            if (selectedDate && dueDate !== selectedDate) {
+                show = false;
+            }
+
+            card.style.display = show ? "block" : "none";
+        });
+
+        sortProjects();
+    }
+
+    function sortProjects() {
+        let container = document.querySelector(".col-xl-4");
+        let cardsArray = Array.from(projectCards).filter(card => card.style.display !== "none");
+
+        cardsArray.sort((a, b) => {
+            if (selectedSort === "Priority") {
+                return a.getAttribute("data-priority").localeCompare(b.getAttribute("data-priority"));
+            } else if (selectedSort === "Due Date") {
+                return new Date(a.getAttribute("data-duedate")) - new Date(b.getAttribute("data-duedate"));
+            } else {
+                return 0; // Default Created Date sorting can be based on dataset attributes
+            }
+        });
+
+        cardsArray.forEach(card => container.appendChild(card));
+    }
+
+    // Event Listeners
+    priorityButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            selectedPriority = this.textContent.trim();
+            priorityButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+            filterProjects();
+        });
+    });
+
+    sortDropdownItems.forEach(item => {
+        item.addEventListener("click", function () {
+            selectedSort = this.textContent.trim();
+            sortProjects();
+        });
+    });
+
+    dateInput.addEventListener("change", function () {
+        selectedDate = this.value.trim();
+        filterProjects();
+    });
+
+    filterProjects(); // Initial filter
+});
+</script>
+ *@
+
+<script>
+    $(document).ready(function () {
+        $(".filter-btn").on("click", function () {
+            var selectedPriority = $(this).data("priority") || "All";
+            var selectedDueDate = $("#DueDateFilter").val();
+
+            $(".filter-btn").removeClass("active");
+            $(this).addClass("active");
+
+            var url = "@Url.Action("Index", "Task")" + "?priority=" + encodeURIComponent(selectedPriority);
+
+            if (selectedDueDate) {
+                url += "&dueDate=" + encodeURIComponent(selectedDueDate);
+            }
+
+            window.location.href = url;
+        });
+
+        $("#DueDateFilter").on("change", function () {
+            var selectedPriority = $(".filter-btn.active").data("priority") || "All";
+            var selectedDueDate = $(this).val();
+
+            var url = "@Url.Action("Index", "Task")" + "?priority=" + encodeURIComponent(selectedPriority);
+
+            if (selectedDueDate) {
+                url += "&dueDate=" + encodeURIComponent(selectedDueDate);
+            }
+
+            window.location.href = url;
+        });
+    });
+</script>
+

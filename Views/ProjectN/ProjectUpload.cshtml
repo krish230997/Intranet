@@ -1,0 +1,158 @@
+﻿@model Pulse360.Models.Projects
+
+<div class="card p-4">
+    <form asp-action="ProjectUpload" method="post" enctype="multipart/form-data">
+        <h3 class="text-start mb-4">Add Project</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label asp-for="ProjectName" class="form-label"></label>
+                    <input asp-for="ProjectName" class="form-control" />
+                    <span asp-validation-for="ProjectName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ClientName" class="form-label"></label>
+                <input asp-for="ClientName" class="form-control" />
+                <span asp-validation-for="ClientName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartDate" class="form-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EndDate" class="form-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Priority" class="form-label"></label>
+                <select asp-for="Priority" class="form-select">
+                    <option value="">Select Priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProjectValue" class="form-label"></label>
+                <input asp-for="ProjectValue" class="form-control" step="0.01" />
+                <span asp-validation-for="ProjectValue" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PriceType" class="form-label"></label>
+                @Html.DropDownListFor(
+                         model => model.PriceType,
+                         ViewBag.CurrencyList as SelectList,
+                         "Select Currency Type",
+                         new { @class = "form-select", required = "required" }
+                         )
+                @* <input asp-for="PriceType" class="form-control" placeholder="Currency for example $" /> *@
+                <span asp-validation-for="PriceType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                <select asp-for="Status" class="form-select">
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Team Members</label>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Team Members
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @if (ViewBag.Users != null)
+                            {
+                                @foreach (var user in ViewBag.Users as List<User>)
+                                {
+                                    <li class="dropdown-item">
+                                        <input type="checkbox" class="form-check-input" name="Users" value="@user.UserId" id="member_@user.UserId">
+                                        <label class="form-check-label" for="member_@user.UserId">@user.FirstName</label>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="dropdown-item text-muted">No users found</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ManagerName" class="form-label"></label>
+                <select asp-for="ManagerName" class="form-select">
+                    <option value="">Select Project Manager</option>
+                    @foreach (var manager in (List<string>)ViewBag.Managers)
+                    {
+                        <option value="@manager">@manager</option>
+                    }
+                </select>
+                <span asp-validation-for="ManagerName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Upload Project Logo</label>
+                <input type="file" name="logo" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Upload File</label>
+                <input type="file" name="file" class="form-control">
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const dropdownButton = document.getElementById('dropdownMenuButton');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const selectedMembers = Array.from(checkboxes)
+                    .filter(chk => chk.checked)
+                    .map(chk => chk.nextElementSibling.innerText);
+
+                // Set the dropdown button text to the selected members
+                if (selectedMembers.length > 0) {
+                    dropdownButton.textContent = selectedMembers.join(', ') + " (Selected)";
+                } else {
+                    dropdownButton.textContent = "Select Team Members";
+                }
+            });
+        });
+    });
+</script>

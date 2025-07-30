@@ -1,0 +1,136 @@
+﻿<!-- Add Ticket Modal -->
+<div class="modal" id="addTicketModal" tabindex="-1" aria-labelledby="addTicketModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTicketModalLabel">Add New Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addTicketForm">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-control" id="ticketTitle" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="ticketSubject" required>
+                    </div>
+
+                    <!-- Event Category Dropdown -->
+                    <div class="mb-3">
+                        <label class="form-label">Event Category</label>
+                        <select class="form-select" id="ticketCategory">
+                            <option value="">Select Category</option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.CategoryName">@category.CategoryName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="ticketDescription" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" id="ticketPriority">
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+
+                    <!-- Assigned To -->
+                    <div class="mb-3">
+                        <label class="form-label">Assigned To</label>
+                        <select class="form-select" id="ticketAssignedTo">
+                            <option value="">Select User</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Visibility</label>
+                        <select class="form-select" id="ticketVisibility">
+                            <option value="Public">Public</option>
+                            <option value="Private">Private</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" id="ticketAssignedBy"> <!-- Hidden field to store AssignedBy -->
+
+                    <button type="submit" class="btn btn-primary">Save Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fetch users and populate the dropdown lists
+    $(document).ready(function () {
+        $.ajax({
+            url: '/TicketReply/GetUsers',
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+                if (Array.isArray(data.users)) {
+                    let assignedToSelect = $('#ticketAssignedTo');
+
+                    assignedToSelect.empty().append('<option value="">Select User</option>');
+
+                    data.users.forEach(function (user) {
+                        if (user.userId && user.fullName) {
+                            assignedToSelect.append(`<option value="${user.userId}">${user.fullName}</option>`);
+                        }
+                    });
+
+                    if (data.loggedInUser) {
+                        $('#ticketAssignedBy').val(data.loggedInUser.userId); // Set AssignedBy from session
+                    }
+                } else {
+                    console.error('Invalid data format:', data);
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching users', error);
+            }
+        });
+    });
+
+
+    // Handle ticket submission
+    $('#addTicketForm').submit(function (e) {
+        e.preventDefault();
+
+        const ticketData = {
+            TicketTitle: $('#ticketTitle').val(),
+            TicketDescription: $('#ticketDescription').val(),
+            EventCategory: $('#ticketCategory').val(),
+            Subject: $('#ticketSubject').val(),
+            Priority: $('#ticketPriority').val(),
+            AssignedBy: $('#ticketAssignedBy').val(), // Set from session
+            AssignedTo: $('#ticketAssignedTo').val(),
+            Visibility: $('#ticketVisibility').val()
+        };
+
+        $.ajax({
+            url: '/TicketReply/AddTicket',
+            type: 'POST',
+            data: JSON.stringify(ticketData),
+            contentType: 'application/json',
+            success: function (response) {
+                alert(response.message);
+                $('#addTicketModal').modal('hide');
+                location.reload();
+            },
+            error: function (error) {
+                alert('Error adding ticket');
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,182 @@
+﻿@model Deduction
+
+<style>
+	.payroll-btns {
+		display: flex;
+		justify-content: space-between; /* Distribute space between the buttons */
+		gap: 15px; /* Add some space between the two dropdowns */
+	}
+
+	.dropdown {
+		flex: 1; /* Ensures that both dropdowns occupy equal space */
+	}
+
+	.dropdown-menu {
+		position: absolute;
+		top: 100%;
+		z-index: 1050;
+	}
+
+	.dropdown-menu {
+		position: absolute !important; /* Ensure the dropdown is not constrained */
+		z-index: 1050; /* Ensure dropdown appears on top of other elements */
+		top: 100%; /* Position below the button */
+	}
+
+	.payroll-btns {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.dropdown {
+		position: relative; /* Ensure the dropdown button has a relative positioning context */
+	}
+
+</style>
+
+<div class="d-flex flex-wrap gy-2 justify-content-between my-4">
+	<div class="payroll-btns">
+		<div class="dropdown">
+			<a asp-action="EarningType" asp-controller="Earning" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+				Earning
+			</a>
+			<ul class="dropdown-menu dropdown-menu-start p-3">
+				<!-- Change to dropdown-menu-start -->
+				<li>
+					<a asp-action="EarningType" asp-controller="Earning" class="dropdown-item rounded-1" id="exportPdfBtn">
+						Earning type
+					</a>
+				</li>
+				<li>
+					<a asp-action="Earning" asp-controller="Earning" class="dropdown-item rounded-1" id="exportExcelBtn">
+						Earning
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="dropdown">
+			<a asp-action="DeductionType" asp-controller="Deduction" class="dropdown-toggle btn btn-white d-inline-flex align-items-center active border" data-bs-toggle="dropdown">
+				Deduction
+			</a>
+			<ul class="dropdown-menu dropdown-menu-start p-3">
+				<!-- Change to dropdown-menu-start -->
+				<li>
+					<a asp-action="DeductionType" asp-controller="Deduction" class="dropdown-item rounded-1" id="exportPdfBtn">
+						Deduction type
+					</a>
+				</li>
+				<li>
+					<a asp-action="Deduction" asp-controller="Deduction" class="dropdown-item rounded-1" id="exportExcelBtn">
+						Deduction
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="mb-2">
+		<a href="#" id="opendeductionmodal" data-bs-target="#deduction" class="btn btn-primary d-flex align-items-center">
+			<i class="ti ti-circle-plus me-2"></i>Add Deduction
+		</a>
+	</div>
+</div>
+
+<div class="modal" id="deduction">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Deduction</h4>
+				<button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close">
+					<i class="ti ti-x"></i>
+				</button>
+			</div>
+			<div class="modal-body pb-0">
+				<form method="post" id="deductionform">
+					Deduction Name
+					<select class="form-control" name="DeductionTypeId" asp-items="@ViewBag.deductionType" asp-for="DeductionTypeId">
+						<option value="">Select a Deduction</option>
+					</select><br />
+
+					Deduction Percentage <input type="text" class="form-control" asp-for="DeductionPercentage" placeholder="Enter percentage" /><br />
+
+					Department
+					<select class="form-control" name="DepartmentId" asp-items="@ViewBag.department" asp-for="DepartmentId">
+						<option value="">Select a Department</option>
+					</select><br />
+
+					Designation
+					<select class="form-control" name="DesignationId" asp-items="@ViewBag.designation" asp-for="DesignationId">
+						<option value="">Select a Designation</option>
+					</select><br />
+
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white border me-2" data-bs-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-primary" id="adddeductionbtn">Add Deduction Type</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card-body p-0">
+	<div class="table-responsive">
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th>Id</th>
+					<th>Deduction</th>
+					<th>Deduction Percentage</th>
+					<th>Department</th>
+					<th>Designation</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="deductiondata">
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="modal" id="editdeduction">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Edit Deduction</h4>
+				<button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close">
+					<i class="ti ti-x"></i>
+				</button>
+			</div>
+			<div class="modal-body pb-0">
+				<form method="post" id="editdeductionform">
+					<input type="hidden" name="DeductionId" id="editDeductionId" />
+					Deduction Name
+					<select class="form-control" name="DeductionTypeId" asp-items="@ViewBag.deductionType" asp-for="DeductionTypeId" id="editDeductTypeId">
+						<option value="">Select a Deduction</option>
+					</select><br />
+
+					Deduction Percentage <input type="text" class="form-control" asp-for="DeductionPercentage" placeholder="Enter percentage" id="editDeductionPercentage" /><br />
+
+					Department
+					<select class="form-control" name="DepartmentId" asp-items="@ViewBag.department" asp-for="DepartmentId" id="editDepartmentId">
+						<option value="">Select a Department</option>
+					</select><br />
+
+					Designation
+					<select class="form-control" name="DesignationId" asp-items="@ViewBag.designation" asp-for="DesignationId" id="editDesignationId">
+						<option value="">Select a Designation</option>
+					</select><br />
+
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white border me-2" data-bs-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-primary" id="editdeductionbtn">Edit Deduction Type</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/deductionjavascript.js"></script>

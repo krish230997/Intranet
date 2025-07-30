@@ -1,0 +1,173 @@
+﻿<partial name="Notification" />
+@model List<Timesheet>
+
+<div class="content">
+
+    <!-- Page Header -->
+    <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+        <div class="my-auto mb-2">
+            <h2 class="mb-1">Admin Timesheet Management</h2>
+        </div>
+
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1" id="exportPdfBtn">
+                            <i class="ti ti-file-type-pdf me-1"></i>Export as PDF
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1" id="exportExcelBtn">
+                            <i class="ti ti-file-type-xls me-1"></i>Export as Excel
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @* <!-- Filters Section -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>Filters</h5>
+        </div>
+        <div class="card-body d-flex flex-wrap gap-3 align-items-center">
+            <input type="text" class="form-control w-auto" id="adminSearchInput" placeholder="Search by Project Name" />
+            <select id="adminStatusFilter" class="form-control w-auto">
+                <option value="">All Status</option>
+                <option value="Pending Approval">Pending Approval</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+            <select id="adminProjectFilter" class="form-control w-auto">
+                <option value="">Projects</option>
+                @foreach (var projectName in Model.Select(t => t.Projects?.ProjectName).Distinct().Where(p => !string.IsNullOrEmpty(p)))
+                {
+                    <option value="@projectName">@projectName</option>
+                }
+            </select>
+        </div>
+    </div> *@
+
+    <!-- Approve and Reject Buttons -->
+    @if (!User.IsInRole("HR"))
+    {
+        <div class="d-flex justify-content-between mb-3">
+            <div>
+                <button id="adminBulkApprove" class="btn btn-success me-2">Approve Selected</button>
+                <button id="adminBulkReject" class="btn btn-danger">Reject Selected</button>
+            </div>
+        </div>
+    }
+
+    <!-- Timesheet Table -->
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+            <h5>Timesheet</h5>
+            <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+                <div class="card-body d-flex flex-wrap gap-3 align-items-center">
+                    <input type="text" class="form-control w-auto" id="adminSearchInput" placeholder="Search by Project Name" />
+                    <select id="adminStatusFilter" class="form-control w-auto">
+                        <option value="">All Status</option>
+                        <option value="Pending Approval">Pending Approval</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    <select id="adminProjectFilter" class="form-control w-auto">
+                        <option value="">Projects</option>
+                        @foreach (var projectName in Model.Select(t => t.Projects?.ProjectName).Distinct().Where(p => !string.IsNullOrEmpty(p)))
+                        {
+                            <option value="@projectName">@projectName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-3">
+            <!-- Entries per page selection -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="d-flex align-items-center">
+                        <span class="me-2">Show</span>
+                        <select id="entriesPerPage" class="form-select d-inline-block w-auto">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="ms-2">entries</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Table wrapper for responsiveness -->
+            <div class="table-responsive">
+                <table id="adminTimesheetTable" class="table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="adminSelectAll" /></th>
+                            <th>Employee</th>
+                            <th>Created At</th>
+                            <th>Project</th>
+                            <th>Worked Hours</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminData">
+                        @foreach (var timesheet in Model)
+                        {
+                            <tr data-id="@timesheet.TimesheetId">
+                                <td><input type="checkbox" class="adminRowCheckbox" /></td>
+                                <td>
+                                    <div class="d-flex align-items-center file-name-icon">
+                                        <a href="#" class="avatar avatar-md border avatar-rounded">
+                                            <!-- Display profile picture -->
+                                            <img src="@((timesheet.User?.ProfilePicture != null) ? "/Content/uploads/" + timesheet.User.ProfilePicture.Split('/').Last() : "/assets/img/users/default.jpg")" class="img-fluid" alt="User Image">
+                                        </a>
+                                        <div class="ms-2">
+                                            <!-- Display user name -->
+                                            <h6 class="fw-medium">
+                                                <a href="#">
+                                                    @(timesheet.User?.FirstName ?? "N/A") @(timesheet.User?.LastName ?? "")
+                                                </a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@timesheet.Date.ToShortDateString()</td>
+                                <td>@(timesheet.Projects?.ProjectName ?? "N/A")</td>
+                                <td>@timesheet.WorkHours</td>
+                                <td>
+                                    @if (timesheet.Status == "Approved")
+                                    {
+                                        <span class="badge badge-success d-inline-flex align-items-center">@timesheet.Status</span>
+                                    }
+                                    else if (timesheet.Status == "Rejected")
+                                    {
+                                        <span class="badge badge-danger d-inline-flex align-items-center">@timesheet.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-warning d-inline-flex align-items-center">@timesheet.Status</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <nav>
+                    <ul class="pagination justify-content-end mt-3 me-3 mb-3" id="adminPagination"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/AdminJavaScript.js"></script>

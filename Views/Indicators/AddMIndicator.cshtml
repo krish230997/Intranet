@@ -1,0 +1,32 @@
+﻿@model MasterIndicators
+
+<form method="post" id="myform">
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">MasterIndicator Type</label>
+
+        <select class="form-control" asp-for="MasterIndicatorType">
+
+            <option>Technical</option>
+            <option>Organization</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">MasterIndicator Name</label>
+        <input type="text" class="form-control" asp-for="MasterIndicatorName">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Status</label>
+
+        <select class="form-control" asp-for="Status">
+
+            <option>Active</option>
+            <option>Inactive</option>
+
+        </select>
+
+        <input type="submit" id="savebtn" class="btn btn-primary" value="Save" />
+    </div>
+</form>

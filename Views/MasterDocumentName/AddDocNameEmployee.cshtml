@@ -1,0 +1,50 @@
+﻿@model AddEmployeeDocName
+
+@{
+    ViewData["Title"] = "Add Employee Document Name";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Add Employee Document Name</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Admin
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Add Employee Document Name</li>
+            </ol>
+        </nav>
+    </div>
+
+</div>
+
+<br />
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">Add Employee Document Name</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" asp-action="AddDocNameEmployee" style="width:30%">
+            <!-- Display validation summary if any errors -->
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <label for="exampleInputDocName">Document Name</label><br />
+            <input type="text" class="form-control" placeholder="Enter Document Name" asp-for="DocName" /><br />
+            <span asp-validation-for="DocName" class="text-danger"></span>  <br />
+
+
+            <input type="submit" class="btn btn-primary" value="Add" />
+        </form>
+    </div>
+</div>
+
+

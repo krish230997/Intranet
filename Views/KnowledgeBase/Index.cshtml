@@ -1,0 +1,177 @@
+﻿@model IEnumerable<Pulse360.Models.KnowledgeBaseTopic>
+@{
+    var userRole = ViewBag.UserRole as string;
+}
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Knowledgebase</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Administration
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Knowledgebase</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+        @if (userRole == "Admin")
+        {
+            <div class="mb-2">
+                <a href="@Url.Action("AddTopic", "KnowledgeBase")" class="btn btn-primary d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add New Topic</a>
+            </div>
+        }
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+<div class="card">
+    <div class="card-body p-3">
+        <div class="d-flex align-items-center justify-content-between">
+            <h5>Knowledgebase</h5>
+            <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+                <div class="me-3">
+                    <div class="input-icon-end position-relative">
+                        <input type="text" id="searchInput" placeholder="Search topics..." class="form-control" />
+                        <span class="input-icon-addon">
+                            <i class="bi bi-search"></i>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mt-4">
+    <!-- "Add New Topic" Button (Visible only for Admin users) -->
+    @*  @if (userRole == "Admin")
+    {
+    <div class="mb-3">
+    <a href="@Url.Action("AddTopic", "KnowledgeBase")" class="btn btn-primary">Add New Topic</a>
+    </div>
+    } *@
+    @*    <div class="form-group col-md-10">
+
+    <input type="text" id="searchInput" placeholder="Search topics..." class="form-control" />
+    </div>
+    *@
+
+
+
+
+
+
+
+
+
+    <div id="topicsContainer" class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var topic in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header btn btn-primary">
+                            <h5 class="topic-header" style="color:white">@topic.MasterTopic</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (topic.SubTopics != null && topic.SubTopics.Any())
+                            {
+                                <ul class="list-group">
+                                    @foreach (var subTopic in topic.SubTopics)
+                                    {
+                                        <li class="list-group-item">@subTopic.Title</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>No sub-topics available.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No topics available. Click "Add New Topic" to create one.</p>
+        }
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("input", function () {
+            var searchQuery = $(this).val().trim();
+            console.log("Search Query Sent:", searchQuery);  // Debugging log
+
+            $.ajax({
+                url: '@Url.Action("Search", "KnowledgeBase")',
+                type: "GET",
+                data: { searchQuery: searchQuery },
+                success: function (data) {
+                    console.log("Data received from server:", data);  // Debugging log
+                    $("#topicsContainer").html(data);
+
+                    // Reapply styles after AJAX update
+                    $("#topicsContainer h5").css("color", "white");
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", xhr.responseText);  // Debugging log
+                }
+            });
+        });
+    });
+
+</script>
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+
+
+        /*  .btn {
+                                             margin-top: 10px;
+                                         } */
+
+        /* Add margin between Add More and Save buttons */
+        .form-group button {
+            margin-right: 10px;
+        }
+
+    .ml-2 {
+        margin-left: 10px;
+    }
+
+    /* Make the "Remove" button in red and slightly bigger */
+    /*  .removeInput {
+                                             background-color: red;
+                                             color: white;
+                                         } */
+
+    /* Space between inputs and buttons */
+    .col-md-5, .col-md-2 .col-md-10 {
+        margin-bottom: 5px;
+    }
+
+    .topic-header {
+        color: white !important;
+    }
+
+</style>

@@ -1,0 +1,246 @@
+﻿@model List<Payslips>
+
+@{
+    ViewData["Title"] = "Employee Salary Transaction History";
+}
+
+<partial name="Notification"></partial>
+<!-- Breadcrumb -->
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Transcation History</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    HR
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Employee Salary</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+
+        <div class="me-2 mb-2">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1" id="ExportPdf">
+                            <i class="ti ti-file-type-pdf me-1"></i>Export as PDF
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1" id="ExportExcel">
+                            <i class="ti ti-file-type-xls me-1"></i>Export as Excel
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5>Payslip List</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <!-- Month Filter -->
+            <div class="me-3">
+                <select id="filterMonth" class="form-control">
+                    <option value="">Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="me-3">
+                <select id="filterYear" class="form-control">
+                    <option value="">Select Year</option>
+                    @for (int i = DateTime.Now.Year; i >= DateTime.Now.Year - 10; i--)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Department Filter -->
+            <div class="me-3">
+                <select id="filterDepartment" class="form-control">
+                    <option value="">Select Department</option>
+                    @foreach (var department in ViewBag.Departments)
+                    {
+                        <option value="@department.DepartmentId">@department.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Designation Filter -->
+            <div class="me-3">
+                <select id="filterDesignation" class="form-control">
+                    <option value="">Select Designation</option>
+                    @foreach (var designation in ViewBag.Designations)
+                    {
+                        <option value="@designation.DesignationId">@designation.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Apply Filter Button -->
+            <div>
+                <button id="applyFiltersBtn" class="btn btn-primary">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table display" id="payslipTable">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Emp ID</th>
+                        <th>Employee</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Generated On</th>
+                        <th>Month / Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="payslipData">
+                    @foreach (var payslip in Model)
+                    {
+                        <tr>
+                            <td>@payslip.User.UserId</td>
+                            <td>
+                                <div class="d-flex align-items-center file-name-icon">
+                                    <a href="#" class="avatar avatar-md border avatar-rounded">
+                                        <img src="/@Url.Content(payslip.User.ProfilePicture)" class="img-fluid" alt="Profile Picture">
+                                    </a>
+                                    <div class="ms-2">
+                                        <h6 class="fw-medium"><a href="#">@(payslip.User.FirstName + " " + payslip.User.LastName)</a></h6>
+                                        <span class="fs-12 fw-normal">@payslip.User.Designation.Name</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@payslip.User.Email</td>
+                            <td>@payslip.User.PhoneNumber</td>
+                            <td>@payslip.User.Department.Name</td>
+                            <td>@payslip.GeneratedOn.ToString("dd/MM/yyyy")</td>
+                            <td>@($"{payslip.Month} / {payslip.Year}")</td>
+                            <td>
+                                <a href="@Url.Action("GeneratePayslipforAllUser", "Payslip", new {userId = payslip.User.UserId, month = payslip.Month, year = payslip.Year })">
+                                    <i class="bi bi-eye"></i>
+
+                                   
+                                </a>
+                                &nbsp;
+                                <a href="@Url.Action("DownloadPayslip", "Payslip", new { payslipPath = payslip.PayslipPath })">
+                                   
+                                    <i class="ti ti-download"></i>
+                                </a>
+                                &nbsp;
+                                <a href="@Url.Action("DeleteTransaction", "Payslip", new {payslipId = payslip.PayslipId})" onclick="return confirm('Are You Sure to delete this Payslip?')"><i class="bi bi-trash"></i>
+
+                        </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        document.getElementById("ExportPdf").addEventListener("click", function () {
+            window.location.href = "/Payslip/ExportToPdf"; // Replace 'ControllerName' with your actual controller name
+        });
+
+        document.getElementById("ExportExcel").addEventListener("click", function () {
+            window.location.href = "/Payslip/ExportToExcel"; // Replace 'ExportToExcel' with your actual method
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all filter dropdowns
+            var filterMonth = document.getElementById("filterMonth");
+            var filterYear = document.getElementById("filterYear");
+            var filterDepartment = document.getElementById("filterDepartment");
+            var filterDesignation = document.getElementById("filterDesignation");
+            var applyFiltersBtn = document.getElementById("applyFiltersBtn");
+
+            // Attach event listener to the button
+            applyFiltersBtn.addEventListener("click", function () {
+                applyFilters();
+            });
+
+            function applyFilters() {
+                var month = filterMonth.value;
+                var year = filterYear.value;
+                var department = filterDepartment.value;
+                var designation = filterDesignation.value;
+
+                var query = "?month=" + encodeURIComponent(month) +
+                    "&year=" + encodeURIComponent(year) +
+                    "&department=" + encodeURIComponent(department) +
+                    "&designation=" + encodeURIComponent(designation);
+
+                // Redirect with filter parameters
+                window.location.href = "@Url.Action("TransactionHistory", "Payslip")" + query;
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $.fn.dataTable.ext.errMode = 'none';
+            // Initialize DataTable
+            var table = $('#payslipTable').DataTable({
+                pageLength: 10,  // Default number of rows per page
+                lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]], // Options for rows per page
+                dom: 'lfrtip', // Define the placement of DataTables elements
+                language: {
+                    lengthMenu: "Show _MENU_ entries per page",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                }
+            });
+        });
+    </script>
+}

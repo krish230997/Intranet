@@ -1,0 +1,154 @@
+﻿@model IEnumerable<LeaveRequest>
+
+
+
+
+
+<head>
+
+    <style>
+        #UploadDocumentListTable th,
+        #UploadDocumentListTable td {
+        text-align: center;
+        border-right: none !important;
+        border-left: none !important;
+        }
+
+    </style>
+
+</head>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Leave Requests</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Employee
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Leave Requests</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+        <div class="mb-2">
+            <div class="d-flex my-xl-auto right-content align-items-center">
+                <a asp-controller="Leave" asp-action="ApplyLeave" class="btn btn-primary d-flex align-items-center">
+                    <i class="ti ti-circle-plus me-2"></i>Apply Leave
+                </a>
+            </div>
+        </div>
+        <div class="head-icons ms-2">
+            <a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    @foreach (var item in ViewBag.leaves)
+    {
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-blue-le">
+
+
+
+
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="text-start">
+                            <p class="mb-1">@item.LeaveType</p>
+                            <h4>@item.TotalLeaves</h4>
+                        </div>
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-2">
+                                <span class="avatar avatar-md d-flex">
+                                    <i class="ti ti-calendar-event fs-32"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="badge bg-info-transparent">Remaining Leaves : @item.RemainingLeaves)</span>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    }
+</div>
+
+<br />
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">My Leave Requests</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-4" id="myLeaveRequestsTable">
+            <thead>
+                <tr>
+                    <th>Leave ID</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>No of Days</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.LeaveRequestId</td>
+                        <td>@item.MasterLeaveType.LeaveType</td>
+                        <td>@item.StartDate.ToShortDateString()</td>
+                        <td>@item.EndDate.ToShortDateString()</td>
+                        <td>@item.Reason</td>
+                        <td>@item.NumberOfDays</td>
+
+                        <td>
+                            @if (item.Status == "Approved")
+                            {
+                                <span class="badge bg-success"><i class="ti ti-point-filled me-1"></i>@item.Status</span>
+                            }
+                            else if(item.Status == "Rejected")
+                            {
+                                <span class="badge bg-danger"><i class="ti ti-point-filled me-1"></i>@item.Status</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning"><i class="ti ti-point-filled me-1"></i>Pending</span>
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myLeaveRequestsTable').DataTable({
+            "paging": true,          // Enable pagination
+            "searching": true,       // Enable search functionality
+            "lengthChange": true,    // Allow users to change the number of rows per page
+            "pageLength": 5,        // Set default rows per page
+            "lengthMenu": [5, 10, 25, 50, 100],
+            "language": {
+                "lengthMenu": "Row Per Page _MENU_ Entries",
+                "emptyTable": "No records found."
+            }
+        });
+    });
+</script>

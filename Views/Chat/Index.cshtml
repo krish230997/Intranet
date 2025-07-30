@@ -1,0 +1,242 @@
+﻿ @model Pulse360.Models.ChatViewModel
+
+@{
+    var senderName = Model.CurrentUser != null ? Model.CurrentUser.FirstName : "User";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Chat Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="chat-wrapper">
+            <div class="sidebar-group">
+                <div id="chats" class="sidebar-content active slimscroll">
+                    <div class="w-1/4 bg-white p-4 border-r slimscroll">
+
+                        <h2 class="text-2xl font-bold mb-4">Chat</h2>
+
+                        <div class="mb-4">
+                            <input id="searchUser" class="w-full p-2 border rounded" placeholder="Search for contacts..." type="text" onkeyup="filterUsers()" />
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">All Chats</h3>
+                        <div id="chatList" class="space-y-4">
+                            @foreach (var user in Model.Users)
+                            {
+                                if (user.UserId != Model.CurrentUser.UserId)
+                                {
+                                    <a href="@Url.Action("Index", "Chat", new { userId = Model.CurrentUser.UserId, contactId = user.UserId })" class="block user-item">
+                                        <div class="flex items-center p-2 bg-gray-100 rounded">
+                                            <img alt="Profile picture" class="w-10 h-10 rounded-full mr-2" src="https://placehold.co/40x40" />
+                                            <div class="flex-1">
+                                                <div class="flex justify-between">
+                                                    <span class="font-semibold username">@user.FirstName</span>
+                                                    <span class="text-sm text-gray-500">Active</span>
+                                                </div>
+                                                <div class="text-sm text-gray-500">Last message preview...</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function filterUsers() {
+                    var input = document.getElementById("searchUser");
+                    var filter = input.value.toLowerCase();
+                    var users = document.getElementsByClassName("user-item");
+
+                    for (var i = 0; i < users.length; i++) {
+                        var username = users[i].querySelector(".FirstName").textContent.toLowerCase();
+                        if (username.includes(filter)) {
+                            users[i].style.display = "block";
+                        } else {
+                            users[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+
+
+            <!-- Main Chat Area -->
+
+            <div class="chat chat-messages show">
+                <!-- Chat Header -->
+                <div class="flex items-center justify-between p-4 bg-white border-b">
+                    <div class="flex items-center">
+                        <img alt="Profile picture" class="w-10 h-10 rounded-full mr-2" src="https://placehold.co/40x40" />
+                        <div>
+                            <div class="font-semibold">
+                                @(Model.SelectedContact != null ? Model.SelectedContact.FirstName : "Select a User")
+                            </div>
+                            <div class="text-sm text-green-500">Online</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div id="typingIndicator" class="text-gray-500 italic mt-2 hidden text-center">
+                    <span id="typingUser"></span> is typing...
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="flex-1 p-4 overflow-y-auto" id="chatBox">
+                    <div class="text-center mb-4">
+                        <span class="bg-gray-200 text-gray-600 text-xs font-semibold px-2 py-1 rounded">Today</span>
+                    </div>
+                    <div class="space-y-4">
+                        @if (Model.Messages != null && Model.Messages.Any())
+                        {
+                            @foreach (var chat in Model.Messages)
+                            {
+                                <div class="flex items-start @(chat.SenderID == Model.CurrentUser.UserId ? "justify-end" : "")" id="message-@chat.ChatID">
+                                    <img alt="Profile picture" class="w-10 h-10 rounded-full mr-2" src="https://placehold.co/40x40" />
+                                    <div>
+                                        <div class="@(chat.SenderID == Model.CurrentUser.UserId ? "bg-blue-100" : "bg-gray-100") p-2 rounded-lg">
+                                            <p>@chat.Message</p>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">
+                                            @(chat.SenderID == Model.CurrentUser.UserId ? "You" : chat.Sender.FirstName) • @chat.Timestamp.ToShortTimeString()
+                                        </div>
+                                    </div>
+                                    <!-- Delete Button (only visible for the sender of the message) -->
+                                    @if (chat.SenderID == Model.CurrentUser.UserId)
+                                    {
+                                        <form action="@Url.Action("DeleteMessage", "Chat")" method="post" class="inline-block ml-2">
+                                            <input type="hidden" name="chatId" value="@chat.ChatID" />
+                                            <input type="hidden" name="userId" value="@Model.CurrentUser.UserId" />
+                                            <input type="hidden" name="contactId" value="@Model.SelectedContact.UserId" />
+                                            <button type="submit" class="delete-btn text-red-500 hover:text-red-700">
+                                                🗑
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-center text-gray-500">No messages yet. Start a conversation!</p>
+                        }
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="p-4 bg-white border-t flex items-center">
+                    <input id="messageInput" class="flex-1 p-2 border rounded mr-2" placeholder="Type a message..." type="text"
+                           oninput="sendTypingNotification()" onblur="stopTypingNotification()" />
+                    <button id="sendMessageBtn" class="bg-orange-500 text-white p-2 rounded-full">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- JavaScript for Typing & Sending Messages -->
+        <script>
+            var senderId = "@Model.CurrentUser.UserId";
+            var receiverId = "@(Model.SelectedContact != null ? Model.SelectedContact.UserId : 0)";
+            var senderName = "@senderName";
+            var typingTimeout;
+            var typingDelay = 2000;
+
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl("/chathub")
+                .build();
+
+            connection.start().catch(err => console.error(err.toString()));
+
+            function sendTypingNotification() {
+                clearTimeout(typingTimeout);
+                connection.invoke("UserTyping", senderId, receiverId, senderName)
+                    .catch(err => console.error(err.toString()));
+
+                typingTimeout = setTimeout(stopTypingNotification, typingDelay);
+            }
+
+            function stopTypingNotification() {
+                connection.invoke("UserStoppedTyping", senderId, receiverId)
+                    .catch(err => console.error(err.toString()));
+            }
+
+            document.getElementById("messageInput").addEventListener("input", sendTypingNotification);
+            document.getElementById("messageInput").addEventListener("blur", stopTypingNotification);
+
+            //  Send Message When Clicking "Send" Button
+            document.getElementById("sendMessageBtn").addEventListener("click", function () {
+                var messageInput = document.getElementById("messageInput");
+                var messageText = messageInput.value.trim();
+
+                if (messageText !== "") {
+                    fetch("@Url.Action("SendMessage", "Chat")", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ senderId: senderId, receiverId: receiverId, message: messageText })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            messageInput.value = "";
+                            stopTypingNotification();
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+            });
+
+            //  Receive Messages in Real-Time via SignalR
+            connection.on("ReceiveMessage", function (senderId, receiverId, message, chatId) {
+                var chatBox = document.getElementById("chatBox");
+                var newMessage = document.createElement("div");
+                newMessage.classList.add("flex", "items-start", senderId == "@Model.CurrentUser.UserId" ? "justify-end" : "");
+
+                newMessage.innerHTML = `
+                                                    <img class="w-10 h-10 rounded-full mr-2" src="https://placehold.co/40x40" alt="User">
+                                                            <div class="${senderId == "@Model.CurrentUser.UserId" ? "bg-blue-100" : "bg-gray-100"} p-2 rounded-lg">
+                                                        <p>${message}</p>
+                                                    </div>
+                                                `;
+
+                // Only show the delete button for the current user
+                if (senderId == "@Model.CurrentUser.UserId") {
+                    var deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "🗑";
+                    deleteButton.classList.add("delete-btn", "text-red-500", "hover:text-red-700");
+
+                    // Add the delete button next to the message
+                    deleteButton.addEventListener("click", function () {
+                        // Send a delete request to the server
+                        fetch("@Url.Action("DeleteMessage", "Chat")", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ chatId: chatId, userId: "@Model.CurrentUser.UserId", contactId: receiverId })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                // After successfully deleting, remove the message from the chat box
+                                newMessage.remove();
+                            })
+                            .catch(error => console.error("Error:", error));
+                    });
+
+                    // Append the delete button to the message container
+                    newMessage.appendChild(deleteButton);
+                }
+
+                chatBox.appendChild(newMessage);
+            });
+        </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@model Pulse360.Models.Termination
+
+<form id="editTerminationForm" method="POST">
+    <input type="hidden" id="TerminationId" name="TerminationId" value="@Model.TerminationId" />
+
+    <div class="mb-3">
+        <label for="UserId" class="form-label">Employee</label>
+        <select id="UserId" name="UserID" class="form-select" required>
+            <option value="">Select Employee</option>
+            @foreach (var user in (SelectList)ViewBag.Users)
+            {
+                <option value="@user.Value" selected="@(user.Value == Model.UserID.ToString() ? "selected" : null)">@user.Text</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="TerminationType" class="form-label">Termination Type</label>
+        <select id="TerminationType" name="TerminationType" class="form-select" required>
+            <option value="">Select Termination Type</option>
+            <option value="Retirement" selected="@(Model.TerminationType == "Retirement" ? "selected" : null)">Retirement</option>
+            <option value="Lack of Skills" selected="@(Model.TerminationType == "Lack of Skills" ? "selected" : null)">Lack of Skills</option>
+            <option value="Insubordination" selected="@(Model.TerminationType == "Insubordination" ? "selected" : null)">Insubordination</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="NoticeDate" class="form-label">Notice Date</label>
+        <input type="date" id="NoticeDate" name="NoticeDate" class="form-control" value="@Model.NoticeDate.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="ResignDate" class="form-label">Resign Date</label>
+        <input type="date" id="ResignDate" name="ResignDate" class="form-control" value="@Model.ResignDate.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Reason" class="form-label">Reason</label>
+        <textarea id="Reason" name="Reason" class="form-control" required maxlength="500">@Model.Reason</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

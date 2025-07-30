@@ -1,0 +1,28 @@
+﻿@model List<MasterIndicators>
+
+<a asp-action="AddMIndicator" class="btn btn-primary">add Indicator</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Master Indicator Type</th>
+            <th scope="col">Master Indicator Name</th>
+            <th scope="col">Status</th>
+
+        </tr>
+    </thead>
+    <tbody id="mydata">
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.MasterIndicatorId</td>
+                <td>@d.MasterIndicatorType</td>
+                <td>@d.MasterIndicatorName</td>
+                <td>@d.Status</td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

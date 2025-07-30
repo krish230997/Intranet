@@ -1,0 +1,339 @@
+﻿@model Pulse360.Models.PerformanceAppraisal
+
+@{
+    ViewData["Title"] = "Add Performance Appraisal";
+}
+
+<h2 class="text-start mb-4">Add Appraisal</h2>
+
+
+
+@if (TempData["error"] != null)
+{
+    <span class="text-danger">@TempData["error"]</span>
+}
+
+
+
+<div class="card p-4">
+    <div class="container">
+        <form method="post" asp-action="AddAppriasal">
+            <div class="row mb-3">
+                <!-- Employee Dropdown -->
+                <div class="col-md-6">
+                    <label for="Employee" class="form-label">Employee</label>
+                    <select id="Employee" class="form-control" asp-for="UserId" asp-items="@ViewBag.User">
+                        <option value="">Select</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="UserId"></span>
+                </div>
+
+                <!-- Appraisal Date -->
+                <div class="col-md-6">
+                    <label for="AppraisalDate" class="form-label">Appraisal Date</label>
+                    <input type="date" id="AppraisalDate" class="form-control" asp-for="AppraisalDate" />
+                    <span class="text-danger" asp-validation-for="AppraisalDate"></span>
+                </div>
+
+                <!-- Designation Dropdown -->
+                <div class="col-md-6">
+                    <label for="Designation" class="form-label">Designation</label>
+                    <select id="Designation" class="form-control" asp-for="DesignationId" asp-items="@ViewBag.Designations">
+                        <option value="">Select</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="DesignationId"></span>
+                </div>
+
+                <!-- Department Dropdown -->
+                <div class="col-md-6">
+                    <label for="Departments" class="form-label">Departments</label>
+                    <select id="Departments" class="form-control" asp-for="DepartmentId" asp-items="@ViewBag.Departments">
+                        <option value="">Select</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="DepartmentId"></span>
+                </div>
+            </div>
+
+          
+            
+
+
+
+            <!-- Tabs for Technical and Organizational -->
+            
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Technical</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Organizational</button>
+                </li>
+               
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- Technical Section -->
+                    <br />
+                    <div>
+                        
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Indicator</th>
+                                    <th>Expected Value</th>
+                                    <th>Set Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Customer Experience</td>
+                                    <td>@ViewBag.Indicators?.CustomerExperience</td>
+                                    <td>
+                                        <select class="form-control" asp-for="CustomerExperience">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Marketing</td>
+                                    <td>@ViewBag.Indicators?.Marketing</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Marketing">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Management</td>
+                                    <td>@ViewBag.Indicators?.Management</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Management">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Administration</td>
+                                    <td>@ViewBag.Indicators?.Administration</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Administration">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>PresentationSkills</td>
+                                    <td>@ViewBag.Indicators?.PresentationSkills</td>
+                                    <td>
+                                        <select class="form-control" asp-for="PresentationSkills">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> QualityofWork</td>
+                                    <td>@ViewBag.Indicators?.QualityofWork</td>
+                                    <td>
+                                        <select class="form-control" asp-for="QualityofWork">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Efficiency </td>
+                                    <td>@ViewBag.Indicators?.Efficiency</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Efficiency    ">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <!-- Repeat for other technical indicators -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <br />
+                    <div>
+                        
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Indicator</th>
+                                    <th>Expected Value</th>
+                                    <th>Set Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Integrity</td>
+                                    <td>@ViewBag.Indicators?.Integrity</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Integrity">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Professionalism</td>
+                                    <td>@ViewBag.Indicators?.Professionalism</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Professionalism">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TeamWork</td>
+                                    <td>@ViewBag.Indicators?.TeamWork</td>
+                                    <td>
+                                        <select class="form-control" asp-for="TeamWork">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>CriticalThinking</td>
+                                    <td>@ViewBag.Indicators?.CriticalThinking</td>
+                                    <td>
+                                        <select class="form-control" asp-for="CriticalThinking">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ConflictManagement</td>
+                                    <td>@ViewBag.Indicators?.ConflictManagement</td>
+                                    <td>
+                                        <select class="form-control" asp-for="ConflictManagement">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Attendance</td>
+                                    <td>@ViewBag.Indicators?.Attendance</td>
+                                    <td>
+                                        <select class="form-control" asp-for="Attendance">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AbilityToMeetDeadline</td>
+                                    <td>@ViewBag.Indicators?.AbilityToMeetDeadline</td>
+                                    <td>
+                                        <select class="form-control" asp-for="AbilityToMeetDeadline">
+                                            <option>None</option>
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                            <option>Expert / Leader</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <!-- Repeat for other organizational indicators -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @* <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> *@
+            </div>
+
+
+
+
+            
+         @*    <div class="mb-3">
+                <button type="button" id="showTechnical" class="btn btn-primary">Technical</button>
+                <button type="button" id="showOrganizational" class="btn btn-secondary">Organizational</button>
+            </div>
+ *@
+            
+
+            
+            Status<select class="form-control" asp-for="Status">
+
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+            <div class="col-md-12 d-flex justify-content-start mt-4">
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                @* &emsp;&emsp;<a asp-action="FetchAppriasal" class="btn btn-info">Back To List</a> *@
+            </div>
+            <!-- Submit Button -->
+
+        </form>
+    </div>
+</div>
+<!-- Client-Side Validation -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@* <script>
+    document.getElementById('showTechnical').addEventListener('click', function() {
+        document.getElementById('technicalSection').style.display = 'block';
+        document.getElementById('organizationalSection').style.display = 'none';
+    });
+
+    document.getElementById('showOrganizational').addEventListener('click', function() {
+        document.getElementById('organizationalSection').style.display = 'block';
+        document.getElementById('technicalSection').style.display = 'none';
+    });
+</script> *@

@@ -1,0 +1,268 @@
+﻿@{
+    var userRole = ViewBag.UserRole as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Calendar View</title>
+    <style>
+        /* Calendar container styling */
+        #calendar {
+            width: 70%;
+            height: 780px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        /* Sidebar container */
+        #sidebar-container {
+            width: 28%;
+            height: 700px;
+            position: relative;
+            float: right;
+        }
+
+        /* Sidebar for events */
+        #event-sidebar {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            position: relative;
+            margin-top: 80px; /* Space for the button */
+        }
+
+        /* Add button inside the sidebar */
+        .btn-add-event-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .btn-add-event {
+            background-color: #2eacb3;
+            color: white;
+            font-size: 1.25rem;
+            padding: 15px;
+            width: 350px;
+            border-radius: 5px;
+        }
+
+        /* Event list styling */
+        .event-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .event-item {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .event-item h6 {
+                margin: 0 0 8px 0;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+
+            .event-item .event-date {
+                color: #2eacb3;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .event-item .event-description {
+                margin: 8px 0 0;
+                font-size: 0.9rem;
+                color: #555;
+            }
+
+        .fc-event {
+            color: white !important;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+    <div id="main-content" class="d-flex">
+        <div id="calendar"></div>
+        <div id="sidebar-container">
+            @if (userRole == "Admin")
+            {
+                <div class="btn-add-event-container">
+                    <button class="btn btn-primary btn-add-event" id="btnmod" data-bs-toggle="modal">
+                        Add New Event
+                    </button>
+                </div>
+            }
+            <div id="event-sidebar">
+                <ul class="event-list" id="eventList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding a new event -->
+    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addEventForm">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Event Title</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDate" class="form-label">Event Date</label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventType" class="form-label">Event Type</label>
+                            <select class="form-control" id="eventType" required>
+                                <option value="">Select Event Type</option>
+                            </select>
+                        </div>
+                        <button type="submit" id="savemod" class="btn btn-primary">Add Event</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const calendarEl = document.getElementById('calendar');
+        //     const eventListEl = document.getElementById('eventList');
+
+        //     // Keep your existing event type fetching
+        //     fetch('/Event/GetEventTypes')
+        //         .then(response => response.json())
+        //         .then(eventTypes => {
+        //             const select = document.getElementById('eventType');
+        //             eventTypes.forEach(type => {
+        //                 const option = document.createElement('option');
+        //                 option.value = type.id;
+        //                 option.textContent = type.name;
+        //                 select.appendChild(option);
+        //             });
+        //         });
+
+        //     // Initialize the calendar with modified event handling
+        //     const calendar = new FullCalendar.Calendar(calendarEl, {
+        //         initialView: 'dayGridMonth',
+        //         headerToolbar: {
+        //             left: 'prev,next today',
+        //             center: 'title',
+        //             right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        //         },
+        //         events: {
+        //             url: '/Event/GetEvents',
+        //             method: 'GET',
+        //             failure: function () {
+        //                 alert('There was an error fetching events!');
+        //             }
+        //         },
+        //         eventDidMount: function (info) {
+        //             // Ensure events are properly styled and colored
+        //             if (info.event.extendedProps.color) {
+        //                 info.el.style.backgroundColor = info.event.extendedProps.color;
+        //             }
+        //         },
+        //         eventClick: function (info) {
+        //             alert(`Event: ${info.event.title}\nDate: ${info.event.start.toLocaleDateString()}`);
+        //         },
+        //         eventContent: function (info) {
+        //             return {
+        //                 html: `<div class="fc-event-main-content">
+        //                     <div class="fc-event-title">${info.event.title}</div>
+        //                     ${info.event.extendedProps.time ? `<div class="fc-event-time">${info.event.extendedProps.time}</div>` : ''}
+        //                 </div>`
+        //             };
+        //         }
+        //     });
+        //     calendar.render();
+
+        //     // Keep your existing event list refresh function
+        //     function refreshEventList() {
+        //         fetch('/Event/GetEvents')
+        //             .then(response => response.json())
+        //             .then(events => {
+        //                 eventListEl.innerHTML = '';
+        //                 events.forEach(event => {
+        //                     const eventItem = document.createElement('li');
+        //                     eventItem.className = 'event-item';
+        //                     eventItem.innerHTML = `
+        //                         <h6>${event.title}</h6>
+        //                         <div class="event-date">${event.start}</div>
+        //                         <div class="event-description">${event.description || ''}</div>
+        //                     `;
+        //                     eventListEl.appendChild(eventItem);
+        //                 });
+        //             });
+        //     }
+        //     refreshEventList();
+
+        //     // Keep your existing event form handler
+        //     document.getElementById('addEventForm').addEventListener('submit', function (e) {
+        //         e.preventDefault();
+        //         if (this.submitting) return;
+        //         this.submitting = true;
+
+        //         const eventTitle = document.getElementById('eventTitle').value;
+        //         const eventDate = document.getElementById('eventDate').value;
+        //         const eventTypeId = document.getElementById('eventType').value;
+
+        //         fetch('/Event/AddEvent', {
+        //             method: 'POST',
+        //             headers: { 'Content-Type': 'application/json' },
+        //             body: JSON.stringify({
+        //                 Title: eventTitle,
+        //                 Date: eventDate,
+        //                 EventTypeId: parseInt(eventTypeId)
+        //             }),
+        //         }).then(response => {
+        //             if (response.ok) {
+        //                 calendar.refetchEvents();
+        //                 refreshEventList();
+        //                 this.reset();
+        //                 const modal = document.getElementById('addEventModal');
+        //                 const modalInstance = bootstrap.Modal.getInstance(modal);
+        //                 modalInstance.hide();
+        //             } else {
+        //                 alert('Failed to add event.');
+        //             }
+        //         }).finally(() => {
+        //             this.submitting = false;
+        //         });
+        //     });
+        // });
+
+    </script>
+
+
+</body>
+<script src="~/js/event.js"></script>
+</html>

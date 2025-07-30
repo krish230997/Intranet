@@ -1,0 +1,87 @@
+﻿@model EmployeeSalaries
+
+
+<partial name="Notification"></partial>
+
+<div class="card p-4">
+    <form method="post">
+        <h3 class="text-start mb-4">Add Employee Salary</h3>
+        <div class="form-group">
+            <label for="UserId">Select Employee</label>
+            <select asp-for="UserId" asp-items="ViewBag.Users" class="form-control" required>
+                <option value="">-- Select Employee --</option>
+            </select>
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="TotalSalary">Total Salary</label>
+            <input type="number" step="0.01" asp-for="TotalSalary" id="totalSalary" class="form-control" required />
+            <span asp-validation-for="TotalSalary" class="text-danger"></span>
+        </div>
+
+        <!-- Earnings Section -->
+        <h4>Earnings</h4>
+        <div class="row">
+            @if (ViewBag.Earnings != null)
+            {
+                @for (int i = 0; i < ViewBag.Earnings.Count; i++)
+                {
+                    var earning = ViewBag.Earnings[i];
+                    <div class="col-md-3">
+                        <label>@earning.EarningType.EarningName (@earning.EarningsPercentage%)</label>
+                        <input type="hidden" name="Earnings[@i].EarningId" value="@earning.EarningsId" />
+                        <input type="hidden" name="Earnings[@i].EarningsPercentage" value="@earning.EarningsPercentage" />
+                        <input type="number" class="form-control earning-amount" name="Earnings[@i].EarningAmount" readonly />
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- Deductions Section -->
+        <h4>Deductions</h4>
+        <div class="row">
+            @if (ViewBag.Deductions != null)
+            {
+                @for (int i = 0; i < ViewBag.Deductions.Count; i++)
+                {
+                    var deduction = ViewBag.Deductions[i];
+                    <div class="col-md-3">
+                        <label>@deduction.DeductionType.DeductionsName (@deduction.DeductionPercentage%)</label>
+                        <input type="hidden" name="Deductions[@i].DeductionId" value="@deduction.DeductionId" />
+                        <input type="hidden" name="Deductions[@i].DeductionPercentage" value="@deduction.DeductionPercentage" />
+                        <input type="number" class="form-control deduction-amount" name="Deductions[@i].DeductionAmount" readonly />
+                    </div>
+                }
+            }
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary">Save Salary</button>
+        </div>
+
+    </form>
+</div>
+<script>
+    document.getElementById("totalSalary").addEventListener("input", function () {
+        var totalSalary = parseFloat(this.value) || 0;
+
+        var totalEarnings = 0;
+        var totalDeductions = 0;
+
+        document.querySelectorAll(".earning-amount").forEach(function (input) {
+            var percentage = parseFloat(input.previousElementSibling.value);
+            var amount = (totalSalary * percentage / 100).toFixed(2);
+            input.value = amount;
+            totalEarnings += parseFloat(amount);
+        });
+
+        document.querySelectorAll(".deduction-amount").forEach(function (input) {
+            var percentage = parseFloat(input.previousElementSibling.value);
+            var amount = (totalSalary * percentage / 100).toFixed(2);
+            input.value = amount;
+            totalDeductions += parseFloat(amount);
+        });
+
+        document.getElementById("netSalary").value = (totalEarnings - totalDeductions).toFixed(2);
+    });
+</script>

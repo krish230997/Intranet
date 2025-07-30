@@ -1,0 +1,166 @@
+﻿@*  @model IEnumerable<Pulse360.Models.Projects> *@
+      @model IEnumerable<dynamic>
+@* <div class="me-2 mb-2">
+    <div class="d-flex right-content align-items-center border bg-white rounded p-1 me-2 icon-list">
+        <a asp-action="ProjectList" asp-controller="ProjectN" class="btn btn-icon btn-sm me-1"><i class="ti ti-list-tree"></i></a>
+        <a asp-action="ProjectGrid" asp-controller="ProjectN" class="btn btn-icon btn-sm active bg-primary text-white"><i class="ti ti-layout-grid"></i></a>
+    </div>
+</div> *@
+
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Projects</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Employee
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Projects Grid</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
+
+        <!-- ASP.NET MVC Project Toggle (Inserted Here) -->
+        <div class="me-2 mb-2">
+            <div class="d-flex right-content align-items-center border bg-white rounded p-1 me-2 icon-list">
+                <a asp-action="ProjectList" asp-controller="ProjectN" class="btn btn-icon btn-sm me-1"><i class="ti ti-list-tree"></i></a>
+                <a asp-action="ProjectGrid" asp-controller="ProjectN" class="btn btn-icon btn-sm active bg-primary text-white"><i class="ti ti-layout-grid"></i></a>
+            </div>
+        </div>
+
+        <div class="me-2 mb-2">
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    <i class="ti ti-file-export me-1"></i>Export
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mb-2">
+            <a asp-controller="ProjectN" asp-action="ProjectUpload" class="btn btn-primary d-flex align-items-center">
+                <i class="ti ti-circle-plus me-2"></i>Add Project
+            </a>
+        </div>
+        <div class="ms-2 head-icons">
+            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header">
+                <i class="ti ti-chevrons-up"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5>Project Gird</h5>
+        <div class="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
+            <div class="dropdown me-3">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    Select Status
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3" id="statusFilter">
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-status="Active">Active</a></li>
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-status="Inactive">Inactive</a></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                    Sort By: Last 7 Days
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3" id="sortFilter">
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="recent">Recently Added</a></li>
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="asc">Ascending</a></li>
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="desc">Descending</a></li>
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="month">Last Month</a></li>
+                    <li><a href="javascript:void(0);" class="dropdown-item rounded-1" data-sort="week">Last 7 Days</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    @foreach (var project in Model)
+    {
+
+        <div class="col-xxl-3 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6><a href="#">@project.ProjectName</a></h6>
+                        <div class="dropdown">
+                            <a href="javascript:void(0);" class="d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                <i class="ti ti-dots-vertical"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end p-3">
+                                <li>
+                                    <a href="@Url.Action("Edit","ProjectN",new { id = project.ProjectId })" class="dropdown-item rounded-1">
+                                        <i class="ti ti-edit me-2"></i>Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Delete", "ProjectN", new { id = project.ProjectId })" class="dropdown-item rounded-1">
+                                        <i class="ti ti-trash me-1"></i>Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-3 pb-3 border-bottom">
+                        <p class=" text-truncate line-clamb-3 mb-0">@project.Description</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                        <div>
+                            <h6 class="fw-normal fs-12">@project.ManagerName</h6>
+                            <span class="fs-12 fw-normal">Project Leader</span>
+                        </div>
+                        <div>
+                            <span class="fs-12 fw-normal">Deadline</span>
+                            <p class="mb-0 fs-12">@project.EndDate.ToShortDateString()</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="avatar avatar-sm avatar-rounded bg-success-transparent flex-shrink-0 me-2">
+                                <i class="ti ti-checklist text-success fs-16"></i>
+                            </span>
+                            <p>
+                                <small>Tasks :</small>
+                                <span class="text-dark">@project.CompletedTasks / @project.TotalTasks</span>
+                            </p>
+                        </div>
+                        <div class="avatar-list-stacked avatar-group-sm justify-content-end">
+
+                            @foreach (var pic in project.Members) // Iterating through profile pictures list
+                            {
+                                <span class="avatar border-0">
+                                    <img src="/@pic" alt="Profile Picture" width="40" height="40" style="border-radius:50%;">
+                                </span>
+
+                            }
+                            @if (project.Members?.Count > 3)
+                            {
+                                <span class="avatar group-counts bg-primary rounded-circle border-0 fs-10">
+                                    +@(project.Members.Count - 3)
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+    </<div>
+</div>
+

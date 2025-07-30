@@ -1,0 +1,593 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Pulse360
+build_property.RootNamespace = Pulse360
+build_property.ProjectDir = C:\Users\finan\Downloads\Pulse360 (2) (2)Lat\Pulse360\Pulse360\Pulse360\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\finan\Downloads\Pulse360 (2) (2)Lat\Pulse360\Pulse360\Pulse360
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Activity/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdHlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AddTraining/AddTraining.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRkVHJhaW5pbmdcQWRkVHJhaW5pbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AddTraining/EditTraining.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRkVHJhaW5pbmdcRWRpdFRyYWluaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AddTraining/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRkVHJhaW5pbmdcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AdminAttendance/AdminAttendanceList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BdHRlbmRhbmNlXEFkbWluQXR0ZW5kYW5jZUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AdminAttendance/EditAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BdHRlbmRhbmNlXEVkaXRBdHRlbmRhbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AdminTimesheet/AdminTimesheet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UaW1lc2hlZXRcQWRtaW5UaW1lc2hlZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/AttendanceReport/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVJlcG9ydFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Attendance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/AdminD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBZG1pbkQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/AdminRegistration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBZG1pblJlZ2lzdHJhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/EmpD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxFbXBELmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/GoogleResponse.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxHb29nbGVSZXNwb25zZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/HRD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxIUkQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/LeaveDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMZWF2ZURldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/ManagerD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxNYW5hZ2VyRC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/NextHoliday.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxOZXh0SG9saWRheS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Auth/SignIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxTaWduSW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Chat/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hhdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Chat/SelectUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hhdFxTZWxlY3RVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/DailyReports/DailyReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFpbHlSZXBvcnRzXERhaWx5UmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Deduction/Deduction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVkdWN0aW9uXERlZHVjdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Deduction/DeductionType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVkdWN0aW9uXERlZHVjdGlvblR5cGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Earning/Earning.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWFybmluZ1xFYXJuaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Earning/EarningType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWFybmluZ1xFYXJuaW5nVHlwZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/EmployeePerformance/AddPReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVQZXJmb3JtYW5jZVxBZGRQUmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/EmployeePerformance/FetchReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVQZXJmb3JtYW5jZVxGZXRjaFJldmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/EmployeePerformance/ReviewDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVQZXJmb3JtYW5jZVxSZXZpZXdEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/AddEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQWRkRW1wbG95ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/Department.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGVwYXJ0bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/Designation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGVzaWduYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/EmpList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRW1wTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/EmployeeGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRW1wbG95ZWVHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/Role.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcUm9sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Employee/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcVXNlclByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/EmpReport/EmployeeReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wUmVwb3J0XEVtcGxveWVlUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/EmpSalaries/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wU2FsYXJpZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/EmpSalaries/EmployeeSalary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wU2FsYXJpZXNcRW1wbG95ZWVTYWxhcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Event/evtype.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcZXZ0eXBlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Event/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Event/Index2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcSW5kZXgyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/FileUpload/AdminFileUpload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsZVVwbG9hZFxBZG1pbkZpbGVVcGxvYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/FileUpload/fetchempdoc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsZVVwbG9hZFxmZXRjaGVtcGRvYy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/FileUpload/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlsZVVwbG9hZFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Goal/AddGoal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxBZGRHb2FsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Goal/AddGoalTracking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxBZGRHb2FsVHJhY2tpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Goal/EditGoalTracking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxFZGl0R29hbFRyYWNraW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Goal/EditGoalType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxFZGl0R29hbFR5cGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Goal/Fetch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxGZXRjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Goal/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR29hbFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Home/AddOrganisation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZGRPcmdhbmlzYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Home/EditOrganisation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFZGl0T3JnYW5pc2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Home/FetchOraganisation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGZXRjaE9yYWdhbmlzYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/HRD/HRD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJEXEhSRC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/AddAppriasal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xBZGRBcHByaWFzYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/AddMIndicator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xBZGRNSW5kaWNhdG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/AddPIndicator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xBZGRQSW5kaWNhdG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/AddPReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xBZGRQUmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/EditAppriasal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xFZGl0QXBwcmlhc2FsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/EditIndicator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xFZGl0SW5kaWNhdG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/Fetch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xGZXRjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/FetchAppriasal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xGZXRjaEFwcHJpYXNhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/FetchReview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xGZXRjaFJldmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Indicators/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kaWNhdG9yc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/KnowledgeBase/AddTopic.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS25vd2xlZGdlQmFzZVxBZGRUb3BpYy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/KnowledgeBase/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS25vd2xlZGdlQmFzZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/LeaveReport/LeaveReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVSZXBvcnRcTGVhdmVSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/AddLeaveDeptwise.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcQWRkTGVhdmVEZXB0d2lzZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/AddLeaveType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcQWRkTGVhdmVUeXBlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/ApplyLeave.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcQXBwbHlMZWF2ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/DepartmentLeaveDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcRGVwYXJ0bWVudExlYXZlRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/ManageLeaveSettings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcTWFuYWdlTGVhdmVTZXR0aW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/ViewLeaveRequests.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcVmlld0xlYXZlUmVxdWVzdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Leave/ViewMyLeaveRequests.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVcVmlld015TGVhdmVSZXF1ZXN0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/MasterDocumentName/AddDocNameAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyRG9jdW1lbnROYW1lXEFkZERvY05hbWVBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/MasterDocumentName/AddDocNameEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyRG9jdW1lbnROYW1lXEFkZERvY05hbWVFbXBsb3llZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/MasterDocumentName/EditAdminDocName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyRG9jdW1lbnROYW1lXEVkaXRBZG1pbkRvY05hbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/MasterDocumentName/EditEmployeeDocName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyRG9jdW1lbnROYW1lXEVkaXRFbXBsb3llZURvY05hbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/MasterDocumentName/FetchAdminDocName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyRG9jdW1lbnROYW1lXEZldGNoQWRtaW5Eb2NOYW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/MasterDocumentName/FetchEmployeeDocName.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyRG9jdW1lbnROYW1lXEZldGNoRW1wbG95ZWVEb2NOYW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/OfferLetter/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2ZmZXJMZXR0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/OfferLetter/OfferLetter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2ZmZXJMZXR0ZXJcT2ZmZXJMZXR0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/PaySlipReport/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5U2xpcFJlcG9ydFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Payslip/AddEmployeeSalary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5c2xpcFxBZGRFbXBsb3llZVNhbGFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Payslip/GeneratePayslipsForAllUsersByDate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5c2xpcFxHZW5lcmF0ZVBheXNsaXBzRm9yQWxsVXNlcnNCeURhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Payslip/PayslipView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5c2xpcFxQYXlzbGlwVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Payslip/SelectPayslipMonth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5c2xpcFxTZWxlY3RQYXlzbGlwTW9udGguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Payslip/TransactionHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5c2xpcFxUcmFuc2FjdGlvbkhpc3RvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectN/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdE5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectN/ProjectGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdE5cUHJvamVjdEdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectN/ProjectList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdE5cUHJvamVjdExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectN/ProjectReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdE5cUHJvamVjdFJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectN/ProjectUpload.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdE5cUHJvamVjdFVwbG9hZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectN/TaskReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdE5cVGFza1JlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectTaskReport/ProjectReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFRhc2tSZXBvcnRcUHJvamVjdFJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ProjectTaskReport/TaskReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFRhc2tSZXBvcnRcVGFza1JlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Promotion/AddPromotion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW90aW9uXEFkZFByb21vdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Promotion/EditPromotion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW90aW9uXEVkaXRQcm9tb3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Promotion/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW90aW9uXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Report/EmployeeReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XEVtcGxveWVlUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Resignation/AddResignation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWduYXRpb25cQWRkUmVzaWduYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Resignation/EditResignation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWduYXRpb25cRWRpdFJlc2lnbmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Resignation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWduYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Resign/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWduXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Resign/resign.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWduXHJlc2lnbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Shared/Notification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE5vdGlmaWNhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TaskAssign/TaskBoard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza0Fzc2lnblxUYXNrQm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TaskBoard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza0JvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Task/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Task/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Task/Task.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xUYXNrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Termination/AddTermination.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluYXRpb25cQWRkVGVybWluYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Termination/EditTermination.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluYXRpb25cRWRpdFRlcm1pbmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Termination/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TicketReply/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0UmVwbHlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TicketReply/_AddTicketPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0UmVwbHlcX0FkZFRpY2tldFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TicketReply/_RepliesPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0UmVwbHlcX1JlcGxpZXNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Tickets/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Timesheet/Timesheet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGltZXNoZWV0XFRpbWVzaGVldC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Trainers/AddTrainer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lcnNcQWRkVHJhaW5lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Trainers/EditTrainer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lcnNcRWRpdFRyYWluZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Trainers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TrainingType/AddTrainingType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5pbmdUeXBlXEFkZFRyYWluaW5nVHlwZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TrainingType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5pbmdUeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/TrainingType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5pbmdUeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/AddDepartment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxBZGREZXBhcnRtZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/AddDesignation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxBZGREZXNpZ25hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/AddRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxBZGRSb2xlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/EditDepartment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxFZGl0RGVwYXJ0bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/EditDesignation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxFZGl0RGVzaWduYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/EditRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxFZGl0Um9sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/FetchDepartments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxGZXRjaERlcGFydG1lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/FetchDesignations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxGZXRjaERlc2lnbmF0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/UserRegistration/FetchRoles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJlZ2lzdHJhdGlvblxGZXRjaFJvbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ViewDocuments/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlld0RvY3VtZW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/ViewDocuments/IndexAtAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlld0RvY3VtZW50c1xJbmRleEF0QWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/finan/Downloads/Pulse360 (2) (2)Lat/Pulse360/Pulse360/Pulse360/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ietxc090g4

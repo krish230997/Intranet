@@ -1,0 +1,96 @@
+﻿@model List<FileUpload>
+
+
+<head>
+
+    <style>
+        #UploadDocumentListTable th,
+        #UploadDocumentListTable td {
+            text-align: center;
+            border-right: none !important;
+            border-left: none !important;
+        }
+
+    </style>
+
+</head>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Uploaded Document List</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Documents
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Uploaded Document List</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<br />
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">Uploaded Document List</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-4" id="UploadDocumentListTable">
+            <thead>
+                <tr>
+                    <th>Document ID</th>
+                    <th>Document Name</th>
+                    <th>User ID</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.id</th>
+                            <td>@item.FileName</td>
+                            <td>@item.UserId</td>
+                            <td>
+                                <a asp-controller="FileUpload" asp-action="ViewPdf" asp-route-id="@item.id"><i class="bi bi-eye"></i></a>
+                                <a asp-controller="FileUpload" asp-action="DownloadPDF" asp-route-id="@item.id"><i class="bi bi-download"></i></a>
+                                <a asp-controller="FileUpload" asp-action="RemovePDF" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+                @* else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No leave records found.</td>
+                    </tr>
+                } *@
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#UploadDocumentListTable').DataTable({
+            "paging": true,          // Enable pagination
+            "searching": true,       // Enable search functionality
+            "lengthChange": true,    // Allow users to change the number of rows per page
+            "pageLength": 5,        // Set default rows per page
+            "lengthMenu": [5, 10, 25, 50, 100],
+            "language": {
+                "lengthMenu": "Row Per Page _MENU_ Entries",
+                "emptyTable": "No records found."
+            }
+        });
+    });
+</script>

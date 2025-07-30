@@ -1,0 +1,25 @@
+﻿@model Pulse360.Models.Department
+
+<h2>Add Department</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Department Name</label>
+        <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Status">Status</label>
+        <select asp-for="Status" class="form-control">
+            <option value="Active">Active</option>
+            <option value="Deactive">Deactive</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add Department" class="btn btn-primary" />
+    </div>
+</form>
+

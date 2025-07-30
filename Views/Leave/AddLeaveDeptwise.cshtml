@@ -1,0 +1,47 @@
+﻿@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["error"]
+    </div>
+}
+<div class="card p-4">
+    <form method="post" action="@Url.Action("AddLeaveDeptwise", "Leave")">
+        <h3 class="text-start mb-4"> Allocate Leave Deptwise</h3>
+
+        <div class="mb-3">
+            <label for="DepartmentId">Select Department</label>
+            <select id="DepartmentId" name="departmentId" class="form-control" required>
+                <option value="">Select Department</option>
+                @foreach (var department in ViewBag.Departments as SelectList)
+                {
+                    <option value="@department.Value">@department.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="LeaveTypeId">Select Leave Type</label>
+            <select id="LeaveTypeId" name="leaveTypeId" class="form-control" required>
+                <option value="">Select Leave Type</option>
+                @foreach (var leaveType in ViewBag.LeaveTypes as SelectList)
+                {
+                    <option value="@leaveType.Value">@leaveType.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="LeavesCount">Number of Leaves Allocated</label>
+            <input type="number" id="LeavesCount" name="leavesCount" class="form-control" required min="1" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Allocate Leave</button>
+    </form>
+</div>

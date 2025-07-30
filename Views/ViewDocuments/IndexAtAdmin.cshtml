@@ -1,0 +1,94 @@
+﻿@model List<AdminDocuments>
+
+<head>
+    <style>
+        #GenerateLettersListTable th,
+        #GenerateLettersListTable td {
+            text-align: center;
+            border-right: none !important;
+            border-left: none !important;
+        }
+
+    </style>
+</head>
+<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+    <div class="my-auto mb-2">
+        <h2 class="mb-1">Generate Letters</h2>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="index.html"><i class="ti ti-smart-home"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    Admin
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Generated Letter List</li>
+            </ol>
+        </nav>
+    </div>
+
+</div>
+
+<br />
+<div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+        <h5 class="mb-0">Generated Letters List</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-4" id="GenerateLettersListTable">
+            <thead>
+                <tr>
+                    <th>Document ID</th>
+                    <th>Document Name</th>
+                    <th>Attachment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@item.AdminDocId</th>
+                            <td>@item.DocName</td>
+                            <td>@item.DocFile</td>
+                            <td>
+                                <a asp-controller="ViewDocuments" asp-action="ViewPdf" asp-route-id="@item.AdminDocId"><i class="bi bi-eye"></i></a>
+                                <a asp-controller="ViewDocuments" asp-action="DownloadPDF" asp-route-id="@item.AdminDocId"><i class="bi bi-download"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+                @* else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No leave records found.</td>
+                    </tr>
+                } *@
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#GenerateLettersListTable').DataTable({
+            "paging": true,          // Enable pagination
+            "searching": true,       // Enable search functionality
+            "lengthChange": true,    // Allow users to change the number of rows per page
+            "pageLength": 5,        // Set default rows per page
+            "lengthMenu": [5, 10, 25, 50, 100],
+            "language": {
+                "lengthMenu": "Row Per Page _MENU_ Entries",
+                "emptyTable": "No records found."
+            }
+        });
+    });
+</script>

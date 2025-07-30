@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Pulse360.props" />
+</Project>

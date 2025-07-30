@@ -1,0 +1,662 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	@* <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<meta name="description" content="Smarthr - Bootstrap Admin Template">
+	<meta name="keywords" content="admin, estimates, bootstrap, business, html5, responsive, Projects">
+	<meta name="author" content="Dreams technologies - Bootstrap Admin Template">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Smarthr Admin Template</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+
+	<!-- Apple Touch Icon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+	<!-- Theme Script js -->
+	<script src="assets/js/theme-script.js"></script>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<!-- Feather CSS -->
+	<link rel="stylesheet" href="assets/plugins/icons/feather/feather.css">
+
+	<!-- Tabler Icon CSS -->
+	<link rel="stylesheet" href="assets/plugins/tabler-icons/tabler-icons.css">
+
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
+	 <!-- Color Picker Css -->
+	<link rel="stylesheet" href="assets/plugins/flatpickr/flatpickr.min.css">
+	<link rel="stylesheet" href="assets/plugins/@simonwep/pickr/themes/nano.min.css">
+
+	<!-- Daterangepikcer CSS -->
+	<link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
+
+	<!-- Datatable CSS -->
+	<link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css">
+
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+
+    <!-- Bootstrap Tagsinput CSS -->
+	<link rel="stylesheet" href="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="assets/css/style.css"> *@ 
+	@* 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ *@
+</head>
+
+<body>
+	@model dynamic
+
+	@{
+		var totalWorkingHours = Model.TotalWorkingHours;
+		var totalHalfDays = Model.TotalHalfDays;
+		var totalPresent = Model.TotalPresent;
+		var totalAbsent = Model.TotalAbsent;
+		var attendanceList = Model.AttendanceList;
+		var months = Model.Months;
+		var presentCounts = Model.PresentCounts;
+		var absentCounts = Model.AbsentCounts;
+		var presentPercentage = Model.PresentPercentage;
+		var halfDayPercentage = Model.HalfDayPercentage;
+		var bbsentPercentage = Model.AbsentPercentage;
+		var workingHoursPercentage = Model.WorkingHoursPercentage;
+		var totalLeaveP = Model.TotalLeaveP;
+		var totalLeaves = Model.TotalLeave;
+		var totalHoliday = Model.TotalHoliday;
+
+	}
+
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+		<div class="content">
+
+			<!-- Breadcrumb -->
+			<div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+				<div class="my-auto mb-2">
+					<h2 class="mb-1">Attendance Report</h2>
+					<nav>
+						<ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item">
+								<a href="index.html"><i class="ti ti-smart-home"></i></a>
+							</li>
+							<li class="breadcrumb-item">
+								HR
+							</li>
+							<li class="breadcrumb-item active" aria-current="page">Attendance Report</li>
+						</ol>
+					</nav>
+				</div>
+				<div class="d-flex my-xl-auto right-content align-items-center flex-wrap ">
+					<div class="mb-2">
+						<div class="dropdown">
+							<a href="javascript:void(0);" class="dropdown-toggle btn btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+								<i class="ti ti-file-export me-1"></i>Export
+							</a>
+							<ul class="dropdown-menu  dropdown-menu-end p-3">
+								<li>
+									<a asp-action="ExportToPdf" asp-controller="AttendanceReport" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
+								</li>
+								<li>
+									<a asp-action="ExportToExcel" asp-controller="AttendanceReport" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+					<div class="head-icons ms-2">
+						<a href="javascript:void(0);" class="" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Collapse" id="collapse-header">
+							<i class="ti ti-chevrons-up"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+			<div class="row">
+				<div class="col-xl-6 d-flex">
+					<div class="row flex-fill">
+						<!-- Total Companies -->
+						<div class="col-lg-6 col-md-6 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center overflow-hidden mb-2">
+										<div class="attendence-icon">
+											<span><i class="ti ti-calendar text-primary"></i></span>
+										</div>
+										<div class="ms-2 overflow-hidden">
+											<p class="fs-12 fw-normal mb-1 text-truncate">Total Working Days</p>
+											<h4>@totalWorkingHours</h4>
+										</div>
+									</div>
+									<div class="attendance-report-bar mb-2">
+										<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
+											<div class="progress-bar bg-success" style="width:@workingHoursPercentage%"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /Total Companies -->
+						<!-- Total Companies -->
+						<div class="col-lg-6 col-md-6 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center overflow-hidden mb-2">
+										<div class="attendence-icon">
+											<span><i class="ti ti-calendar text-info"></i></span>
+										</div>
+										<div class="ms-2 overflow-hidden">
+											<p class="fs-12 fw-normal mb-1 text-truncate">Total Leave Taken</p>
+											<h4>@totalLeaves</h4>
+										</div>
+									</div>
+									<div class="attendance-report-bar mb-2">
+										<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
+											<div class="progress-bar bg-success" style="width: @totalLeaveP%"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /Total Companies -->
+						<!-- Inactive Companies -->
+						<div class="col-lg-6 col-md-6 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center overflow-hidden mb-2">
+										<div class="attendence-icon">
+											<span><i class="ti ti-calendar text-pink"></i></span>
+										</div>
+										<div class="ms-2 overflow-hidden">
+											<p class="fs-12 fw-normal mb-1 text-truncate">Total Holidays</p>
+											<h4>@totalHoliday</h4>
+										</div>
+									</div>
+									<div class="attendance-report-bar mb-2">
+										<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
+											<div class="progress-bar bg-success" style="width: @absentCounts%"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /Inactive Companies -->
+						<!-- Company Location -->
+						<div class="col-lg-6 col-md-6 d-flex">
+							<div class="card flex-fill">
+								<div class="card-body">
+									<div class="d-flex align-items-center overflow-hidden mb-2">
+										<div class="attendence-icon">
+											<span><i class="ti ti-calendar text-warning"></i></span>
+										</div>
+										<div class="ms-2 overflow-hidden">
+											<p class="fs-12 fw-normal mb-1 text-truncate">Total Halfdays</p>
+											<h4>@totalHalfDays</h4>
+										</div>
+									</div>
+									<div class="attendance-report-bar mb-2">
+										<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px;">
+											<div class="progress-bar bg-success" style="width:@halfDayPercentage%"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /Company Location -->
+					</div>
+				</div>
+				<div class="col-xl-6">
+					<div class="card">
+						<div class="card-header border-0 pb-0">
+							<div class="d-flex flex-wrap justify-content-between align-items-center">
+								<div class="d-flex align-items-center ">
+									<span class="me-2"><i class="ti ti-chart-line text-danger"></i></span>
+									<h5>Attendance  </h5>
+								</div>
+								<div class="dropdown">
+									<a href="javascript:void(0);" class="dropdown-toggle btn btn-sm fs-12 btn-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+										This Year
+									</a>
+
+								</div>
+							</div>
+						</div>
+						<div class="card-body py-0 px-2">
+							<div> <canvas id="attendance-report" style="width: 100%; height: 300px;"></canvas> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="row mb-3">
+					<div class="col-md-4">
+						<!-- Date Filter Dropdown -->
+						<label for="dateFilter">Select Date Filter:</label>
+						<select id="dateFilter" class="form-control">
+							<option>--Select Date Filter--</option>
+							<option value="yesterday">Yesterday</option>
+							<option value="last7days">Last 7 Days</option>
+							<option value="last30days">Last 30 Days</option>
+							<option value="lastYear">Last Year</option>
+							<option value="thisYear">This Year</option>
+							<option value="customRange">Custom Range</option>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<!-- Status Filter Dropdown -->
+						<label for="statusFilter">Select Status Filter:</label>
+						<select id="statusFilter" class="form-control">
+							<option>--Select Status--</option>
+							<option value="present">Present</option>
+							<option value="absent">Absent</option>
+							<option value="half day">Half Day</option>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<!-- Sorting Filter Dropdown -->
+						<label for="sortOrder">Sort By:</label>
+						<select id="sortOrder" class="form-control">
+							<option>--Select--</option>
+							<option value="asc">Ascending</option>
+							<option value="desc">Descending</option>
+							<option value="last7days">Last 7 Days</option>
+							<option value="lastMonth">Last Month</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div>
+
+				@* <div class="d-flex justify-content-between align-items-center mb-3">
+					<!-- Left Side: Rows Per Page -->
+					<div class="d-flex align-items-center">
+						<label class="me-3">Rows</label>
+						<select class="form-select form-select-sm me-3" id="rowsPerPage" onchange="paginateTable();">
+							<option value="10">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+						<span>Entries</span>
+					</div>
+
+					<!-- Right Side: Search Bar -->
+					<div style="width: 200px;">
+						<input type="text" class="form-control form-control-sm" id="searchInput" placeholder="Search" oninput="filterTable();">
+					</div>
+				</div> *@
+
+				<div class="card-body p-0">
+					<div class="custom-datatable-filter table-responsive">
+						<table class="table" id="attendanceTable">
+							<thead class="thead-light">
+								<tr>
+									<th>AttendanceId</th>
+									<th>Employee</th>
+									<th>Date</th>
+									<th>Check-In</th>
+									<th>Check-Out</th>
+									<th>Lunch in</th>
+									<th>Lunch-Out</th>
+									<th>Status</th>
+									<th>Working Hours</th>
+									<th>Overtime Hours</th>
+									<th>Break Hours</th>
+									<th>Late</th>
+									<th>Production Hours</th>
+								</tr>
+							</thead>
+							<tbody id="mydata">
+								@foreach (var record in attendanceList)
+								{
+
+									<tr>
+										<td>@record.AttendanceId</td>
+
+
+										@* <td>@record.User.FirstName  @record.User.LastName</td> *@
+										<td>
+											<div class="d-flex align-items-center">
+												<img src="/@record.ProfilePicture" alt="Profile" class="rounded-circle" width="40" height="40" />
+
+												<div class="ms-2">
+													<strong>@record.UserName</strong>
+													@* <div class="text-muted">@(user != null ? user.Departments.Name : "No Department")</div> *@
+												</div>
+											</div>
+										</td>
+										<td>@record.Date.ToShortDateString()</td>
+
+										<td>@record.CheckIn?.ToString("hh:mm tt")</td>
+										<td>@record.CheckOut?.ToString("hh:mm tt")</td>
+										<td>@record.LunchIn?.ToString("hh:mm tt")</td>
+										<td>@record.LunchOut?.ToString("hh:mm tt")</td>
+										<td>
+											@if (record.Status == "Present")
+											{
+												<span class="badge badge-success d-inline-flex align-items-center badge-xs">
+													<i class="ti ti-point-filled me-1"></i>Present
+												</span>
+											}
+											else if (record.Status == "Absent")
+											{
+												<span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+													<i class="ti ti-point-filled me-1"></i>Absent
+												</span>
+											}
+											else if (record.Status == "Half Day")
+											{
+												<span class="badge badge-warning d-inline-flex align-items-center badge-xs">
+													<i class="ti ti-point-filled me-1"></i>Half Day
+												</span>
+											}
+										</td>
+										<td>@record.WorkingHours</td>
+										<td>@record.OvertimeHours</td>
+										<td>@record.BreakHours</td>
+										<td>@record.Late</td>
+										<td>@record.ProductionHours</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
+			<p class="mb-0">2014 - 2025 &copy; SmartHR.</p>
+			<p>Designed &amp; Developed By <a href="javascript:void(0);" class="text-primary">Dreams</a></p>
+		</div>
+
+
+
+	</div>
+
+	<!-- jQuery -->
+	<script src="assets/js/jquery-3.7.1.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Feather Icon JS -->
+	<script src="assets/js/feather.min.js"></script>
+
+	<!-- Slimscroll JS -->
+	<script src="assets/js/jquery.slimscroll.min.js"></script>
+
+	<!-- Color Picker JS -->
+	@* <script src="assets/plugins/@simonwep/pickr/pickr.es5.min.js"></script> *@
+
+	<!-- Datatable JS -->
+	<script src="assets/js/jquery.dataTables.min.js"></script>
+	<script src="assets/js/dataTables.bootstrap5.min.js"></script>
+
+	<!-- Daterangepikcer JS -->
+	<script src="assets/js/moment.js"></script>
+	<script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Select2 JS -->
+	<script src="assets/plugins/select2/js/select2.min.js"></script>
+
+	<!-- Bootstrap Tagsinput JS -->
+	<script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+	<!-- Chart JS -->
+	<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
+	<script src="assets/plugins/apexchart/chart-data.js"></script>
+
+	<!-- Custom JS -->
+	<script src="assets/js/theme-colorpicker.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+			 var ctx = document.getElementById('attendance-report').getContext('2d');
+		var attendanceChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: @Html.Raw(Json.Serialize(months)),
+				datasets: [{
+					label: 'Present',
+					data: @Html.Raw(Json.Serialize(presentCounts)),
+					borderColor: 'green',
+					backgroundColor: 'rgba(0, 255, 0, 0.2)',
+					fill: false,
+					tension: 0.4  // Set tension to create a smooth curve
+				}, {
+					label: 'Absent',
+					data: @Html.Raw(Json.Serialize(absentCounts)),
+					borderColor: 'pink',
+					backgroundColor: 'rgba(255, 105, 180, 0.2)',
+					fill: false,
+					tension: 0.4  // Set tension to create a smooth curve
+				}]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					x: {
+						title: {
+							display: true,
+							text: 'Month-Year'
+						}
+					},
+					y: {
+						title: {
+							display: true,
+							text: 'Number of Days'
+						},
+						beginAtZero: true
+					}
+				}
+			}
+		});
+	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	@* <script>
+				$(document).ready(function () {
+
+			function fetchFilteredReports() {
+				var dateFilter = $("#dateFilter").val();
+				var statusFilter = $("#statusFilter").val();
+				var sortOrder = $("#sortOrder").val();
+
+				$.ajax({
+					url: '@Url.Action("GetFilteredReports", "AttendanceReport")', // Replace with your actual controller
+					type: "GET",
+					data: {
+						dateFilter: dateFilter ? dateFilter : "", // If empty, send an empty string
+						statusFilter: statusFilter ? statusFilter : "",
+						sortOrder: sortOrder ? sortOrder : ""
+					},
+					success: function (response) {
+						updateTable(response);
+					},
+					error: function (xhr, status, error) {
+						console.log("Error:", error);
+					}
+				});
+			}
+
+			// Load all data initially
+			fetchFilteredReports();
+
+			// Event Listeners for Filters (Filters only update the data)
+			$("#dateFilter, #statusFilter, #sortOrder").change(fetchFilteredReports);
+
+			// Function to Update Table
+			function updateTable(data) {
+				var tableBody = $("#attendanceTable tbody");
+				tableBody.empty(); // Clear previous records
+
+				if (data.length === 0) {
+					tableBody.append(`<tr><td colspan="13" class="text-center">No records found</td></tr>`);
+					return;
+				}
+
+				$.each(data, function (index, item) {
+					var row = `<tr>
+						 <td>${item.attendanceId}</td>
+						 <td>
+							<div class="d-flex align-items-center">
+								<img src="${item.profilePicture}" alt="Profile" class="rounded-circle" width="40" height="40"/>
+								<div class="ms-2">
+									<strong>${item.userName}</strong>
+								</div>
+							</div>
+						</td>
+						<td>${item.date}</td>
+						<td>${item.checkIn}</td>
+						<td>${item.checkOut}</td>
+						<td>${item.lunchIn}</td>
+						<td>${item.lunchOut}</td>
+						<td>${item.status}</td>
+						<td>${item.workingHours}</td>
+						<td>${item.overtimeHours}</td>
+						<td>${item.breakHours}</td>
+						<td>${item.late}</td>
+						<td>${item.productionHours}</td>
+					</tr>`;
+					tableBody.append(row);
+				});
+			}
+		});
+
+	</script> *@
+	<script>
+						$(document).ready(function () {
+					// Fetch and update table when filters are changed
+					$("#dateFilter, #statusFilter, #sortOrder").change(fetchFilteredReports);
+
+					function fetchFilteredReports() {
+						var dateFilter = $("#dateFilter").val();
+						var statusFilter = $("#statusFilter").val();
+						var sortOrder = $("#sortOrder").val();
+
+						$.ajax({
+							url: '/AttendanceReport/GetFilteredReports',
+							type: "GET",
+							data: {
+								dateFilter: dateFilter || "",
+								statusFilter: statusFilter || "",
+								sortOrder: sortOrder || ""
+							},
+							success: function (response) {
+								updateTable(response);
+							},
+							error: function (xhr, status, error) {
+								console.log("Error:", error);
+							}
+						});
+					}
+
+							function updateTable(data) {
+					var tableBody = $("#attendanceTable tbody");
+					tableBody.empty(); // Clear previous records
+
+					if (data.length === 0) {
+						tableBody.append(`<tr><td colspan="13" class="text-center">No records found</td></tr>`);
+						return;
+					}
+
+					$.each(data, function (index, item) {
+						var formattedDate = new Date(item.date).toLocaleDateString();
+						var formattedCheckIn = item.checkIn ? new Date(item.checkIn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '-';
+						var formattedCheckOut = item.checkOut ? new Date(item.checkOut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '-';
+						var formattedLunchIn = item.lunchIn ? new Date(item.lunchIn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '-';
+						var formattedLunchOut = item.lunchOut ? new Date(item.lunchOut).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : '-';
+
+						var statusBadge = '';
+						if (item.status === "Present") {
+							statusBadge = `<span class="badge badge-success d-inline-flex align-items-center badge-xs">
+								<i class="ti ti-point-filled me-1"></i>Present
+							</span>`;
+						} else if (item.status === "Absent") {
+							statusBadge = `<span class="badge badge-danger d-inline-flex align-items-center badge-xs">
+								<i class="ti ti-point-filled me-1"></i>Absent
+							</span>`;
+						} else if (item.status === "Half Day") {
+							statusBadge = `<span class="badge badge-warning d-inline-flex align-items-center badge-xs">
+								<i class="ti ti-point-filled me-1"></i>Half Day
+							</span>`;
+						}
+
+						var row = `<tr>
+							 <td>${item.attendanceId}</td>
+							 <td>
+								<div class="d-flex align-items-center">
+									<img src="/${item.profilePicture}" alt="Profile" class="rounded-circle" width="40" height="40"/>
+									<div class="ms-2"><strong>${item.userName}</strong></div>
+								</div>
+							</td>
+							<td>${formattedDate}</td>
+							<td>${formattedCheckIn}</td>
+							<td>${formattedCheckOut}</td>
+							<td>${formattedLunchIn}</td>
+							<td>${formattedLunchOut}</td>
+							<td>${statusBadge}</td>
+							<td>${item.workingHours}</td>
+							<td>${item.overtimeHours}</td>
+							<td>${item.breakHours}</td>
+							<td>${item.late}</td>
+							<td>${item.productionHours}</td>
+						</tr>`;
+						tableBody.append(row);
+					});
+				}
+		});
+
+	</script>
+
+
+	@section Scripts {
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+		<!-- DataTables JS -->
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// Initialize DataTables
+				$('#attendanceTable').DataTable({
+					"paging": true,    // Enable pagination
+					"searching": true, // Enable search functionality
+					"ordering": true,  // Enable sorting
+					"info": true,      // Display information
+					"pageLength": 10,   // Default number of rows per page
+				});
+			});
+		</script>
+	}
+
+
+
+</body>
+
+</html>

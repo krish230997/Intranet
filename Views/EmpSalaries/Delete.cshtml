@@ -1,0 +1,24 @@
+﻿@model EmployeeSalaries
+
+@{
+    ViewData["Title"] = "Delete Employee Salary";
+}
+
+<h2>Delete Employee Salary</h2>
+<p>Are you sure you want to delete the salary record for <strong>@Model.User.FirstName @Model.User.LastName</strong>?</p>
+
+<div class="mb-3">
+    <label class="form-label">Designation:</label>
+    <p>@Model.User.Designation.Name</p>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Salary Amount:</label>
+    <p>@Model.TotalSalary</p>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="SalaryId" />
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    <a asp-action="EmployeeSalary" class="btn btn-secondary">Cancel</a>
+</form>
